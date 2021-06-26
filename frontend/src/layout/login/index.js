@@ -1,6 +1,8 @@
 import React from 'react';
+import { Grid } from '@material-ui/core/';
 
-// import { Container } from './styles';
+
+import Header from '../../components/header';
 
 function login() {
    
@@ -8,7 +10,12 @@ function login() {
 
   return (
       <div>
-          login
+          <Grid container>
+              <Grid item xs={12}>
+                <Header/>
+              </Grid>
+             
+          </Grid>
       </div>
   );
 }
