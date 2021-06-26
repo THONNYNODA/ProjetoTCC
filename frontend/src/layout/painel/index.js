@@ -2,12 +2,12 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-function dashbord() {
+function painel() {
   return(
       <div>
-          Dashbord 
+          painel
       </div>
   );
 }
 
-export default dashbord;
+export default painel;
