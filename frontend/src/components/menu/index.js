@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -8,20 +8,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
+import SettingsIcon from '@material-ui/icons/Settings';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
-});
+import Logo from '../../assets/logo.png'
+import { useStyles } from './styles'
 
-export default function SwipeableTemporaryDrawer() {
+export default function Menu() {
   const classes = useStyles();
   const [open, setOpen] = React.useState();
 
@@ -33,31 +29,6 @@ export default function SwipeableTemporaryDrawer() {
     setOpen(false);
   };
 
-  const list = () => (
-   <div  className={clsx(classes.list,classes.fullList)}
-  role="presentation"
-  onClick={handleDrawerOpen(false)}
-  onKeyDown={handleDrawerOpen(false)}>
-       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-   </div>
-    
-  );
 
   return (
     <div>
@@ -71,21 +42,40 @@ export default function SwipeableTemporaryDrawer() {
             
     </IconButton>
     <SwipeableDrawer 
-    variant="persistent"
+    variant="temporary"
     anchor="left"
     open={open}
-    onClose={handleDrawerOpen}
-    onOpen={handleDrawerClose}
-    
+    onClick={handleDrawerClose} 
+      
     >
-        <List>
-    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-      <ListItem button key={text}>
-        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-        <ListItemText primary={text} />
+      <List className={clsx(classes.list)} > 
+      <div className={classes.wrapper}>
+        <img className={classes.imagem} src={Logo} />
+      </div>
+      <Divider/>   
+      <ListItem button >
+        <ListItemIcon > <DashboardIcon  /></ListItemIcon>
+        <ListItemText primary="Painel" />
       </ListItem>
-    ))}
-  </List>
+      <ListItem button >
+        <ListItemIcon> <InboxIcon /></ListItemIcon>
+        <ListItemText primary="Chamadas" />
+      </ListItem>
+      <ListItem button >
+        <ListItemIcon><BarChartIcon /></ListItemIcon>
+        <ListItemText primary="Grafico" />
+      </ListItem>
+      <ListItem button >
+        <ListItemIcon> <InboxIcon /></ListItemIcon>
+        <ListItemText primary="Cadastro" />
+      </ListItem>
+      <Divider variant='middle'/>
+      <ListItem button >
+        <ListItemIcon> <SettingsIcon /></ListItemIcon>
+        <ListItemText primary="Configuração" />
+      </ListItem>
+    </List>
+    
     </SwipeableDrawer>
      
     </div>

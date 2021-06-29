@@ -1,11 +1,19 @@
 import React from 'react';
+import { Grid } from '@material-ui/core/';
 
-// import { Container } from './styles';
+
+import Header from '../../components/header';
+
+
 
 function painel() {
   return(
       <div>
-          painel
+          <Grid container>
+              <Grid item xs={12}>
+                <Header/>
+              </Grid>             
+          </Grid>
       </div>
   );
 }

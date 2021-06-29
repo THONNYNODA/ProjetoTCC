@@ -10,20 +10,28 @@ import Menu from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+import { isAuthenticated } from '../../config/auth'
+
 
 import MenuBar from '../menu/index'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+    
+  },
+  teste:{
+    background:"#1FA774",
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    
   },
   title: {
     display: 'block',
     width:'100%',
     textAlign: 'center',
+    
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -39,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
+      
     },
   },
   sectionMobile: {
@@ -98,7 +107,7 @@ export default function Header() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.teste}>
         <Toolbar>
             <MenuBar/>
           <Typography className={classes.title} variant="h6" noWrap>
