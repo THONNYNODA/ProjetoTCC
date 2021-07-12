@@ -50,6 +50,7 @@ export const Text = styled(Typography)({
   }
 });
 
+
 export const loginSyles = makeStyles({
     logoSize:{
       width:90,
@@ -85,5 +86,8 @@ export const loginSyles = makeStyles({
         color:'#1FA774',
         
       }
+    },
+    link:{
+      textDecoration: "none"
     }
   });

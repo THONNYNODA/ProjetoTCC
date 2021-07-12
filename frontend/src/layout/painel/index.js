@@ -9,8 +9,8 @@ import Header from '../../components/header';
 function painel() {
   return(
       <div>
-          <Grid container>
-              <Grid item xs={12}>
+          <Grid container >
+              <Grid item xs={12} >
                 <Header/>
               </Grid>                                        
           </Grid>
