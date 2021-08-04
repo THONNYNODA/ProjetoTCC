@@ -1,5 +1,6 @@
-import React from 'react';
+import React,{useState} from 'react';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
@@ -16,10 +17,11 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 
 import Logo from '../../assets/logo.png'
 import { useStyles } from './styles'
+import { Tooltip } from '@material-ui/core';
 
 export default function Menu() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState();
+  const [open, setOpen] = useState();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -31,7 +33,8 @@ export default function Menu() {
 
 
   return (
-    <div>
+    <>
+     <Tooltip title="Menu" placement="bottom-start">
      <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -41,6 +44,7 @@ export default function Menu() {
             <MenuIcon />
             
     </IconButton>
+     </Tooltip>
     <SwipeableDrawer 
     variant="temporary"
     anchor="left"
@@ -55,29 +59,33 @@ export default function Menu() {
       <Divider/>   
       <ListItem button >
         <ListItemIcon > <DashboardIcon  /></ListItemIcon>
-        <ListItemText primary="Painel" />
+        
+        <Link to='/painel' className={classes.link}> <ListItemText primary="Painel" /></Link>
       </ListItem>
       <ListItem button >
         <ListItemIcon> <InboxIcon /></ListItemIcon>
-        <ListItemText primary="Chamadas" />
+        <Link to='/chamadas' className={classes.link}> <ListItemText primary="Chamadas" /></Link>
       </ListItem>
       <ListItem button >
         <ListItemIcon><BarChartIcon /></ListItemIcon>
-        <ListItemText primary="Grafico" />
+        
+        <Link to='/dashbord' className={classes.link}> <ListItemText primary="Grafico" /></Link>
       </ListItem>
       <ListItem button >
         <ListItemIcon> <InboxIcon /></ListItemIcon>
-        <ListItemText primary="Cadastro" />
+        
+        <Link to='/cadastro' className={classes.link}><ListItemText primary="Cadastro" /></Link>
       </ListItem>
       <Divider variant='middle'/>
       <ListItem button >
         <ListItemIcon> <SettingsIcon /></ListItemIcon>
-        <ListItemText primary="Configuração" />
+        
+        <Link to='/config' className={classes.link}> <ListItemText primary="Configuração" /></Link>
       </ListItem>
     </List>
     
     </SwipeableDrawer>
      
-    </div>
+    </>
   );
 }

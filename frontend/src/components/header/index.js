@@ -1,74 +1,28 @@
-import React from 'react';
-import {  makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-
-import MoreIcon from '@material-ui/icons/MoreVert';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
-import { logout } from '../../config/auth'
-import { useHistory } from 'react-router-dom';
-
-
-import MenuBar from '../menu/index'
-
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-    
-  },
-  teste:{
-    background:"#1FA774",
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    
-  },
-  title: {
-    display: 'block',
-    width:'100%',
-    textAlign: 'center',
-    
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-      
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
-}));
+import React, { useState } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import MoreIcon from "@material-ui/icons/MoreVert";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { logout } from "../../config/auth";
+import { useHistory } from "react-router-dom";
+import MenuBar from "../menu/index";
+import { headerStyles } from "./styles";
+import { Tooltip } from "@material-ui/core";
 
 export default function Header() {
-  const classes = useStyles();
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const classes = headerStyles();
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const history = useHistory();
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleLogout = () => {
-    logout()
-    return history.push('/');
+    logout();
+    return history.push("/");
   };
 
   const handleMobileMenuClose = () => {
@@ -79,17 +33,16 @@ export default function Header() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const menuId = 'primary-search-account-menu';
- 
+  const menuId = "primary-search-account-menu";
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
@@ -109,25 +62,27 @@ export default function Header() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" className={classes.teste}>
+      <AppBar position="static" className={classes.bar}>
         <Toolbar>
-            <MenuBar/>
+          <MenuBar />
           <Typography className={classes.title} variant="h6" noWrap>
             Sistema Cemil
           </Typography>
-          
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleLogout}
-              color="inherit"
-            >
-               <ExitToAppIcon />
-            </IconButton>
+            <Tooltip title="Sair" placement="bottom-start">
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleLogout}
+                color="inherit"
+              >
+                <ExitToAppIcon />
+              </IconButton>
+            </Tooltip>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -143,7 +98,6 @@ export default function Header() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-    
     </div>
   );
 }
