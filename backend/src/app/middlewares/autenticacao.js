@@ -13,16 +13,16 @@ module.exports = (req, res, next) =>{
     if(!parts.lengt == 2)
     return res.status(401).send({ mensagem: 'Erro no Token'});
 
-    const [scheme , token ] = parts;
+    const [ scheme , token ] = parts;
 
     if(!/^Bearer$/i.test(scheme))
     return res.status(401).send({ mensagem: 'Token Malformado'});
 
-    jwt.verify(token, authConfig.secret, (err, decode) =>{
+    jwt.verify(token, authConfig.secret, (err, decoded) =>{
 
         if(err) return res.status(401).send({ mensagem: 'Token Invalido'});
 
-        req.usuarioId = decored.id;
+        req.usuarioId = decoded.id;
         return next();
     })
 

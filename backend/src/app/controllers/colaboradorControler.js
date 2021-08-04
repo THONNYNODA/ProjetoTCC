@@ -1,8 +1,12 @@
 const express = require('express');
 const Colaborador = require('../models/colaborador');
+const Usuario = require('../models/usuario');
+const Funcao = require('../models/funcao');
+
 
 
 const router = express.Router();
+
 router.post('/', async (req, res) => {
 
     const {
@@ -12,7 +16,7 @@ router.post('/', async (req, res) => {
     try {
 
         if (await Colaborador.findOne({
-                cpf
+                cpf, usuario:req.usu
             }))
             return res.status(400).send({
                 mensagem: 'Colaborador ja cadastrado!!'
@@ -20,6 +24,10 @@ router.post('/', async (req, res) => {
 
 
         const colaborador = await Colaborador.create(req.body);
+
+        
+
+
 
         return res.send({
             colaborador
@@ -46,7 +54,7 @@ router.get('/', async (req, res) => {
 
     } catch (err) {
         return res.status(400).send({
-            mensagem: 'Falha ao buscar o Item!!'
+            mensagem: 'Falha ao buscar o Cadastro!!'
         });
 
     }

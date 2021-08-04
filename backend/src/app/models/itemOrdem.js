@@ -2,39 +2,44 @@ const mongoose = require('../../database')
 
 const ItemOrdemSchema = new mongoose.Schema({
     
-    dtCriado:{
+    dtCriado: {
         type: Date,
-        date: Date.now,
+        default: Date.now,
     },
     dtInicio:{
-        type: Date,
-        require: true,
+        type: String,
+        //require: true,
     },
     dtFinal:{
-        type: Date,
-        require: true,
+        type: String,
+        //require: true,
     },
     hrInicio:{
-        type: Date,
-        require: true,
+        type: String,
+        //require: true,
     },
     hrFinal:{
-        type: Date,
-        require: true,
+        type: String,
+        //require: true,
     },
     dsServicoRealizado:{
-        type: Date,
+        type: String,
         require: true,
     },
-    idColaborador:{
+    idUsuario:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Colaborador',
+        ref: 'Usuario',
+        require: true,
+    },
+    idOrdem:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ordem',
         require: true,
     },
     idServico:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Servico',
-        require: true,
+        //require: true,
     },
 })
 

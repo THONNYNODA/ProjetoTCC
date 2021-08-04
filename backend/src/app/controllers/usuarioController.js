@@ -2,28 +2,29 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 
-const autConfig = require('../../config/autenticacao.json')
+const authConfig = require('../../config/autenticacao.json')
 const Usuario = require('../models/usuario');
 
 
 const router = express.Router();
 
 function gerarToken(params ={}){
-    return jwt.sign(params,autConfig.secret, {
+    return jwt.sign(params, authConfig.secret, {
         expiresIn: 86400,
     })
 }
 
+
 router.post('/', async (req, res) => {
 
     const {
-        nmUsuario
+        cpf
     } = req.body;
 
     try {
 
         if (await Usuario.findOne({
-                nmUsuario
+                cpf
             }))
             return res.status(400).send({
                 mensagem: 'Usuario ja cadastrado!!'
@@ -53,11 +54,11 @@ router.post('/', async (req, res) => {
 
 router.post('/autenticacao', async (req,res) =>{
 
-    const { nmUsuario, dsSenha} = req.body;
+    const { cpf, dsSenha} = req.body;
 
     const usuario = await Usuario.findOne({
-        nmUsuario
-    }).select('+dsSenha');
+        cpf
+    }).populate('funcao').select('+dsSenha');
 
     if(!usuario)
         return res.status(400).send({
@@ -70,6 +71,7 @@ router.post('/autenticacao', async (req,res) =>{
         });
 
         usuario.dsSenha = undefined;
+        
 
         res.send({
             usuario,
@@ -82,7 +84,7 @@ router.post('/autenticacao', async (req,res) =>{
 router.get('/', async (req, res) => {
     try {
 
-        const usuario = await Usuario.find() 
+        const usuario = await Usuario.find().populate('funcao') 
         return res.send({
             usuario,
             token: gerarToken({
@@ -103,7 +105,7 @@ router.get('/:usuarioId', async (req, res) => {
 
     try {
 
-        const usuario = await Usuario.findById(req.params.usuarioId).select('+dsSenha');
+        const usuario = await Usuario.findById(req.params.usuarioId).select('+dsSenha').populate('funcao');
         return res.send({
             usuario,
             token: gerarToken({
@@ -121,9 +123,9 @@ router.get('/:usuarioId', async (req, res) => {
 router.put('/:usuarioId', async (req,res) =>{
 
     try {
-        const { nmUsuario, dsSenha , snAtivo } = req.body
+        const { cpf, dsSenha } = req.body
 
-        const usuario = await Usuario.findOne({ nmUsuario }).select('+dsSenha') ;
+        const usuario = await Usuario.findOne({ cpf }).select('+dsSenha') ;
 
         usuario.dsSenha = dsSenha
         

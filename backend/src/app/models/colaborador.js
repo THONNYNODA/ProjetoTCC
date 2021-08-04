@@ -15,10 +15,10 @@ const ColaboradorSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    contato:{
-        telefone:String,
-        email: String,
-    },
+    telefone:String,
+    
+    email: String,
+   
     funcao:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Funcao',

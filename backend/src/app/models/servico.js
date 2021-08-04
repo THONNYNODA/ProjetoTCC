@@ -2,7 +2,7 @@ const mongoose = require('../../database')
 
 const ServicoSchema = new mongoose.Schema({
     
-    nmSetor:{
+    nmServico:{
         type: String,
         require: true,
     },
@@ -12,6 +12,7 @@ const ServicoSchema = new mongoose.Schema({
     snAtivo:{
         type: Boolean,
         require: true,
+        default: true
     }
 })
 

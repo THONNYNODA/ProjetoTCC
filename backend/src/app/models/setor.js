@@ -9,6 +9,7 @@ const SetorSchema = new mongoose.Schema({
     snAtivo:{
         type: Boolean,
         require: true,
+        default: true,
     }
 })
 

@@ -2,29 +2,34 @@ const mongoose = require('../../database')
 
 const OrdemSchema = new mongoose.Schema({
     
-    dtCriado:{
+  
+    dtCriado: {
         type: Date,
-        date: Date.now,
+        default: Date.now,
     },
     dtInicioOrdem:{
-        type: Date,
-        require: true,
+        type: String,
+       // require: true,
     },
     dtFinalOrdem:{
-        type: Date,
-        require: true,
+        type: String,
+        //require: true,
     },
     dsStatus:{
-        type: Date,
-        require: true,
+        type: String, required: false, default:'PENDENTE', uppercase: true,
+        enum: ['FINALIZADO', 'PENDENTE'] 
     },
     dsProblema:{
         type: String,
         require: true,
     },
-    idColaborador:{
+    dsDetalhe:{
+        type: String,
+        //require: true,
+    },
+    idUsuario:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Colaborador',
+        ref: 'Usuario',
         require: true,
     },
     idSetor:{
@@ -32,10 +37,10 @@ const OrdemSchema = new mongoose.Schema({
         ref: 'Setor',
         require: true,
     },
-    idItemOrdem:{
+    idItemOrdem:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ItemOrdem',
-    },
+    }],
 })
 
 const Ordem = mongoose.model('Ordem', OrdemSchema);

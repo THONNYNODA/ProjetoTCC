@@ -3,9 +3,25 @@ const bcrypt = require('bcryptjs');
 
 const UsuarioSchema = new mongoose.Schema({
 
-    nmUsuario: {
+    nmColaborador: {
         type: String,
         require: true,
+    },
+    cpf: {
+        type: String,
+        require: true,
+        unique: true,
+    },
+    dtNascimento: {
+        type: String,
+        require: true,
+    },
+    telefone:String,    
+    email: String,
+   
+    funcao:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Funcao',
     },
     dsSenha: {
         type: String,
@@ -22,7 +38,7 @@ const UsuarioSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    
+
     
 
 });
