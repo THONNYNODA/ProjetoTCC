@@ -74,7 +74,7 @@ export default function Menu() {
       <ListItem button >
         <ListItemIcon> <InboxIcon /></ListItemIcon>
         
-        <Link to='/cadastro' className={classes.link}><ListItemText primary="Cadastro" /></Link>
+        <Link to='/cadastros' className={classes.link}><ListItemText primary="Cadastro" /></Link>
       </ListItem>
       <Divider variant='middle'/>
       <ListItem button >

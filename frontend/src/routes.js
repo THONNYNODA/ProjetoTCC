@@ -14,6 +14,7 @@ import Login from './layout/login';
 import Chamadas from './layout/chamadas';
 import Dashbord from './layout/dashbord'
 import Teste from './layout/Teste'
+import cadastros from './layout/cadastros';
 
 const PrivateRouter = ({ component: Component, ...rest }) =>(
     <Route
@@ -34,6 +35,7 @@ const Routes = () =>{
             <PrivateRouter path='/painel' component={Painel}/>
             <PrivateRouter path='/chamadas' component={Chamadas}/>
             <PrivateRouter path='/dashbord' component={Dashbord}/>
+            <PrivateRouter path='/cadastros' component={cadastros}/>
             <Route path='/teste' component={Teste}/>
             <Route path="*" component={() => <h1>Page not found</h1>} />
         </Switch>

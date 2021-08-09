@@ -39,7 +39,9 @@ const Login = () => {
     setTimeout( async () => {
       try {      
         const response = await api.post('/usuario/autenticacao', values)
-        login(response.data.token)
+        const token = response.data.token;
+        const nome = response.data.usuario.nmColaborador;
+        login(token,nome)
         return history.push('/painel')
         
       } catch (error) {

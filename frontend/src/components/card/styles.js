@@ -2,8 +2,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const cardStyles = makeStyles({
     root: {
-        maxWidth: "100%",
+        width: "100%",
         //maxHeight: 600,
+ 
         
       },
       boxHeader: {

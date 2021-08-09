@@ -82,14 +82,14 @@ const Cadastro = () => {
                     <InputForm>                           
                       <TextField 
                       name="nmColaborador" 
-                      fullWidth  
-                      
+                      fullWidth                        
                       id="nmColaborador"
                       label="Nome Completo"
                       value={formik.values.nmColaborador}
                       onChange={formik.handleChange}
                       error={formik.touched.nmColaborador && Boolean(formik.errors.nmColaborador)}
                       helperText={formik.touched.nmColaborador && formik.errors.nmColaborador}
+                      //inputProps={{ style: { textTransform: "uppercase" } }}
                       />
                     </InputForm>  
                     <InputForm> 

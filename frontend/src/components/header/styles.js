@@ -14,9 +14,22 @@ export const headerStyles = makeStyles((theme) => ({
     },
     title: {
       display: 'block',
-      width:'100%',
+      width:'50%',
       textAlign: 'center',
-      
+      ['@media (max-width:780px)']:{
+        textAlign: 'center',
+        width:'100%',
+        padding:10,
+      }
+    },
+    name: {
+      //display: 'block',
+      //margin: 30,
+      width:'20%',
+      textAlign: 'left',
+      ['@media (max-width:780px)']:{
+        display: 'none'
+      }     
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),

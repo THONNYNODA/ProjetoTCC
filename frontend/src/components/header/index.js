@@ -7,11 +7,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { logout } from "../../config/auth";
+import { logout, USUARIO } from "../../config/auth";
 import { useHistory } from "react-router-dom";
 import MenuBar from "../menu/index";
 import { headerStyles } from "./styles";
 import { Tooltip } from "@material-ui/core";
+
+import { getUsuario } from "../../config/auth";
 
 export default function Header() {
   const classes = headerStyles();
@@ -65,7 +67,10 @@ export default function Header() {
       <AppBar position="static" className={classes.bar}>
         <Toolbar>
           <MenuBar />
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.name} variant="h6" noWrap>
+            Olá Bem Vindo {getUsuario(USUARIO).toUpperCase()}
+          </Typography>
+          <Typography className={classes.title} variant="h4" noWrap>
             Sistema Cemil
           </Typography>
 

@@ -4,6 +4,7 @@ import api from "../../services/api";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+
 import Typography from "@material-ui/core/Typography";
 
 import { cardStyles } from "./styles";
@@ -88,8 +89,10 @@ function ListaChamadas() {
                     {lista.dsDetalhe}
                   </Typography>
                 </CardContent>
+               
               </>
             ))}
+            
         </Card>
       </Card>
     </>
