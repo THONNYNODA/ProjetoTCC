@@ -14,14 +14,6 @@ const ItemOrdemSchema = new mongoose.Schema({
         type: String,
         //require: true,
     },
-    hrInicio:{
-        type: String,
-        //require: true,
-    },
-    hrFinal:{
-        type: String,
-        //require: true,
-    },
     dsServicoRealizado:{
         type: String,
         require: true,

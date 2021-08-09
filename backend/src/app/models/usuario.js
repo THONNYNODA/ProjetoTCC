@@ -6,6 +6,7 @@ const UsuarioSchema = new mongoose.Schema({
     nmColaborador: {
         type: String,
         require: true,
+        
     },
     cpf: {
         type: String,
