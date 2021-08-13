@@ -6,7 +6,6 @@ import {
     Redirect
 } from 'react-router-dom';
 
-
 import { isAuthenticated } from './config/auth'
 import Painel from './layout/painel'
 import Cadastro from './layout/cadastro'
@@ -14,7 +13,7 @@ import Login from './layout/login';
 import Chamadas from './layout/chamadas';
 import Dashbord from './layout/dashbord'
 import Teste from './layout/Teste'
-import cadastros from './layout/cadastros';
+import Cadastros from './layout/cadastros';
 
 const PrivateRouter = ({ component: Component, ...rest }) =>(
     <Route
@@ -35,7 +34,12 @@ const Routes = () =>{
             <PrivateRouter path='/painel' component={Painel}/>
             <PrivateRouter path='/chamadas' component={Chamadas}/>
             <PrivateRouter path='/dashbord' component={Dashbord}/>
-            <PrivateRouter path='/cadastros' component={cadastros}/>
+            <PrivateRouter path='/cadastros' component={Cadastros}/>
+            <PrivateRouter exact path='/editar_funcao/:id' component={Cadastros}/>
+            <PrivateRouter exact path='/editar_setor/:id' component={Cadastros}/>
+            <PrivateRouter exact path='/editar_servico/:id' component={Cadastros}/>
+          
+
             <Route path='/teste' component={Teste}/>
             <Route path="*" component={() => <h1>Page not found</h1>} />
         </Switch>

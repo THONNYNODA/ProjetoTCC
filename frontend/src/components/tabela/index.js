@@ -92,7 +92,7 @@ export default function TabelaChamado() {
                 </Text>
               </SubBox>
               <Text>
-                Status:{" "}
+                Status:
                 <span
                   className={
                     lis.dsStatus == "PENDENTE"

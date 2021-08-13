@@ -25,7 +25,9 @@ function DetalheChamado(props) {
       const lista = lista.filter((lista) => id !== lista._id);
       setLista(lista);
       console.log(lista);
+      
       return alert("abert com sucesso");
+      
     });
   };
 
