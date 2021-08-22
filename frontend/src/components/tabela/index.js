@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import api from "../../services/api";
 import ListaChamadas from "../listaChamadas";
+import DetalheChamado from "../paginaChamado";
+
 import {
   tabelaStyle,
   detalheStyle,
@@ -12,6 +14,10 @@ import {
   Conteiner,
   TextVermelho,
   ButtomChamado,
+  InputForm,
+  BoxForm,
+  BoxDialog,
+  Btn,
 } from "./styles";
 
 import Card from "@material-ui/core/Card";
@@ -19,9 +25,14 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Box, CardActions } from "@material-ui/core";
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { Divider, Paper } from "@material-ui/core";
 import ItemOrdem from "../cadastro/itemOrdem";
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import Dialog from "@material-ui/core/Dialog";
+//import { TextField } from "formik-material-ui";
+import { MenuItem } from "@material-ui/core";
 
 export default function TabelaChamado() {
   const classes = tabelaStyle();
@@ -29,6 +40,8 @@ export default function TabelaChamado() {
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState(false);
   const [selectedValue, setSelectedValue] = useState();
+  const [idAtual, setIdAtual] = useState("");
+  const [openCadastro, setOpenCadastro] = useState(false);
 
   useEffect(() => {
     api.get("/ordem").then((res) => {
@@ -45,75 +58,81 @@ export default function TabelaChamado() {
     });
   };
   const handleOpen = (id) => {
-    api.get(`/ordem/${id}`).then((res) => {
-      const listas = lista.filter((lista) => id === lista._id);
-      setLista(listas);
-      setOpen(true);
-      //return <DetalheChamado/>
-    });
+    setIdAtual(id);
+    setOpen(true); 
+    console.log({...{ idAtual, lista }})
+    return <DetalheChamado {...{ idAtual, lista }} />;
   };
   const handleOpenItem = (id) => {
-   setItem(true)
+    setItem(true);
   };
 
   const handleClose = (value) => {
     window.location.reload();
     //setOpen(false);
   };
+  const handleOpenteste = (id) => {
+    setOpenCadastro(true);
+    setIdAtual(id);
+    return <TesteItemOrdem {...{ idAtual, lista }} />;
+  };
 
-  const handleUpdate = () =>{
+  
 
-    return(
-      <>
-        <form>
-          <input></input>
-        </form>
+  const TesteItemOrdem = (props) => {
+    
+    const initialValues = {
+      dsStatus:'FINALIZADO',
+      idItemOrdem: [],
+    };
+
+    const [servico, setServico] = useState([]);
+    const [itemO, setItemO] = useState({
+      dtInicio: "",
+      dtFinal: "",
+      dsServicoRealizado: "",
+    });
+
+
+    const handleChenge = (e) => {
+      const { name, value } = e.target;
+      setItemO({ ...itemO, [name]: value });
+
+    };
+
+    const handleSubmitEdit = (e) => {
+      e.preventDefault();
+     initialValues.idItemOrdem.push(itemO);
+     
       
-      </>
-    )
-  }
+      console.log(lista[idAtual]);
+      setTimeout(async () => {
+        await api.put(`/ordem/${lista[idAtual]._id}`, initialValues).then((res) => {});
+        return alert("enviado");
+      }, 200);
 
-  const DetalheChamado = () => {
-    const clas = detalheStyle();
+      console.log(initialValues);
+      console.log(lista[idAtual]);
+    };
 
     return (
       <>
-        {lista.map((lis) => (
-          <Paper key={lis._id} className={clas.box}>
-            <SubBox>
-              <Title>Chamada - {lis._id}</Title>
-              <Text> Solicitado em {horas(lis)} </Text>
-            </SubBox>
-            <BackBox>
-              <SubBox>
-                <Text>Assunto: {lis.dsProblema}</Text>
-                <Text>
-                  Solicitante: {lis.idUsuario.nmColaborador.toUpperCase()}
-                </Text>
-              </SubBox>
-              <Text>
-                Status:
-                <span
-                  className={
-                    lis.dsStatus == "PENDENTE"
-                      ? clas.textVermelho
-                      : clas.textVerde
-                  }
-                >
-                  {lis.dsStatus}
-                </span>
-              </Text>
-              <Text>Detalhe: {lis.dsDetalhe} </Text>
-              <Divider variant="middle" />
-              <Title>Resposta: </Title>
-              <Text noWrap={true}>{lis.dsDetalhe} </Text>
-            </BackBox>
-            <ButtomChamado onClick={e => handleClose(lis._id)}>Voltar</ButtomChamado>
-            <ButtomChamado onClick={handleOpenItem} >Inserir</ButtomChamado>
-            {item ? <ItemOrdem/> : null}
-            
-          </Paper>
-        ))}
+        <Dialog open fullWidth>
+          <BoxDialog>
+            <Title>Finalizar Chamadas</Title>
+            <form onSubmit={handleSubmitEdit} key={lista[idAtual]._id}>
+              <TextField
+                fullWidth
+                name="dsServicoRealizado"
+                variant="outlined"
+                onChange={handleChenge}
+
+                //label="Nome Servico"
+              />
+              <Btn type="submit">Enviar</Btn>
+            </form>
+          </BoxDialog>
+        </Dialog>
       </>
     );
   };
@@ -139,19 +158,19 @@ export default function TabelaChamado() {
       <Conteiner>
         <Card className={classes.root}>
           <Card className={classes.boxCard} variant="outlined">
-            {lista
+            {Object.keys(lista)
               .sort((a, b) => (a.dtCriado < b.dtCriado ? 1 : -1))
-              .map((lista) => (
+              .map((id) => (
                 <>
                   <CardHeader
-                    key={lista._id}
+                    key={id}
                     className={classes.boxHeader}
                     title={
                       <Typography
                         className={classes.boxHeaderTitle}
                         variant="subtitle1"
                       >
-                        {lista.dsProblema}
+                        {lista[id].dsProblema}
                       </Typography>
                     }
                     subheader={
@@ -162,7 +181,7 @@ export default function TabelaChamado() {
                           component="p"
                           align="right"
                         >
-                          {lista.dsStatus}
+                          {lista[id].dsStatus}
                         </Typography>
                         <Typography
                           //className={classes.boxHeaderTitle}
@@ -170,7 +189,7 @@ export default function TabelaChamado() {
                           component="p"
                           align="right"
                         >
-                          {horas(lista)}
+                          {horas(lista[id])}
                         </Typography>
                       </div>
                     }
@@ -182,19 +201,33 @@ export default function TabelaChamado() {
                       color="textSecondary"
                       component="p"
                     >
-                      {lista.dsDetalhe}
+                      {lista[id].dsDetalhe}
                     </Typography>
                   </CardContent>
                   <CardActions className={classes.cardAction}>
-                    <Button className={classes.button} size="small" onClick={(e) => handleOpen(lista._id)}>
+                    <Button
+                      className={classes.button}
+                      size="small"
+                      onClick={() => handleOpen(id)}
+                    >
                       Ver
+                    </Button>
+                  </CardActions>
+                  <CardActions className={classes.cardAction}>
+                    <Button
+                      className={classes.button}
+                      size="small"
+                      onClick={() => handleOpenteste(id)}
+                    >
+                      Teste
                     </Button>
                   </CardActions>
                 </>
               ))}
           </Card>
         </Card>
-        {open ? <DetalheChamado /> : null}
+        {openCadastro ? <TesteItemOrdem /> : null}
+        {open ? <DetalheChamado {...{ idAtual, lista }} /> : <Title> CARREGANDO...</Title>}
       </Conteiner>
     </>
   );

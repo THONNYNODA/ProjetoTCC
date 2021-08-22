@@ -1,109 +1,136 @@
-const express = require('express');
-const Ordem = require('../models/ordem');
-const ItemOrdem = require('../models/itemOrdem');
-const authMiddleware = require('../middlewares/autenticacao') 
-
+const express = require("express");
+const Ordem = require("../models/ordem");
+const ItemOrdem = require("../models/itemOrdem");
+const authMiddleware = require("../middlewares/autenticacao");
 
 const router = express.Router();
 
-router.use(authMiddleware)
+router.use(authMiddleware);
 
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
+  try {
+    const {
+      dtInicioOrdem,
+      dtFinalOrdem,
+      dsProblema,
+      dsDetalhe,
+      idItemOrdem,
+      idSetor,
+      dsStatus,
+    } = req.body;
 
-    const {dtInicioOrdem,dtFinalOrdem,dsProblema,dsDetalhe,idItemOrdem,idSetor} = req.body
+    const ordem = await Ordem.create({
+      dsProblema,
+      dsDetalhe,
+      dtInicioOrdem,
+      dtFinalOrdem,
+      idSetor,
+      dsStatus,
+      idUsuario: req.usuarioId,
+    });
 
-    try {
-        const ordem = await Ordem.create({dsProblema,dsDetalhe,dtInicioOrdem,dtFinalOrdem,idSetor, idUsuario: req.usuarioId});
+    await Promise.all(
+      idItemOrdem.map(async (itensOrdem) => {
+        const ordemItem = new ItemOrdem({
+          ...itensOrdem,
+          idOrdem: ordem._id,
+        });
 
-        if(!idItemOrdem === null)
-        return await Promise.all(
-            idItemOrdem.map( async itensOrdem =>{
-                const ordemItem = new ItemOrdem({ ...itensOrdem, idOrdem: ordem._id});
-    
-                await ordemItem.save();
-                
-                ordem.idItemOrdem.push(ordemItem)
-            })
-        );
-        
-        await ordem.save();
+        await ordemItem.save();
 
-        return res.send({ordem});
+        ordem.idItemOrdem.push(ordemItem);
+      })
+    );
 
-    } catch (err) {
-        console.log(err)
-        return res.status(400).send({mensagem: "Erro ao Criar Ordem"})
-    }
+    await ordem.save();
+
+    return res.send({ ordem });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send({ mensagem: "Erro ao Criar Ordem" });
+  }
 });
 
-router.get('/', async (req, res) => {
-    try {
-        const ordem = await Ordem.find().populate(['idUsuario','idSetor','idItemOrdem']);
+router.get("/", async (req, res) => {
+  try {
+    const ordem = await Ordem.find().populate([
+      "idUsuario",
+      "idSetor",
+      "idItemOrdem",
+    ]);
 
-        return res.send({ordem});
+    return res.send({ ordem });
+  } catch (err) {
+    return res.status(400).send({ mensagem: "Erro ao Listar a Ordem" });
+  }
+});
 
-    } catch (err) {
-        return res.status(400).send({mensagem: "Erro ao Listar a Ordem"})
-    }
-})
+router.get("/:ordemId", async (req, res) => {
+  try {
+    const ordem = await Ordem.findById(req.params.ordemId).populate([
+      "idUsuario",
+      "idSetor",
+      "idItemOrdem",
+    ]);
 
+    return res.send({ ordem });
+  } catch (err) {
+    return res.status(400).send({ mensagem: "Erro ao Listar uma Ordem" });
+  }
+});
+router.put("/:ordemId", async (req, res) => {
+  try {
+    const { dtInicioOrdem, dtFinalOrdem, dsStatus, idItemOrdem } = req.body;
 
-router.get('/:ordemId', async (req, res) => {
-    try {
-        const ordem = await Ordem.findById(req.params.ordemId).populate(['idUsuario','idSetor','idItemOrdem']);
+    const ordem = await Ordem.findByIdAndUpdate(
+      req.params.ordemId,
+      {
+        dtInicioOrdem,
+        dtFinalOrdem,
+        dsStatus
+      },
+      { new: true }
+    );
 
-        return res.send({ordem});
+    ordem.idItemOrdem = [];
+    await ItemOrdem.deleteMany({ idOrdem: ordem._id });
 
-    } catch (err) {
-        return res.status(400).send({mensagem: "Erro ao Listar uma Ordem"})
-    }
-})
-router.put('/:ordemId', async (req, res) => {
-    const {dtInicioOrdem,dtFinalOrdem,dsProblema,dsDetalhe,idItemOrdem,dsStatus} = req.body
+    await Promise.all(
+      // idItemOrdem.map(async (itensOrdem) => {
+      //   const ordemItem = new ItemOrdem({
+      //     ...itensOrdem,
+      //     idOrdem: ordem._id,
+      //   });
+      idItemOrdem.map(async (itensOrdem) => {
+        const ordemItem = new ItemOrdem({
+          ...itensOrdem,
+          idOrdem: ordem._id,
+          idUsuario: req.usuarioId,
+        });
 
-    try {
-        const ordem = await Ordem.findByIdAndUpdate(req.params.ordemId,{
-            dsProblema,
-            dsDetalhe,
-            dtInicioOrdem,
-            dtFinalOrdem,
-            dsStatus
-            },{new:true}
-        );
+        await ordemItem.save();
 
-        ordem.idItemOrdem = [];
-        await ItemOrdem.remove({ idOrdem: ordem._id})
+        ordem.idItemOrdem.push(ordemItem);
+      })
+    );
 
-        await Promise.all(
-            idItemOrdem.map( async itensOrdem =>{
-                const ordemItem = new ItemOrdem({ ...itensOrdem, idOrdem: ordem._id});
-    
-                await ordemItem.save();
-                
-                ordem.idItemOrdem.push(ordemItem)
-            })
-        );
-        
-        await ordem.save();
+    await ordem.save();
 
-        return res.send({ordem});
+    return res.send({ ordem });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send({ mensagem: "Erro ao Atualizar Ordem" });
+  }
+});
 
-    } catch (err) {
-        console.log(err)
-        return res.status(400).send({mensagem: "Erro ao Atualizar Ordem"})
-    }
-})
+router.delete("/:ordemId", async (req, res) => {
+  try {
+    await Ordem.findByIdAndRemove(req.params.ordemId);
 
+    return res.send({ mensagem: "Deletado com sucesso" });
+  } catch (err) {
+    return res.status(400).send({ mensagem: "Erro ao deletar a Ordem" });
+  }
+});
 
-router.delete('/:ordemId', async (req, res) => {
-    try {
-         await Ordem.findByIdAndRemove(req.params.ordemId);
-
-        return res.send({mensagem: "Deletado com sucesso"});
-
-    } catch (err) {
-        return res.status(400).send({mensagem: "Erro ao deletar a Ordem"})
-    }
-})
-
-module.exports = app => app.use('/ordem', router);
+module.exports = (app) => app.use("/ordem", router);

@@ -16,7 +16,7 @@ export const headerStyles = makeStyles((theme) => ({
       display: 'block',
       width:'50%',
       textAlign: 'center',
-      ['@media (max-width:780px)']:{
+      '@media (max-width:780px)':{
         textAlign: 'center',
         width:'100%',
         padding:10,
@@ -27,7 +27,7 @@ export const headerStyles = makeStyles((theme) => ({
       //margin: 30,
       width:'20%',
       textAlign: 'left',
-      ['@media (max-width:780px)']:{
+      '@media (max-width:780px)':{
         display: 'none'
       }     
     },

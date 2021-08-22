@@ -119,6 +119,9 @@ export const funcaoStyle = makeStyles({
   iconDelete: {
     color: "#FF6163",
   },
+  iconCheck: {
+    color: "#1FA774",
+  },
   ativado: {
     textDecoration:'line-through'
   },

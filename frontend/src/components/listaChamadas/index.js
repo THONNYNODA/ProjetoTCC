@@ -42,7 +42,7 @@ function ListaChamadas() {
       <Card className={classes.root} >
         <Typography variant="subtitle1" className={classes.title}>Ultimas Chamadas</Typography>
         <Card className={classes.boxCard} variant="outlined" >
-          {lista
+          {lista 
             .sort((a, b) => (a.dtCriado < b.dtCriado ? 1 : -1))
             .map((lista) => (
               <>

@@ -34,6 +34,7 @@ function Ordem(props) {
     dsProblema: "",
     dsDetalhe: "",
     idSetor: "",
+    
   };
  
   const [setores, setSetor] = useState([]);
@@ -58,11 +59,14 @@ function Ordem(props) {
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm}) => {
             setTimeout(() => {
-              api.post("/ordem", values);
+             api.post("/ordem", values);
+              console.log(values)
               setSubmitting(false);
               resetForm({});
+              onClose(true)
               
             }, 3000);
+            //window.location.reload();
           }}
         >
           {({ errors, touched, isSubmitting }) => (

@@ -13,12 +13,14 @@ import {
   Checkbox,
   Dialog,
   FormControlLabel,
-  Modal,
   TextField,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
+import { CircularProgress } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import {
   BoxCheck,
@@ -28,9 +30,14 @@ import {
   BtnCancalar,
   funcaoStyle,
   InputForm,
+  SubBox,
   Title,
 } from "./styles";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import CheckIcon from "@material-ui/icons/Check";
+import BlockIcon from "@material-ui/icons/Block";
+
+import Backdrop from "@material-ui/core/Backdrop";
 
 function Funcao() {
   const classes = funcaoStyle();
@@ -39,8 +46,9 @@ function Funcao() {
     nmFuncao: " ",
   });
   const [open, setOpen] = useState(null);
+  const [openDialog, setOpenDialog] = useState(null);
   const [idAtual, setIdAtual] = useState("");
-  const [check, setCheck] = useState(false)
+  const [status, setStatus] = useState(false);
 
   useEffect(() => {
     api.get("/funcao").then((res) => {
@@ -52,76 +60,86 @@ function Funcao() {
   const handleChenge = (e) => {
     const { name, value } = e.target;
     setFuncao({ ...funcao, [name]: value });
-    console.log(funcao)
   };
 
   const handleDelete = (id, e) => {
-    api.delete(`/funcao/${id}`).then((res) => {
-      const value = values.filter((values) => id !== values._id);
-      setValues(value);
-      return alert("Deletado com sucesso");
-    });
+    setOpenDialog(true);
+
+    setTimeout(async () => {
+      await api.delete(`/funcao/${id}`).then((res) => {
+        const value = values.filter((values) => id !== values._id);
+        setValues(value);
+        setOpenDialog(false);
+        return setStatus(true);
+      });
+      window.location.reload();
+    }, 3000);
   };
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (funcao.nmFuncao == " ") return alert("Campo vazio");
-    api.post(`/funcao`, funcao).then((res) => {
-      console.log(funcao);
-      return alert("Cadastrado com sucesso");
-    });
-    window.location.reload();
-  };
-
-  const handleChengeCheck = (e) => {
-    const { name, checked } = e.target;
-    setValues({ ...values, [name]: checked });
-    console.log(values)
+    setOpenDialog(true);
+    setTimeout(async () => {
+      await api.post(`/funcao`, funcao).then((res) => {
+        return setStatus(true);
+      });
+      window.location.reload();
+    }, 3000);
   };
 
   const handleOpen = (id) => {
     setIdAtual(id);
-    console.log(id)
     setOpen(true);
     return <ModalEditar {...{ idAtual, values }} />;
   };
   const ModalEditar = (props) => {
-    
     const history = useHistory();
     const [funcao, setFuncao] = useState({
       nmFuncao: "",
       snAtivo: true,
     });
+    const [openDialog, setOpenDialog] = useState(null);
 
     useEffect(() => {
-
       if (idAtual == " ") {
         setFuncao({ ...funcao });
       } else {
-        setFuncao({...values[idAtual]} );
-       console.log({...values[idAtual]});
+        setFuncao({ ...values[idAtual] });
       }
     }, [idAtual, values]);
 
     const handleChenge = (e) => {
       const { name, value } = e.target;
       setFuncao({ ...funcao, [name]: value });
-      console.log(funcao)
+      console.log(funcao);
     };
+    const handleChengeCheck = (e) => {
+      setFuncao({ ...funcao, snAtivo: !funcao.snAtivo });
+      console.log(funcao);
+    };
+
     const handleClose = (e) => {
       setOpen(false);
       return history.push("/cadastros");
     };
 
-    const handleSubmitEdit = async (e) => {
+    const handleSubmitEdit = (e) => {
       e.preventDefault();
 
-      await api.put(`/funcao/${values[idAtual]._id}`, funcao).then((res) => {
-        setOpen(false);
-        return history.push("/cadastros");
-      });
-      window.location.reload();
+      setOpenDialog(true);
+      setTimeout(async () => {
+        await api.put(`/funcao/${values[idAtual]._id}`, funcao).then((res) => {
+          setOpenDialog(false);
+          return setStatus(true);
+        });
+        window.location.reload();
+      }, 3000);
     };
 
     return (
@@ -140,7 +158,25 @@ function Funcao() {
                     value={funcao.nmFuncao}
                     //label="Nome Funcao"
                   />
-
+                  <BoxCheck>
+                    <FormControlLabel
+                      className={classes.check}
+                      control={
+                        <Checkbox
+                          checked={funcao.snAtivo}
+                          name="snAtivo"
+                          onChange={handleChengeCheck}
+                          value={funcao.snAtivo}
+                        />
+                      }
+                      label="Ativo ?"
+                    />
+                  </BoxCheck>
+                  {openDialog ? (
+                    <Backdrop open={openDialog} className={classes.backdrop}>
+                      <CircularProgress />
+                    </Backdrop>
+                  ) : null}
                   <BtnAlterar type="submit">Alterar</BtnAlterar>
                   <BtnCancalar onClick={handleClose}>Cancelar</BtnCancalar>
                 </form>
@@ -151,7 +187,6 @@ function Funcao() {
       </>
     );
   };
-  
 
   return (
     <>
@@ -170,68 +205,72 @@ function Funcao() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.keys(values).map((id) => (
-              <TableRow key={id}>
-                <TableCell component="th" scope="row">
-                  <BoxCheck>
-                    <Checkbox
-                      checked={values[id].snAtivo}
-                      //value={values[id].snAtivo}
-                      onChange={()=> handleChengeCheck(id)}
-                      name="snAtivo"
-                    />
-                  </BoxCheck>
-                  {values[id].snAtivo}
-                </TableCell>
-                <TableCell
-                  className={
-                    values[id].snAtivo == false || "" ? classes.ativado : null
-                  }
-                  component="th"
-                  scope="row"
-                >
-                  {values[id].nmFuncao}
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    onClick={() => handleOpen(id)}
-                    className={classes.iconEditar}
+            {Object.keys(values)
+              .sort((a, b) => (a.nmFuncao < b.nmFuncao ? 1 : -1))
+              .map((id) => (
+                <TableRow key={id}>
+                  <TableCell component="th" scope="row">
+                    {values[id].snAtivo === true ? (
+                      <CheckIcon className={classes.iconCheck} />
+                    ) : (
+                      <BlockIcon className={classes.iconDelete} />
+                    )}
+                  </TableCell>
+                  <TableCell
+                    className={
+                      values[id].snAtivo == false || "" ? classes.ativado : null
+                    }
+                    component="th"
+                    scope="row"
                   >
-                    <EditIcon />
-                  </Button>
+                    {values[id].nmFuncao}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      onClick={() => handleOpen(id)}
+                      className={classes.iconEditar}
+                    >
+                      <EditIcon />
+                    </Button>
 
-                  <Button
-                    className={classes.iconDelete}
-                    onClick={(e) => handleDelete(values[id]._id)}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                    <Button
+                      className={classes.iconDelete}
+                      onClick={(e) => handleDelete(values[id]._id)}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
       <form onSubmit={handleSubmit}>
         <InputForm>
-          <TextField
-            //fullWidth
-            name="nmFuncao"
-            variant="outlined"
-            onChange={handleChenge}
-            label="Nome Funcao"
-          />
-          <Btn type="submit">
-            <AddIcon />
-          </Btn>
+          <SubBox>
+            <TextField
+              fullWidth
+              name="nmFuncao"
+              variant="outlined"
+              onChange={handleChenge}
+              label="Nova Funcao"
+            />
+            <Btn type="submit">
+              <AddIcon />
+            </Btn>
+          </SubBox>
         </InputForm>
       </form>
-      <Checkbox
-                      checked={check}
-                      //value={check}
-                      onChange={handleChengeCheck}
-                    />
-
+      {openDialog ? (
+        <Backdrop open={openDialog} className={classes.backdrop}>
+          <CircularProgress />
+        </Backdrop>
+      ) : null}
+      {status ? (
+        <Snackbar open={status} autoHideDuration={6000}>
+          <Alert severity="success">Realizado com Sucesso!!</Alert>
+        </Snackbar>
+      ) : null}
       {open ? <ModalEditar /> : null}
     </>
   );

@@ -8,7 +8,7 @@ import api from "../../../services/api";
 
 import { InputForm, BoxForm, Title, BoxDialog, Btn } from "./styles";
 
-function ItemOrdem() {
+function ItemOrdem(props) {
   const initialValues = {
     dtInicio: "",
     dtFinal: "",
@@ -17,14 +17,18 @@ function ItemOrdem() {
   };
 
   const [servico, setServico] = useState([]);
+  const [item, setItem] = useState(null);
+
+
 
   useEffect(() => {
     api.get("/servico").then((res) => {
       const servico = res.data.servico;
-      console.log(servico);
       setServico(servico);
     });
   }, []);
+
+  console.log(...props.lista[props.idAtual])
 
   return (
     <>
@@ -36,8 +40,7 @@ function ItemOrdem() {
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout((id) => {
-                
-                api.put(`/ordem/${values._id}`, values);
+                api.put(`/ordem/${props.lista[props.idAtual]._id}`, values);
                 //const value = values.filter((values) => id === values._id)
                 console.log(values);
                 setSubmitting(false);
@@ -45,64 +48,62 @@ function ItemOrdem() {
             }}
           >
             {({ errors, touched, isSubmitting }) => (
-            <Form>
-            <InputForm>
-              <Field
-                name="idServico"
-                fullWidth
-                component={TextField}
-                select
-                label="Servico"
-              >
-                {servico.map((e) => (
-                  <MenuItem value={e._id} key={e._id}>
-                    {e.nmServico}: {e.dsServico}
-                  </MenuItem>
-                ))}
-              </Field>
-              {errors.idServico && touched.idServico}
-            </InputForm>
-            <BoxForm>
-              <InputForm>
-                <Field
-                  name="dtInicio"
-                  fullWidth
-                  component={TextField}
-                  label=" "
-                  type="datetime-local"
-                ></Field>
-                {errors.dtInicio && touched.dtInicio}
-                
-              </InputForm>
-              <InputForm>
-                <Field
-                  name="dtFinal"
-                  fullWidth
-                  component={TextField}
-                  label=" "
-                  type="datetime-local"
-                ></Field>
-                {errors.dtFinal && touched.dtFinal}
-              </InputForm>
-            </BoxForm>
-            <InputForm>
-              <Field
-                name="dsServicoRealizado"
-                fullWidth
-                component={TextField}
-                label="Detalhe"
-                multiline
-                rows={4}
-              />
-              {errors.dsServicoRealizado && touched.dsServicoRealizado}
-            </InputForm>
+              <Form>
+                <InputForm>
+                  <Field
+                    name="idServico"
+                    fullWidth
+                    component={TextField}
+                    select
+                    label="Servico"
+                  >
+                    {servico.map((e) => (
+                      <MenuItem value={e._id} key={e._id}>
+                        {e.nmServico}: {e.dsServico}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                  {errors.idServico && touched.idServico}
+                </InputForm>
+                <BoxForm>
+                  <InputForm>
+                    <Field
+                      name="dtInicio"
+                      fullWidth
+                      component={TextField}
+                      label=" "
+                      type="datetime-local"
+                    ></Field>
+                    {errors.dtInicio && touched.dtInicio}
+                  </InputForm>
+                  <InputForm>
+                    <Field
+                      name="dtFinal"
+                      fullWidth
+                      component={TextField}
+                      label=" "
+                      type="datetime-local"
+                    ></Field>
+                    {errors.dtFinal && touched.dtFinal}
+                  </InputForm>
+                </BoxForm>
+                <InputForm>
+                  <Field
+                    name="dsServicoRealizado"
+                    fullWidth
+                    component={TextField}
+                    label="Detalhe"
+                    multiline
+                    rows={4}
+                  />
+                  {errors.dsServicoRealizado && touched.dsServicoRealizado}
+                </InputForm>
 
-            <Btn variant="contained" type="submit">
-              Enviar
-            </Btn>
-          </Form>
-          )}   
-            
+                <Btn variant="contained" type="submit">
+                  Enviar
+                </Btn>
+              </Form>
+            )}
           </Formik>
         </BoxDialog>
       </Dialog>

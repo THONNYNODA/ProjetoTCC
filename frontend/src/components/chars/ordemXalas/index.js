@@ -35,9 +35,9 @@ function RelatorioAla() {
     });
   }, []);
 
-  const ordem = lista.filter((e) => e == e.idSetor).map((e) => e.idSetor);
+  const ordem = lista.filter((e) => e ===e.idSetor).map((e) => e.idSetor);
 
-  const setor = ordem.filter((e) => e._id == e.nmSetor).map((s) => s._id);
+  const setor = ordem.filter((e) => e._id === e.nmSetor).map((s) => s._id);
   console.log(setor);
   console.log(ordem);
 

@@ -1,10 +1,20 @@
 import { makeStyles, styled } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import { Button } from "@material-ui/core";
 
 export const BackBox = styled(Box)({
   width: "100%",
-
+});
+export const ButtomChamado = styled(Button)({
+ //width: "100%",
+  border: "2px solid #1FA774",
+  color: "#1FA774",
+  marginRight:5,
+  "&:hover": {
+    color: "#f0f5f3",
+    background: '#1FA774',
+  },
 });
 
 export const SubBox = styled(Box)({
@@ -15,6 +25,16 @@ export const SubBox = styled(Box)({
   ["@media (max-width:780px)"]: {
     display: "block",
   },
+});
+export const Conteiner = styled(Box)({
+  display: "flex",
+  width: "100%",
+  ["@media (max-width:780px)"]: {
+    display: "block",
+    maxHeight: "none",
+  },
+  //margin: "10px 0",
+  //justifyContent: "space-between",
 });
 
 export const Title = styled(Typography)({
@@ -30,16 +50,27 @@ export const Text = styled(Typography)({
   paddingLeft: 25,
   color: "#5f615f",
   fontWeight: 400,
-  
 });
+// export const TextVermelho = styled(Typography)({
+//   margin: "10px",
+//   fontSize: "18px",
+//   paddingLeft: 25,
+//   color: "#FF6163",
+//   fontWeight: 400,
+// });
+// export const TextVerde = styled(Typography)({
+//   margin: "10px",
+//   fontSize: "18px",
+//   paddingLeft: 25,
+//   color: "#1FA774",
+//   fontWeight: 400,
+// });
 
-export const detalheStyle = makeStyles({
+export const tabelaStyle = makeStyles({
   box: {
+    //display:'flex',
     width: "100%",
-    margin: 20,
-    padding: 20,
-    display: 'flex',
-    flexDirection:'column'
+    flexDirection: "column",
   },
   boxTable: {
     width: "100%",
@@ -48,9 +79,16 @@ export const detalheStyle = makeStyles({
     width: 100,
   },
   root: {
-    maxWidth: 600,
+    display: "flex",
+    maxWidth:400,
     maxHeight: 600,
+    flexDirection: "column",
     overflow: "auto",
+    justifyContent: "space-between",
+    ["@media (max-width:780px)"]: {
+      display: "block",
+      //maxHeight: 'none',
+    },
   },
   boxHeader: {
     background: "#1FA774",
@@ -78,82 +116,97 @@ export const detalheStyle = makeStyles({
     minHeight: 150,
   },
   boxCard: {
-    marginTop: 5,
+    display: "flex",
+    //maxWidth: 600,
+    flexDirection: "column",
+    overflow: "auto",
+    marginTop: 15,
+    ["@media (max-width:780px)"]: {
+      maxWidth: "100%",
+      display: "block",
+    },
   },
   boxSub: {
     color: "#f0f5f3",
     display: "flex",
     justifyContent: "space-between",
   },
-  title: {
+  button: {
+    border: "1px solid #1FA774",
     color: "#f0f5f3",
-    fontWeight: "bold",
-    padding: 20,
+    "&:hover": {
+      border: "1px solid #f0f5f3",
+    },
+  },
+  cardAction: {
+    border: "2px solid #f0f5f3",
     background: "#1FA774",
+    color: "#1FA774",
+    "&:hover": {
+      color: "#1FA774",
+    },
   },
 });
-export const tabelaStyle = makeStyles({
-  
-  box: {
-    display:'flex',
-    flexWrap:'nowrap',
-    background: "#55454554"
 
-    //flexDirection:'column',
-   // overflow: "auto",
-    
-  },
-  boxTable: {
-    width: "100%",
-  },
-  thTable: {
-    width: 100,
-  },
-  root: {
-    maxWidth: 600,
-    maxHeight: 600,
-    marginRight: 30,
-    overflow: "auto",
-  },
-  boxHeader: {
-    background: "#1FA774",
-  },
-  boxHeaderTitle: {
-    position: "relative",
-    whiteSpace: "normal",
-    width: 360,
-    padding: 5,
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    fontWeight: "bold",
-    color: "#f0f5f3"
-  },
-  boxContentTitle: {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: 360,
-    //maxHeight: 50,
-    padding: 5,
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-  boxContent: {
-    minHeight: 150,      
-  },
-  boxCard: {
-    marginTop: 5,
-  },
-  boxSub:{
-    color: '#f0f5f3',
-    display:'flex',
-    justifyContent: 'space-between'
-  },
-  title:{
-    color: '#f0f5f3',
-    fontWeight:'bold',
+export const detalheStyle = makeStyles({
+  box: {
+    width: "calc(100% - 400px)",
     padding: 20,
+    marginLeft: 15,
+    ["@media (max-width:780px)"]: {
+      display: "block",
+      width: "100%",
+      marginTop: 15,
+      marginLeft: 0,
+    },
+  },
+  textVerde: {
+    color: "#1FA774",
+  },
+  textVermelho: {
+    color: "#FF6163",
+  },
+});
+
+
+export const InputForm = styled(Box)({
+  flexGrow: 1,
+  margin: "10px 5px",
+  "& label.Mui-focused": {
+    color: "#1FA774",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#1FA774",
+  },
+  "&.Mui-focused fieldset": {
+    borderColor: "#1FA774",
+  },
+});
+
+export const BoxForm = styled(Box)({
+  display: "flex",
+  width: "100%",
+  margin: "10px 0",
+  justifyContent: "space-around",
+  ["@media (max-width:780px)"]: {
+    display: "block",
+  },
+});
+
+export const BoxDialog = styled(Box)({
+  padding: 40,
+  textAlign: "center",
+});
+
+export const Btn = styled(Button)({
+    padding: "10px 30px",
+    fontSize: "1.2rem",
     background: "#1FA774",
-  }
-  
+    border: "3px solid #1FA774",
+    color: "#e8e8e8",
+    "&:hover": {
+      color: "#1FA774",
+      background: "#e8e8e8",
+    },
 });
 

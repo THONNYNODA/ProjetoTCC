@@ -16,17 +16,17 @@ const ItemOrdemSchema = new mongoose.Schema({
     },
     dsServicoRealizado:{
         type: String,
-        require: true,
+        //require: true,
     },
     idUsuario:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario',
-        require: true,
+        //require: true,
     },
     idOrdem:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ordem',
-        require: true,
+        //require: true,
     },
     idServico:{
         type: mongoose.Schema.Types.ObjectId,
