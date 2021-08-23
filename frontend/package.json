@@ -15,6 +15,7 @@
     "axios": "^0.21.1",
     "formik": "^2.2.9",
     "formik-material-ui": "^3.0.1",
+    "formik-material-ui-lab": "^1.0.0-alpha.1",
     "history": "^5.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",

@@ -7,13 +7,13 @@ export const BackBox = styled(Box)({
   width: "100%",
 });
 export const ButtomChamado = styled(Button)({
- //width: "100%",
+  //width: "100%",
   border: "2px solid #1FA774",
   color: "#1FA774",
-  marginRight:5,
+  marginRight: 5,
   "&:hover": {
     color: "#f0f5f3",
-    background: '#1FA774',
+    background: "#1FA774",
   },
 });
 
@@ -29,6 +29,7 @@ export const SubBox = styled(Box)({
 export const Conteiner = styled(Box)({
   display: "flex",
   width: "100%",
+  flex: 1,
   ["@media (max-width:780px)"]: {
     display: "block",
     maxHeight: "none",
@@ -70,6 +71,8 @@ export const tabelaStyle = makeStyles({
   box: {
     //display:'flex',
     width: "100%",
+    height: "100%",
+    minHeight: 600,
     flexDirection: "column",
   },
   boxTable: {
@@ -80,7 +83,7 @@ export const tabelaStyle = makeStyles({
   },
   root: {
     display: "flex",
-    maxWidth:400,
+    maxWidth: 400,
     maxHeight: 600,
     flexDirection: "column",
     overflow: "auto",
@@ -146,6 +149,32 @@ export const tabelaStyle = makeStyles({
       color: "#1FA774",
     },
   },
+  boxCarregar: {
+    width: "calc(100% - 400px)",
+    height: "100%",
+    minHeight: 500,
+    padding: 20,
+    marginLeft: 15,
+    ["@media (max-width:780px)"]: {
+      display: "block",
+      width: "100%",
+      marginTop: 15,
+      marginLeft: 0,
+    },
+  },
+  carregar: {
+    display: 'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    width: "100%",
+    minHeight: 500,
+   opacity: 0.1
+  },
+  imgCarregar: {
+    width: 200,
+    height: 200,
+    zIndex: 999,
+  },
 });
 
 export const detalheStyle = makeStyles({
@@ -167,7 +196,6 @@ export const detalheStyle = makeStyles({
     color: "#FF6163",
   },
 });
-
 
 export const InputForm = styled(Box)({
   flexGrow: 1,
@@ -199,14 +227,13 @@ export const BoxDialog = styled(Box)({
 });
 
 export const Btn = styled(Button)({
-    padding: "10px 30px",
-    fontSize: "1.2rem",
-    background: "#1FA774",
-    border: "3px solid #1FA774",
-    color: "#e8e8e8",
-    "&:hover": {
-      color: "#1FA774",
-      background: "#e8e8e8",
-    },
+  padding: "10px 30px",
+  fontSize: "1.2rem",
+  background: "#1FA774",
+  border: "3px solid #1FA774",
+  color: "#e8e8e8",
+  "&:hover": {
+    color: "#1FA774",
+    background: "#e8e8e8",
+  },
 });
-

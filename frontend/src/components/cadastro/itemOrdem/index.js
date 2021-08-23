@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Dialog from "@material-ui/core/Dialog";
-import { TextField } from "formik-material-ui";
-import { MenuItem, Typography } from "@material-ui/core";
+import { TextField} from "formik-material-ui";
+import { MenuItem, RadioGroup, Typography } from "@material-ui/core";
+
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import api from "../../../services/api";
 
-import { InputForm, BoxForm, Title, BoxDialog, Btn } from "./styles";
+import { InputForm, BoxForm, Title, BoxDialog, Btn, itemOrdemStyle } from "./styles";
 
 function ItemOrdem(props) {
+  const classes = itemOrdemStyle()
   const initialValues = {
     dtInicio: "",
     dtFinal: "",
@@ -16,10 +20,12 @@ function ItemOrdem(props) {
     idServico: "",
   };
 
+  const data = {
+    dsStatus: "FINALIZADO",
+    idItemOrdem: [],
+  };
+
   const [servico, setServico] = useState([]);
-  const [item, setItem] = useState(null);
-
-
 
   useEffect(() => {
     api.get("/servico").then((res) => {
@@ -27,8 +33,6 @@ function ItemOrdem(props) {
       setServico(servico);
     });
   }, []);
-
-  console.log(...props.lista[props.idAtual])
 
   return (
     <>
@@ -39,12 +43,12 @@ function ItemOrdem(props) {
           <Formik
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              setTimeout((id) => {
-                api.put(`/ordem/${props.lista[props.idAtual]._id}`, values);
-                //const value = values.filter((values) => id === values._id)
-                console.log(values);
+              data.idItemOrdem.push(values);
+              setTimeout(async () => {
+                await api.put(`/ordem/${props.datas._id}`, data);
                 setSubmitting(false);
-              }, 400);
+                return alert("cadastrado");
+              }, 3000);
             }}
           >
             {({ errors, touched, isSubmitting }) => (
@@ -98,7 +102,14 @@ function ItemOrdem(props) {
                   />
                   {errors.dsServicoRealizado && touched.dsServicoRealizado}
                 </InputForm>
-
+                <RadioGroup>
+                  <Field />
+                </RadioGroup>
+                {isSubmitting && (
+                  <Backdrop className={classes.backdrop} open={true}>
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
+                )}
                 <Btn variant="contained" type="submit">
                   Enviar
                 </Btn>

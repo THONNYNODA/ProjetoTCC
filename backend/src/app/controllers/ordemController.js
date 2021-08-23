@@ -92,15 +92,11 @@ router.put("/:ordemId", async (req, res) => {
       { new: true }
     );
 
-    ordem.idItemOrdem = [];
-    await ItemOrdem.deleteMany({ idOrdem: ordem._id });
+    // ordem.idItemOrdem = [];
+    // await ItemOrdem.deleteMany({ idOrdem: ordem._id });
 
     await Promise.all(
-      // idItemOrdem.map(async (itensOrdem) => {
-      //   const ordemItem = new ItemOrdem({
-      //     ...itensOrdem,
-      //     idOrdem: ordem._id,
-      //   });
+      
       idItemOrdem.map(async (itensOrdem) => {
         const ordemItem = new ItemOrdem({
           ...itensOrdem,

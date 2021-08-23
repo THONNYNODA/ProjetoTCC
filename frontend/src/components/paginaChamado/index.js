@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import api from "../../services/api";
 
 import Paper from "@material-ui/core/Paper";
-import { Dialog, Divider } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 
 import ItemOrdem from "../cadastro/itemOrdem";
 
@@ -18,31 +16,13 @@ import {
 
 function DetalheChamado(props) {
   const classes = detalheStyle();
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [datas, setDatas] = useState("");
 
-  const [item, setItem] = useState({
-    idItemOrdem: {
-      dsServicoRealizado: "",
-    },
-  });
-
-  useEffect(
-    (idAtual) => {
-      if (props.idAtual === " ") {
-        setItem({ ...item });
-      } else {
-        setItem({ ...props.lista[props.idAtual] });
-      }
-    },
-    [props.idAtual, props.lista]
-  );
-
-  const handleOpen = (id) => {
-    setOpen(true)
-    console.log(id)
-   
-    
-    return <ItemOrdem />;
+  const handleOpen = () => {
+    setOpen(true);
+    setDatas({ ...datas, datas: props.lista[props.idAtual] });
+    return <ItemOrdem {...datas} />;
   };
 
   const horas = (lista) => {
@@ -96,23 +76,25 @@ function DetalheChamado(props) {
 
           {props.lista[props.idAtual].idItemOrdem.map((lis) => (
             <>
-              <SubBox>
-                <Text>Prestador em: {lis.idUsuario}</Text>
-                <Text>Servico Realidado: {lis.idServico}</Text>
-                {/* {props.lista[props.idAtual].idUsuario.map(lis => (
-                 <Text>Prestador em: {lis.nmColaborador}</Text>
-              ))} */}
-              </SubBox>
-              <SubBox>
-                <Text>Inicializado em: {lis.dtInicio}</Text>
-                <Text>Finalizado em: {lis.dtFinal}</Text>
-              </SubBox>
-              <Text>Comentario: {lis.dsServicoRealizado}</Text>
+              <Paper>
+                <SubBox>
+                  <Text>Prestador em: {lis.idUsuario}</Text>
+                  <Text>Servico Realidado: {lis.idServico}</Text>
+                  
+                </SubBox>
+                <SubBox>
+                  <Text>Inicializado em: {lis.dtInicio}</Text>
+                  <Text>Finalizado em: {lis.dtFinal}</Text>
+                </SubBox>
+                <Text>Comentario: {lis.dsServicoRealizado}</Text>
+              </Paper>
             </>
           ))}
         </BackBox>
-        <ButtomChamado onClick={()=>handleOpen(props.lista[props.idAtual])}>Inserir</ButtomChamado>
-        {open === true ? <ItemOrdem {...props.lista[props.idAtual]}/>: null}
+        <ButtomChamado onClick={() => handleOpen(props.lista[props.idAtual])}>
+          Inserir
+        </ButtomChamado>
+        {open === true ? <ItemOrdem {...datas} /> : null}
       </Paper>
     </>
   );
