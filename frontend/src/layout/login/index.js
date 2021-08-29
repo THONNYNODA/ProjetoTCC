@@ -14,6 +14,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import logoImg from '../../assets/logo.png'
 
 import { loginSyles, Imput, Title, Text, BackBox, BoxText } from './styles';
@@ -28,6 +31,8 @@ const Login = () => {
  const classes = loginSyles()
  const history = useHistory()
 
+ const [drop, setDrop] = useState(false);
+
  const formik = useFormik({
   initialValues: {
     cpf:"", 
@@ -36,12 +41,17 @@ const Login = () => {
   validationSchema: validationSchema,
 
   onSubmit: (values ) => {
+    setDrop(true);
     setTimeout( async () => {
       try {      
         const response = await api.post('/usuario/autenticacao', values)
         const token = response.data.token;
         const nome = response.data.usuario.nmColaborador;
-        login(token,nome)
+        const role = response.data.usuario.snPermissao;
+
+        
+        login(token,nome,role)
+        setDrop(false);
         return history.push('/painel')
         
       } catch (error) {
@@ -128,6 +138,11 @@ const Login = () => {
               </form>           
           </Paper>
         </Grid>
+        {drop === true ? (
+        <Backdrop className={classes.backdrop} open={drop}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : null}
       </div>
     )  
 }

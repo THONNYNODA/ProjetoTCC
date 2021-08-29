@@ -58,8 +58,13 @@ router.get("/", async (req, res) => {
       "idSetor",
       "idItemOrdem",
     ]);
+    const ordemItem = await ItemOrdem.find().populate([
+      "idUsuario",
+      "idServico",
+      "idItemOrdem",
+    ]);
 
-    return res.send({ ordem });
+    return res.send({ ordem,ordemItem });
   } catch (err) {
     return res.status(400).send({ mensagem: "Erro ao Listar a Ordem" });
   }
@@ -92,7 +97,42 @@ router.put("/:ordemId", async (req, res) => {
       { new: true }
     );
 
-    // ordem.idItemOrdem = [];
+     //ordem.idItemOrdem = [];
+    // await ItemOrdem.deleteMany({ idOrdem: ordem._id });
+
+    // await Promise.all(
+      
+    //   idItemOrdem.map(async (itensOrdem) => {
+    //     const ordemItem = new ItemOrdem({
+    //       ...itensOrdem,
+    //       idOrdem: ordem._id,
+    //       idUsuario: req.usuarioId,
+    //     });
+
+    //     await ordemItem.save();
+
+    //     ordem.idItemOrdem.push(ordemItem);
+    //   })
+    // );
+
+    // await ordem.save();
+
+    return res.send({ ordem });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send({ mensagem: "Erro ao Atualizar Ordem" });
+  }
+});
+router.put("/itemOrdem/:ordemId", async (req, res) => {
+  try {
+    const { dtInicioOrdem, dtFinalOrdem, dsStatus, idItemOrdem } = req.body;
+
+    const ordem = await Ordem.findByIdAndUpdate(
+      req.params.ordemId,
+     
+    );
+
+     //ordem.idItemOrdem = [];
     // await ItemOrdem.deleteMany({ idOrdem: ordem._id });
 
     await Promise.all(

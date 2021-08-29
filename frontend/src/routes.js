@@ -14,6 +14,7 @@ import Chamadas from './layout/chamadas';
 import Dashbord from './layout/dashbord'
 import Teste from './layout/Teste'
 import Cadastros from './layout/cadastros';
+import Configuracao from './layout/configuracao';
 
 const PrivateRouter = ({ component: Component, ...rest }) =>(
     <Route
@@ -34,12 +35,8 @@ const Routes = () =>{
             <PrivateRouter path='/painel' component={Painel}/>
             <PrivateRouter path='/chamadas' component={Chamadas}/>
             <PrivateRouter path='/dashbord' component={Dashbord}/>
-            <PrivateRouter path='/cadastros' component={Cadastros}/>
-            <PrivateRouter exact path='/editar_funcao/:id' component={Cadastros}/>
-            <PrivateRouter exact path='/editar_setor/:id' component={Cadastros}/>
-            <PrivateRouter exact path='/editar_servico/:id' component={Cadastros}/>
-          
-
+            <PrivateRouter path='/cadastros' component={Cadastros}/>  
+            <PrivateRouter roles={localStorage.sistemPermisson === 'ADMIN'} path='/config' component={Configuracao}/>  
             <Route path='/teste' component={Teste}/>
             <Route path="*" component={() => <h1>Page not found</h1>} />
         </Switch>

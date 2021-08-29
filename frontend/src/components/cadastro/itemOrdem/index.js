@@ -1,18 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Dialog from "@material-ui/core/Dialog";
-import { TextField} from "formik-material-ui";
-import { MenuItem, RadioGroup, Typography } from "@material-ui/core";
-
+import { TextField } from "formik-material-ui";
+import { MenuItem } from "@material-ui/core";
+import * as yup from "yup";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import api from "../../../services/api";
 
-import { InputForm, BoxForm, Title, BoxDialog, Btn, itemOrdemStyle } from "./styles";
+
+
+import {
+  InputForm,
+  BoxForm,
+  Title,
+  BoxDialog,
+  Btn,
+  itemOrdemStyle,
+} from "./styles";
+import Alert from "../../alert";
+import { BtnCancalar } from "../finalizarOrdem/styles";
+
+const validationSchema = yup.object().shape({
+  dtInicio: yup.string().required("Campo e obrigatorio"),
+  dtFinal: yup.string().required("Campo e obrigatorio"),
+  dsServicoRealizado: yup.string().required("Campo e obrigatorio"),
+  idServico: yup.string().required("Campo e obrigatorio"),
+});
 
 function ItemOrdem(props) {
-  const classes = itemOrdemStyle()
+  const classes = itemOrdemStyle();
   const initialValues = {
     dtInicio: "",
     dtFinal: "",
@@ -21,11 +39,11 @@ function ItemOrdem(props) {
   };
 
   const data = {
-    dsStatus: "FINALIZADO",
     idItemOrdem: [],
   };
 
   const [servico, setServico] = useState([]);
+  const [alert, setAlert] = useState(false);
 
   useEffect(() => {
     api.get("/servico").then((res) => {
@@ -34,20 +52,32 @@ function ItemOrdem(props) {
     });
   }, []);
 
+  console.log(props.datas.datas._id)
+
+  const handleClouse = () => {
+    props.setOpen(false)
+  }
+
+
   return (
     <>
-      <Dialog open fullWidth>
+      <Dialog open={props.open} fullWidth>
         <BoxDialog>
           <Title>Finalizar Chamadas</Title>
 
           <Formik
+            validationSchema={validationSchema}
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
               data.idItemOrdem.push(values);
+
               setTimeout(async () => {
-                await api.put(`/ordem/${props.datas._id}`, data);
-                setSubmitting(false);
-                return alert("cadastrado");
+                await api
+                  .put(`/ordem/itemOrdem/${props.datas.datas._id}`, data)
+                  .then((res) => {
+                    setSubmitting(false);
+                    return setAlert(true);
+                  });
               }, 3000);
             }}
           >
@@ -102,9 +132,6 @@ function ItemOrdem(props) {
                   />
                   {errors.dsServicoRealizado && touched.dsServicoRealizado}
                 </InputForm>
-                <RadioGroup>
-                  <Field />
-                </RadioGroup>
                 {isSubmitting && (
                   <Backdrop className={classes.backdrop} open={true}>
                     <CircularProgress color="inherit" />
@@ -113,10 +140,14 @@ function ItemOrdem(props) {
                 <Btn variant="contained" type="submit">
                   Enviar
                 </Btn>
+                <BtnCancalar onClick={handleClouse}>
+                  Cancelar
+                </BtnCancalar>
               </Form>
             )}
           </Formik>
         </BoxDialog>
+        {alert === true ? <Alert/> : null}
       </Dialog>
     </>
   );

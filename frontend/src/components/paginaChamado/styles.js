@@ -90,6 +90,7 @@ export const tabelaStyle = makeStyles({
       //maxHeight: 'none',
     },
   },
+  
   boxHeader: {
     background: "#1FA774",
   },
@@ -166,7 +167,24 @@ export const detalheStyle = makeStyles({
   textVermelho: {
     color: "#FF6163",
   },
+  rowItem: {
+    display: "flex",
+    maxHeight: 200,
+    flexDirection: "column",
+    overflow: "auto",
+    justifyContent: "space-between",
+    ["@media (max-width:780px)"]: {
+      display: "block",
+      //maxHeight: 'none',
+    },
+  },
+  boxItem: {
+   
+   margin:20,
+  },
 });
+
+
 
 
 export const InputForm = styled(Box)({

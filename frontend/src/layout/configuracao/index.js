@@ -1,17 +1,18 @@
 import React from "react";
+
 import { Grid } from "@material-ui/core/";
 import Header from "../../components/header";
 import Status from "../../components/status";
 import Buttom from "../../components/buttom";
-
-import { cadastrosStyle } from "./styles";
 import Cards from "../../components/card";
-import Funcao from "../../components/cadastro/funcao";
-import Servico from "../../components/cadastro/servicos";
-import Setor from "../../components/cadastro/setor";
 
-function cadastros() {
-  const classes = cadastrosStyle();
+
+import { configStyle } from "./styles";
+
+function Configuracao() {
+
+    console.log(localStorage.sistemPermisson)
+  const classes = configStyle();
   return (
     <>
       <Grid container alignItems="flex-start" className={classes.boxContainer}>
@@ -24,18 +25,8 @@ function cadastros() {
           </Grid>
           <Grid container justifyContent="center">
             <Grid className={classes.box}>
-              <Cards title="Lista Setor">
-                <Setor/>
-              </Cards>
-            </Grid>
-            <Grid xs={4} className={classes.box}>
-              <Cards title="Lista Funcao">
-                <Funcao />
-              </Cards>
-            </Grid>
-            <Grid className={classes.box}>
-              <Cards title="Lista Servico">
-                <Servico/>
+              <Cards title="Configuracao">
+               
               </Cards>
             </Grid>
           </Grid>
@@ -46,4 +37,4 @@ function cadastros() {
   );
 }
 
-export default cadastros;
+export default Configuracao;

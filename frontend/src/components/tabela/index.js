@@ -94,22 +94,19 @@ export default function TabelaChamado() {
                         className={classes.boxHeaderTitle}
                         variant="subtitle1"
                       >
-                        {lista[id].dsProblema}
+                        {lista[id].dsProblema.toUpperCase()}
                       </Typography>
                     }
                     subheader={
                       <div className={classes.boxSub}>
                         <Typography
-                          //className={classes.boxHeaderTitle}
-                          //color="textSecondary"
                           component="p"
                           align="right"
+
                         >
                           {lista[id].dsStatus}
                         </Typography>
                         <Typography
-                          //className={classes.boxHeaderTitle}
-                          //color="textSecondary"
                           component="p"
                           align="right"
                         >

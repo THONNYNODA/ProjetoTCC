@@ -14,9 +14,9 @@ import {
 
 
 const greenData = [
-  { x: "Ala 01", y: 2 },
+  { x: "Ala 01", y: 5},
   { x: "B", y: 7 },
-  { x: "C", y: 15 },
+  { x: "C", y: 13 },
 ];
 const labelData = greenData.map((d, idx) => ({
   x: d.x,
@@ -35,10 +35,9 @@ function RelatorioAla() {
     });
   }, []);
 
-  const ordem = lista.filter((e) => e ===e.idSetor).map((e) => e.idSetor);
+  const ordem = Object.keys(lista).filter(id => lista[id].idSetor.nmSetor === lista[id]).map((id) =>lista[id].idSetor.nmSetor);
 
   const setor = ordem.filter((e) => e._id === e.nmSetor).map((s) => s._id);
-  console.log(setor);
   console.log(ordem);
 
   const BarSeries = VerticalBarSeries;

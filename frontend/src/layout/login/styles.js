@@ -89,5 +89,9 @@ export const loginSyles = makeStyles({
     },
     link:{
       textDecoration: "none"
-    }
+    },
+    backdrop: {
+      zIndex: 9999,
+      color: "#fff",
+    },
   });

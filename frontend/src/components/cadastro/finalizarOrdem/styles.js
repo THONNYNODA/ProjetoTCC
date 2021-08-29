@@ -15,19 +15,8 @@ export const InputForm = styled(Box)({
   "&.Mui-focused fieldset": {
     borderColor: "#1FA774",
   },
-});
-
-export const BtnCancalar = styled(Button)({
-  
-  padding: "10px 15px",
-  marginLeft: 5,
-  fontSize: "1.2rem",
-  background: "#FF6163",
-  border: "2px solid #FF6163",
-  color: "#e8e8e8",
-  "&:hover": {
-    color: "#FF6163",
-    background: "#e8e8e8",
+  "&.MuiRadio-root": {
+    borderColor: "#1FA774",
   },
 });
 
@@ -46,14 +35,29 @@ export const BoxDialog = styled(Box)({
 });
 export const Btn = styled(Button)({
     padding: "10px 30px",
+    Width:100,
+    margin: 20,
     fontSize: "1.2rem",
     background: "#1FA774",
-    border: "2px solid #1FA774",
+    border: "3px solid #1FA774",
     color: "#e8e8e8",
     "&:hover": {
       color: "#1FA774",
       background: "#e8e8e8",
     },
+});
+
+export const BtnCancalar = styled(Button)({
+  padding: "10px 15px",
+  marginLeft: 5,
+  fontSize: "1.2rem",
+  background: "#FF6163",
+  border: "2px solid #FF6163",
+  color: "#e8e8e8",
+  "&:hover": {
+    color: "#FF6163",
+    background: "#e8e8e8",
+  },
 });
 
 export const Title = styled(Typography)({
@@ -64,13 +68,16 @@ export const Title = styled(Typography)({
   textShadow: "4px 4px 4px rgba(150, 150, 150, 1)",
 });
 
-export const itemOrdemStyle = makeStyles({
+export const finalOrdemStyle = makeStyles({
   backdrop: {
-    zIndex: 999,
+    zIndex: 9999,
     color: "#fff",
   },
-  icon:{
-    fontSize: 60,
-    color: "#1FA774"
+
+  boxRadio: {
+    "&.MuiRadio-colorSecondary": {
+      color: "#1FA774",
+    },
+    
   }
 })

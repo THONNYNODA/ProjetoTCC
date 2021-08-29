@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Paper from "@material-ui/core/Paper";
-import { Divider } from "@material-ui/core";
+import { Box, Divider } from "@material-ui/core";
 
 import ItemOrdem from "../cadastro/itemOrdem";
 
@@ -13,16 +13,25 @@ import {
   SubBox,
   ButtomChamado,
 } from "./styles";
+import api from "../../services/api";
+import FinalizarOrdem from "../cadastro/finalizarOrdem";
 
 function DetalheChamado(props) {
   const classes = detalheStyle();
   const [open, setOpen] = useState(false);
+  const [end, setEnd] = useState(false);
   const [datas, setDatas] = useState("");
+  const [list, setList] = useState([])
 
   const handleOpen = () => {
     setOpen(true);
     setDatas({ ...datas, datas: props.lista[props.idAtual] });
-    return <ItemOrdem {...datas} />;
+    return <ItemOrdem />;
+  };
+  const handleFinalizar = () => {
+    setEnd(true);
+    setDatas({ ...datas, datas: props.lista[props.idAtual] });
+    return <FinalizarOrdem />;
   };
 
   const horas = (lista) => {
@@ -41,9 +50,35 @@ function DetalheChamado(props) {
     return datas;
   };
 
+  const horasItem = (list) => {
+    const datas =
+      new Date(list.dtInicio).getDate() +
+      "/" +
+      (new Date(list.dtInicio).getMonth() + 1) +
+      " de " +
+      new Date(list.dtInicio).getFullYear() +
+      " às " +
+      new Date(list.dtInicio).getHours() +
+      ":" +
+      new Date(list.dtInicio).getMinutes() +
+      "h";
+
+    return datas;
+  };
+
+  useEffect(()=> {
+    api.get('/itemordem').then(res => {
+      const list = res.data.itemOrdem;
+      setList(list)      
+    })
+  },[])
+
+
+
+
   return (
     <>
-      <Paper key={props.idAtual} className={classes.box}>
+      <Paper key={props.lista[props.idAtual]._id} className={classes.box}>
         <SubBox>
           <Title>Chamada - {props.idAtual}</Title>
           <Text> Solicitado em {horas(props.lista[props.idAtual])}</Text>
@@ -54,7 +89,7 @@ function DetalheChamado(props) {
               Assunto: {props.lista[props.idAtual].dsProblema.toUpperCase()}
             </Text>
             <Text noWrap={false}>
-              Solicitante:{" "}
+              Solicitante:
               {props.lista[props.idAtual].idUsuario.nmColaborador.toUpperCase()}
             </Text>
           </SubBox>
@@ -73,13 +108,15 @@ function DetalheChamado(props) {
           <Text>Detalhe: {props.lista[props.idAtual].dsDetalhe} </Text>
           <Divider variant="middle" />
           <Title>Resposta: </Title>
+          <Box className={classes.rowItem}>
 
-          {props.lista[props.idAtual].idItemOrdem.map((lis) => (
+          
+          {list.filter(e => e.idOrdem._id === props.lista[props.idAtual]._id).map((lis) => (
             <>
-              <Paper>
-                <SubBox>
-                  <Text>Prestador em: {lis.idUsuario}</Text>
-                  <Text>Servico Realidado: {lis.idServico}</Text>
+              <Paper className={classes.boxItem} key={lis._id}>
+              <SubBox>
+                  <Text>Prestador em: {lis.idUsuario.nmColaborador.toUpperCase()}</Text>
+                  <Text>Servico Realidado: {lis.idServico.nmServico}</Text>
                   
                 </SubBox>
                 <SubBox>
@@ -90,11 +127,16 @@ function DetalheChamado(props) {
               </Paper>
             </>
           ))}
+          </Box>
         </BackBox>
         <ButtomChamado onClick={() => handleOpen(props.lista[props.idAtual])}>
-          Inserir
+          Responder
         </ButtomChamado>
-        {open === true ? <ItemOrdem {...datas} /> : null}
+        <ButtomChamado  onClick={() =>handleFinalizar(props.lista[props.idAtual])}>
+          Finalizar
+        </ButtomChamado>
+        {open === true ? <ItemOrdem {...{datas, open,setOpen}} /> : null}
+        {end === true ? <FinalizarOrdem {...{datas,end,setEnd}} /> : null}
       </Paper>
     </>
   );

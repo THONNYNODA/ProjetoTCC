@@ -152,7 +152,7 @@ export const tabelaStyle = makeStyles({
   boxCarregar: {
     width: "calc(100% - 400px)",
     height: "100%",
-    minHeight: 500,
+    minHeight: 600,
     padding: 20,
     marginLeft: 15,
     ["@media (max-width:780px)"]: {
