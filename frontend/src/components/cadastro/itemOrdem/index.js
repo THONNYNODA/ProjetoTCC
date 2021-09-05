@@ -150,7 +150,7 @@ function ItemOrdem(props) {
             )}
           </Formik>
         </BoxDialog>
-        {alert === true ? <Alert /> : null}
+        {alert === true ? <Alert title="Realizado Sucesso!!" /> : null}
       </Dialog>
     </>
   );

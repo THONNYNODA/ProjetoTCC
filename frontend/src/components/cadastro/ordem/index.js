@@ -117,7 +117,7 @@ function Ordem(props) {
               <Btn variant="contained" disabled={isSubmitting} type="submit">
                 Enviar
               </Btn>
-              {confirmacao === true ? <Alert/> : null}
+              {confirmacao === true ? <Alert title="Ordem Gerado com Sucesso!!"/> : null}
             </Form>
             
           )}

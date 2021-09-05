@@ -48,12 +48,12 @@ export const SubBox = styled(Box)({
   },
 });
 export const BtnBox = styled(Box)({
-  display: "flex",
+  display: props => props.display,
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-between",
   ["@media (max-width:780px)"]: {
-    display: "block",
+    display: props => props.display === "none" ,
   },
 });
 export const Conteiner = styled(Box)({

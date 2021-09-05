@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 
 import { alertStyle,Title,BoxDialog } from './styles';
 
-function Alert() {
+function Alert(props) {
     const classes = alertStyle()
 
     setTimeout(() => {
@@ -14,7 +14,7 @@ function Alert() {
     <>
       <Dialog open={true}>
         <BoxDialog>
-          <Title>Enviado com Sucesso!!</Title>
+          <Title>{props.title}</Title>
           <CheckCircleIcon className={classes.icon} />
         </BoxDialog>
       </Dialog>

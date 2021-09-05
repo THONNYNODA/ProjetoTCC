@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Dialog from "@material-ui/core/Dialog";
 import { Box } from "@material-ui/core/";
-import {  Radio, RadioGroup, Typography } from "@material-ui/core";
+import {  Radio, RadioGroup } from "@material-ui/core";
 import Alert from "../../alert";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
@@ -85,7 +85,7 @@ function FinalizarOrdem(props) {
           </form>
         </BoxDialog>
       </Dialog>
-      {alert === true ? <Alert /> : null}
+      {alert === true ? <Alert title="Ordem Finalizado com Sucesso!!"/> : null}
       {drop === true ? (
         <Backdrop className={classes.backdrop} open={drop}>
           <CircularProgress color="inherit" />

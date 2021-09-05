@@ -17,12 +17,15 @@ import {
 } from "./styles";
 import api from "../../services/api";
 import FinalizarOrdem from "../cadastro/finalizarOrdem";
+import Alert from "../alert";
+import DeletarOrdem from "../cadastro/DeletarOrdem";
 
 function DetalheChamado(props) {
   const classes = detalheStyle();
   const [open, setOpen] = useState(false);
   const [end, setEnd] = useState(false);
   const [confirmacao, setConfirmacao] = useState(false);
+  const [editar, setEditar] = useState(false);
   const [datas, setDatas] = useState("");
   const [list, setList] = useState([]);
 
@@ -38,14 +41,14 @@ function DetalheChamado(props) {
   };
 
   const handleDeletar = (id) => {
-    setTimeout(async () => {
-      await api
-        .delete(`/ordem/${props.lista[props.idAtual]._id}`)
-        .then((res) => {
-          return alert("deletado com sucesso");
-        });
-      window.location.reload();
-    }, 3000);
+    setConfirmacao(true);
+    setDatas({ ...datas, datas: props.lista[props.idAtual] });
+    return <DeletarOrdem />;
+  };
+  const handleEditar= (id) => {
+    setEditar(true);
+    setDatas({ ...datas, datas: props.lista[props.idAtual] });
+    return <DeletarOrdem />;
   };
 
   const horas = (lista) => {
@@ -142,25 +145,37 @@ function DetalheChamado(props) {
               ))}
           </Box>
         </BackBox>
-        <BtnBox>
+        <BtnBox display={props.lista[props.idAtual].dsStatus === "PENDENTE" ? "flex" : "none"}>
           <div>
-          <ButtomChamado onClick={() => handleOpen(props.lista[props.idAtual])}>
-            Responder
-          </ButtomChamado>
-          <ButtomChamado
-            onClick={() => handleFinalizar(props.lista[props.idAtual])}
-          >
-            Finalizar
-          </ButtomChamado>
+            <ButtomChamado
+              onClick={() => handleOpen(props.lista[props.idAtual])}
+            >
+              Responder
+            </ButtomChamado>
+            <ButtomChamado
+              onClick={() => handleFinalizar(props.lista[props.idAtual])}
+            >
+              Finalizar
+            </ButtomChamado>
           </div>
+          <div>
+          <ButtomChamado
+              onClick={() => handleEditar(props.lista[props.idAtual])}
+            >
+              Editar
+            </ButtomChamado>
           <BtnDelete
-            onClick={() => handleDeletar(props.lista[props.idAtual]._id)}
+            onClick={() => handleDeletar(props.lista[props.idAtual])}
           >
             Deletar
           </BtnDelete>
+          </div>
         </BtnBox>
+        {confirmacao === true ? <DeletarOrdem {...{ datas, confirmacao, setConfirmacao }} /> : null}
         {open === true ? <ItemOrdem {...{ datas, open, setOpen }} /> : null}
         {end === true ? <FinalizarOrdem {...{ datas, end, setEnd }} /> : null}
+        {editar === true ? <FinalizarOrdem {...{ datas, editar, setEditar }} /> : null}
+        
       </Paper>
     </>
   );
