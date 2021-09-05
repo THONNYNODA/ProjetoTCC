@@ -29,18 +29,18 @@ router.post("/", async (req, res) => {
       idUsuario: req.usuarioId,
     });
 
-    await Promise.all(
-      idItemOrdem.map(async (itensOrdem) => {
-        const ordemItem = new ItemOrdem({
-          ...itensOrdem,
-          idOrdem: ordem._id,
-        });
+    // await Promise.all(
+    //   idItemOrdem.map(async (itensOrdem) => {
+    //     const ordemItem = new ItemOrdem({
+    //       ...itensOrdem,
+    //       idOrdem: ordem._id,
+    //     });
 
-        await ordemItem.save();
+    //     await ordemItem.save();
 
-        ordem.idItemOrdem.push(ordemItem);
-      })
-    );
+    //     ordem.idItemOrdem.push(ordemItem);
+    //   })
+    // );
 
     await ordem.save();
 
@@ -64,7 +64,7 @@ router.get("/", async (req, res) => {
       "idItemOrdem",
     ]);
 
-    return res.send({ ordem,ordemItem });
+    return res.send({ ordem, ordemItem });
   } catch (err) {
     return res.status(400).send({ mensagem: "Erro ao Listar a Ordem" });
   }
@@ -92,16 +92,16 @@ router.put("/:ordemId", async (req, res) => {
       {
         dtInicioOrdem,
         dtFinalOrdem,
-        dsStatus
+        dsStatus,
       },
       { new: true }
     );
 
-     //ordem.idItemOrdem = [];
+    //ordem.idItemOrdem = [];
     // await ItemOrdem.deleteMany({ idOrdem: ordem._id });
 
     // await Promise.all(
-      
+
     //   idItemOrdem.map(async (itensOrdem) => {
     //     const ordemItem = new ItemOrdem({
     //       ...itensOrdem,
@@ -127,16 +127,12 @@ router.put("/itemOrdem/:ordemId", async (req, res) => {
   try {
     const { dtInicioOrdem, dtFinalOrdem, dsStatus, idItemOrdem } = req.body;
 
-    const ordem = await Ordem.findByIdAndUpdate(
-      req.params.ordemId,
-     
-    );
+    const ordem = await Ordem.findByIdAndUpdate(req.params.ordemId);
 
-     //ordem.idItemOrdem = [];
+    //ordem.idItemOrdem = [];
     // await ItemOrdem.deleteMany({ idOrdem: ordem._id });
 
     await Promise.all(
-      
       idItemOrdem.map(async (itensOrdem) => {
         const ordemItem = new ItemOrdem({
           ...itensOrdem,
@@ -161,10 +157,14 @@ router.put("/itemOrdem/:ordemId", async (req, res) => {
 
 router.delete("/:ordemId", async (req, res) => {
   try {
+    Ordem.idItemOrdem = [];
+    await ItemOrdem.deleteMany({ idOrdem:req.params.ordemId });
+
     await Ordem.findByIdAndRemove(req.params.ordemId);
 
     return res.send({ mensagem: "Deletado com sucesso" });
   } catch (err) {
+    console.log(err);
     return res.status(400).send({ mensagem: "Erro ao deletar a Ordem" });
   }
 });

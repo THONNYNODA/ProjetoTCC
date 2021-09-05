@@ -28,6 +28,7 @@ export const SubBox = styled(Box)({
 });
 export const Conteiner = styled(Box)({
   display: "flex",
+  justifyContent:"space-between",
   width: "100%",
   flex: 1,
   ["@media (max-width:780px)"]: {
@@ -83,7 +84,7 @@ export const tabelaStyle = makeStyles({
   },
   root: {
     display: "flex",
-    maxWidth: 400,
+
     maxHeight: 600,
     flexDirection: "column",
     overflow: "auto",
@@ -140,6 +141,11 @@ export const tabelaStyle = makeStyles({
     "&:hover": {
       border: "1px solid #f0f5f3",
     },
+    ["@media (max-width:780px)"]: {
+      width: "100%",
+      display: "block",
+      //maxHeight: 'none',
+    },
   },
   cardAction: {
     border: "2px solid #f0f5f3",
@@ -163,12 +169,12 @@ export const tabelaStyle = makeStyles({
     },
   },
   carregar: {
-    display: 'flex',
-    justifyContent:'center',
-    alignItems:'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     width: "100%",
     minHeight: 500,
-   opacity: 0.1
+    opacity: 0.1,
   },
   imgCarregar: {
     width: 200,

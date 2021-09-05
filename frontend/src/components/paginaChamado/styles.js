@@ -15,9 +15,39 @@ export const ButtomChamado = styled(Button)({
     color: "#f0f5f3",
     background: '#1FA774',
   },
+  ["@media (max-width:780px)"]: {
+    marginTop:5,
+    width: "100%",
+    display: "block",
+  },
+});
+export const BtnDelete = styled(Button)({
+ //width: "100%",
+  border: "2px solid #FF6163",
+  color: "#FF6163",
+  marginRight:5,
+  "&:hover": {
+    color: "#f0f5f3",
+    background: '#FF6163',
+  },
+  ["@media (max-width:780px)"]: {
+    marginTop:5,
+    width: "100%",
+    display: "block",
+  },
 });
 
+
 export const SubBox = styled(Box)({
+  display: "flex",
+  width: "100%",
+  margin: "10px 0",
+  justifyContent: "space-between",
+  ["@media (max-width:780px)"]: {
+    display: "block",
+  },
+});
+export const BtnBox = styled(Box)({
   display: "flex",
   width: "100%",
   margin: "10px 0",
@@ -169,7 +199,7 @@ export const detalheStyle = makeStyles({
   },
   rowItem: {
     display: "flex",
-    maxHeight: 200,
+    height: 200,
     flexDirection: "column",
     overflow: "auto",
     justifyContent: "space-between",

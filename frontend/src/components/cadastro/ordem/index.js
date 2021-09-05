@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import api from "../../../services/api";
 
 import { InputForm, BoxForm, Title, BoxDialog, Btn } from "../itemOrdem/styles";
+import Alert from "../../alert";
 
 const validationSchema = yup.object().shape({
   dsProblema: yup.string().required("Campo e obrigatorio"),
@@ -34,12 +35,11 @@ function Ordem(props) {
     dsProblema: "",
     dsDetalhe: "",
     idSetor: "",
-    
   };
- 
-  const [setores, setSetor] = useState([]);
 
-  
+  const [setores, setSetor] = useState([]);
+  const [confirmacao, setConfirmacao] = useState(false);
+
   useEffect(() => {
     api.get("/setor").then((res) => {
       const setores = res.data.setor;
@@ -57,16 +57,13 @@ function Ordem(props) {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting, resetForm}) => {
-            setTimeout(() => {
-             api.post("/ordem", values);
-              console.log(values)
-              setSubmitting(false);
-              resetForm({});
-              onClose(true)
-              
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setTimeout(async () => {
+              await api.post("/ordem", values).then((res) => {
+                setSubmitting(false)
+                return setConfirmacao(true)
+              });
             }, 3000);
-            //window.location.reload();
           }}
         >
           {({ errors, touched, isSubmitting }) => (
@@ -117,12 +114,13 @@ function Ordem(props) {
                 </Backdrop>
               )}
 
-              <Btn variant="contained"  disabled={isSubmitting} type="submit">
+              <Btn variant="contained" disabled={isSubmitting} type="submit">
                 Enviar
               </Btn>
+              {confirmacao === true ? <Alert/> : null}
             </Form>
+            
           )}
-          
         </Formik>
       </BoxDialog>
     </Dialog>

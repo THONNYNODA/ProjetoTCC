@@ -6,12 +6,10 @@ import Status from "../../components/status";
 import Buttom from "../../components/buttom";
 import Cards from "../../components/card";
 
-
 import { configStyle } from "./styles";
 
 function Configuracao() {
-
-    console.log(localStorage.sistemPermisson)
+  console.log(localStorage.sistemPermisson);
   const classes = configStyle();
   return (
     <>
@@ -25,9 +23,7 @@ function Configuracao() {
           </Grid>
           <Grid container justifyContent="center">
             <Grid className={classes.box}>
-              <Cards title="Configuracao">
-               
-              </Cards>
+              <Cards title="Configuracao"></Cards>
             </Grid>
           </Grid>
           <Buttom />

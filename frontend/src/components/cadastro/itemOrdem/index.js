@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Dialog from "@material-ui/core/Dialog";
 import { TextField } from "formik-material-ui";
-import { MenuItem } from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem } from "@material-ui/core";
 import * as yup from "yup";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import api from "../../../services/api";
-
-
 
 import {
   InputForm,
@@ -52,12 +50,11 @@ function ItemOrdem(props) {
     });
   }, []);
 
-  console.log(props.datas.datas._id)
+  console.log(props.datas.datas._id);
 
   const handleClouse = () => {
-    props.setOpen(false)
-  }
-
+    props.setOpen(false);
+  };
 
   return (
     <>
@@ -101,13 +98,17 @@ function ItemOrdem(props) {
                 </InputForm>
                 <BoxForm>
                   <InputForm>
-                    <Field
-                      name="dtInicio"
-                      fullWidth
-                      component={TextField}
-                      label=" "
-                      type="datetime-local"
-                    ></Field>
+                      <Field
+                        name="dtInicio"
+                        fullWidth
+                        component={TextField}
+                        label="Iniciado em"
+                        type="datetime-local"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      ></Field>
+                  
                     {errors.dtInicio && touched.dtInicio}
                   </InputForm>
                   <InputForm>
@@ -115,8 +116,11 @@ function ItemOrdem(props) {
                       name="dtFinal"
                       fullWidth
                       component={TextField}
-                      label=" "
-                      type="datetime-local"
+                      label="Finalizado em"
+                        type="datetime-local"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
                     ></Field>
                     {errors.dtFinal && touched.dtFinal}
                   </InputForm>
@@ -127,6 +131,7 @@ function ItemOrdem(props) {
                     fullWidth
                     component={TextField}
                     label="Detalhe"
+                    
                     multiline
                     rows={4}
                   />
@@ -140,14 +145,12 @@ function ItemOrdem(props) {
                 <Btn variant="contained" type="submit">
                   Enviar
                 </Btn>
-                <BtnCancalar onClick={handleClouse}>
-                  Cancelar
-                </BtnCancalar>
+                <BtnCancalar onClick={handleClouse}>Cancelar</BtnCancalar>
               </Form>
             )}
           </Formik>
         </BoxDialog>
-        {alert === true ? <Alert/> : null}
+        {alert === true ? <Alert /> : null}
       </Dialog>
     </>
   );

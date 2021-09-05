@@ -12,6 +12,8 @@ import {
   BackBox,
   SubBox,
   ButtomChamado,
+  BtnDelete,
+  BtnBox,
 } from "./styles";
 import api from "../../services/api";
 import FinalizarOrdem from "../cadastro/finalizarOrdem";
@@ -20,8 +22,9 @@ function DetalheChamado(props) {
   const classes = detalheStyle();
   const [open, setOpen] = useState(false);
   const [end, setEnd] = useState(false);
+  const [confirmacao, setConfirmacao] = useState(false);
   const [datas, setDatas] = useState("");
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -32,6 +35,17 @@ function DetalheChamado(props) {
     setEnd(true);
     setDatas({ ...datas, datas: props.lista[props.idAtual] });
     return <FinalizarOrdem />;
+  };
+
+  const handleDeletar = (id) => {
+    setTimeout(async () => {
+      await api
+        .delete(`/ordem/${props.lista[props.idAtual]._id}`)
+        .then((res) => {
+          return alert("deletado com sucesso");
+        });
+      window.location.reload();
+    }, 3000);
   };
 
   const horas = (lista) => {
@@ -66,15 +80,12 @@ function DetalheChamado(props) {
     return datas;
   };
 
-  useEffect(()=> {
-    api.get('/itemordem').then(res => {
+  useEffect(() => {
+    api.get("/itemordem").then((res) => {
       const list = res.data.itemOrdem;
-      setList(list)      
-    })
-  },[])
-
-
-
+      setList(list);
+    });
+  }, []);
 
   return (
     <>
@@ -97,7 +108,7 @@ function DetalheChamado(props) {
             Status:
             <span
               className={
-                props.lista[props.idAtual].dsStatus == "PENDENTE"
+                props.lista[props.idAtual].dsStatus === "PENDENTE"
                   ? classes.textVermelho
                   : classes.textVerde
               }
@@ -109,34 +120,47 @@ function DetalheChamado(props) {
           <Divider variant="middle" />
           <Title>Resposta: </Title>
           <Box className={classes.rowItem}>
-
-          
-          {list.filter(e => e.idOrdem._id === props.lista[props.idAtual]._id).map((lis) => (
-            <>
-              <Paper className={classes.boxItem} key={lis._id}>
-              <SubBox>
-                  <Text>Prestador em: {lis.idUsuario.nmColaborador.toUpperCase()}</Text>
-                  <Text>Servico Realidado: {lis.idServico.nmServico}</Text>
-                  
-                </SubBox>
-                <SubBox>
-                  <Text>Inicializado em: {lis.dtInicio}</Text>
-                  <Text>Finalizado em: {lis.dtFinal}</Text>
-                </SubBox>
-                <Text>Comentario: {lis.dsServicoRealizado}</Text>
-              </Paper>
-            </>
-          ))}
+            {list
+              .filter((e) => e.idOrdem._id === props.lista[props.idAtual]._id)
+              .map((lis) => (
+                <>
+                  <Paper className={classes.boxItem} key={lis._id}>
+                    <SubBox>
+                      <Text>
+                        Prestador em:{" "}
+                        {lis.idUsuario.nmColaborador.toUpperCase()}
+                      </Text>
+                      <Text>Servico Realidado: {lis.idServico.nmServico}</Text>
+                    </SubBox>
+                    <SubBox>
+                      <Text>Inicializado em: {lis.dtInicio}</Text>
+                      <Text>Finalizado em: {lis.dtFinal}</Text>
+                    </SubBox>
+                    <Text>Comentario: {lis.dsServicoRealizado}</Text>
+                  </Paper>
+                </>
+              ))}
           </Box>
         </BackBox>
-        <ButtomChamado onClick={() => handleOpen(props.lista[props.idAtual])}>
-          Responder
-        </ButtomChamado>
-        <ButtomChamado  onClick={() =>handleFinalizar(props.lista[props.idAtual])}>
-          Finalizar
-        </ButtomChamado>
-        {open === true ? <ItemOrdem {...{datas, open,setOpen}} /> : null}
-        {end === true ? <FinalizarOrdem {...{datas,end,setEnd}} /> : null}
+        <BtnBox>
+          <div>
+          <ButtomChamado onClick={() => handleOpen(props.lista[props.idAtual])}>
+            Responder
+          </ButtomChamado>
+          <ButtomChamado
+            onClick={() => handleFinalizar(props.lista[props.idAtual])}
+          >
+            Finalizar
+          </ButtomChamado>
+          </div>
+          <BtnDelete
+            onClick={() => handleDeletar(props.lista[props.idAtual]._id)}
+          >
+            Deletar
+          </BtnDelete>
+        </BtnBox>
+        {open === true ? <ItemOrdem {...{ datas, open, setOpen }} /> : null}
+        {end === true ? <FinalizarOrdem {...{ datas, end, setEnd }} /> : null}
       </Paper>
     </>
   );

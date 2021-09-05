@@ -7,11 +7,11 @@ const OrdemSchema = new mongoose.Schema({
   },
   dtInicioOrdem: {
     type: String,
-    // require: true,
+    require: true,
   },
   dtFinalOrdem: {
     type: String,
-    //require: true,
+    require: true,
   },
   dsStatus: {
     type: String,

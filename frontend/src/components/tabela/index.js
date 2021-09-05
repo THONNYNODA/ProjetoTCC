@@ -27,7 +27,7 @@ import Typography from "@material-ui/core/Typography";
 import { Box, CardActions } from "@material-ui/core";
 import { Button, TextField } from "@material-ui/core";
 import { Divider, Paper } from "@material-ui/core";
-import CarregandoImg from '../../assets/carregando.png'
+import CarregandoImg from "../../assets/carregando.png";
 export default function TabelaChamado() {
   const classes = tabelaStyle();
   const [lista, setLista] = useState([]);
@@ -41,21 +41,18 @@ export default function TabelaChamado() {
     });
   }, []);
 
- 
   const handleOpen = (id) => {
     setIdAtual(id);
     setOpen(true);
     console.log({ ...{ idAtual, lista } });
     return <DetalheChamado {...{ idAtual, lista }} />;
   };
-  
 
   const Carregando = () => (
     <>
-      <Paper  className={classes.boxCarregar}>
+      <Paper className={classes.boxCarregar}>
         <Box className={classes.carregar}>
-
-        <img src={CarregandoImg} className={classes.imgCarregar}/>
+          <img src={CarregandoImg} className={classes.imgCarregar} />
         </Box>
       </Paper>
     </>
@@ -99,17 +96,10 @@ export default function TabelaChamado() {
                     }
                     subheader={
                       <div className={classes.boxSub}>
-                        <Typography
-                          component="p"
-                          align="right"
-
-                        >
+                        <Typography component="p" align="right">
                           {lista[id].dsStatus}
                         </Typography>
-                        <Typography
-                          component="p"
-                          align="right"
-                        >
+                        <Typography component="p" align="right">
                           {horas(lista[id])}
                         </Typography>
                       </div>
@@ -138,11 +128,7 @@ export default function TabelaChamado() {
               ))}
           </Card>
         </Card>
-        {open ? (
-          <DetalheChamado {...{ idAtual, lista }} />
-        ) : (
-          <Carregando/>
-        )}
+        {open ? <DetalheChamado {...{ idAtual, lista }} /> : <Carregando />}
       </Conteiner>
     </>
   );

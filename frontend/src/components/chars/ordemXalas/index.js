@@ -12,33 +12,32 @@ import {
 } from "react-vis";
 
 
-
-const greenData = [
-  { x: "Ala 01", y: 5},
-  { x: "B", y: 7 },
-  { x: "C", y: 13 },
-];
-const labelData = greenData.map((d, idx) => ({
-  x: d.x,
-  y: Math.max(greenData[idx].y),
-}));
-
 function RelatorioAla() {
-
+  
   const [lista, setLista] = useState([]);
-
+  
+  
   useEffect(() => {
     api.get("/ordem").then((res) => {
       const lista = res.data.ordem;
-      console.log(lista);
       setLista(lista);
     });
   }, []);
 
-  const ordem = Object.keys(lista).filter(id => lista[id].idSetor.nmSetor === lista[id]).map((id) =>lista[id].idSetor.nmSetor);
 
-  const setor = ordem.filter((e) => e._id === e.nmSetor).map((s) => s._id);
+
+  
+  const ordem = Object.keys(lista).map((id) =>({x:lista[id].idSetor.nmSetor,y:[lista[id].idSetor].length}));
+
+  const setores = Object.keys(lista).filter(e => lista[e] == lista[e]).map((id) =>(lista[id].idSetor.nmSetor));
   console.log(ordem);
+ 
+
+  const labelData = ordem.map((d, idx) => ({
+    x: d.x,
+    y: Math.max(ordem[idx].y),
+  }));
+
 
   const BarSeries = VerticalBarSeries;
   return (
@@ -48,7 +47,7 @@ function RelatorioAla() {
         <HorizontalGridLines />
         <XAxis />
         <YAxis />
-        <BarSeries className="vertical-bar-series-example" data={greenData} />
+        <BarSeries className="vertical-bar-series-example" data={ordem} />
         <LabelSeries data={labelData} getLabel={(d) => d.x} />
       </XYPlot>
     </>
