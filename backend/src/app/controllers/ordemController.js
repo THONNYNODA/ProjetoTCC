@@ -85,7 +85,7 @@ router.get("/:ordemId", async (req, res) => {
 });
 router.put("/:ordemId", async (req, res) => {
   try {
-    const { dtInicioOrdem, dtFinalOrdem, dsStatus, idItemOrdem } = req.body;
+    const { dtInicioOrdem, dtFinalOrdem, dsStatus } = req.body;
 
     const ordem = await Ordem.findByIdAndUpdate(
       req.params.ordemId,
@@ -97,25 +97,27 @@ router.put("/:ordemId", async (req, res) => {
       { new: true }
     );
 
-    //ordem.idItemOrdem = [];
-    // await ItemOrdem.deleteMany({ idOrdem: ordem._id });
+    return res.send({ ordem });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send({ mensagem: "Erro ao Atualizar Ordem" });
+  }
+});
+router.put("/editar/:ordemId", async (req, res) => {
+  try {
+    const { dsProblema,dsDetalhe,idSetor} = req.body;
 
-    // await Promise.all(
+    const ordem = await Ordem.findByIdAndUpdate(
+      req.params.ordemId,
+      {
+        dsProblema,
+        dsDetalhe,
+        idSetor,
+      },
+      { new: true }
+    );
 
-    //   idItemOrdem.map(async (itensOrdem) => {
-    //     const ordemItem = new ItemOrdem({
-    //       ...itensOrdem,
-    //       idOrdem: ordem._id,
-    //       idUsuario: req.usuarioId,
-    //     });
 
-    //     await ordemItem.save();
-
-    //     ordem.idItemOrdem.push(ordemItem);
-    //   })
-    // );
-
-    // await ordem.save();
 
     return res.send({ ordem });
   } catch (err) {
@@ -125,7 +127,7 @@ router.put("/:ordemId", async (req, res) => {
 });
 router.put("/itemOrdem/:ordemId", async (req, res) => {
   try {
-    const { dtInicioOrdem, dtFinalOrdem, dsStatus, idItemOrdem } = req.body;
+    const { idItemOrdem } = req.body;
 
     const ordem = await Ordem.findByIdAndUpdate(req.params.ordemId);
 

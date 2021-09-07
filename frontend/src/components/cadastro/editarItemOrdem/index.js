@@ -27,18 +27,15 @@ const validationSchema = yup.object().shape({
   idServico: yup.string().required("Campo e obrigatorio"),
 });
 
-function ItemOrdem(props) {
+function EditarItemOrdem(props) {
   const classes = itemOrdemStyle();
   const initialValues = {
-    dtInicio: "",
-    dtFinal: "",
-    dsServicoRealizado: "",
-    idServico: "",
+    dtInicio: props.datas.datas.dtInicio,
+    dtFinal: props.datas.datas.dtFinal,
+    dsServicoRealizado: props.datas.datas.dsServicoRealizado,
+    idServico: props.datas.datas.idServico,
   };
 
-  const data = {
-    idItemOrdem: [],
-  };
 
   const [servico, setServico] = useState([]);
   const [alert, setAlert] = useState(false);
@@ -50,32 +47,33 @@ function ItemOrdem(props) {
     });
   }, []);
 
-  console.log(props.datas.datas._id);
+console.log(props.datas.datas)
 
   const handleClouse = () => {
-    props.setOpen(false);
+    props.setEditarItem(false);
   };
 
   return (
     <>
-      <Dialog open={props.open} fullWidth>
+      <Dialog open={props.editarItem} fullWidth>
         <BoxDialog>
-          <Title>Resposta</Title>
+          <Title>Editar Resposta</Title>
 
           <Formik
             validationSchema={validationSchema}
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              data.idItemOrdem.push(values);
+              
 
               setTimeout(async () => {
                 await api
-                  .put(`/ordem/itemOrdem/${props.datas.datas._id}`, data)
+                  .put(`/itemordem/${props.datas.datas._id}`,values)
                   .then((res) => {
                     setSubmitting(false);
                     return setAlert(true);
                   });
               }, 3000);
+              
             }}
           >
             {({ errors, touched, isSubmitting }) => (
@@ -87,9 +85,10 @@ function ItemOrdem(props) {
                     component={TextField}
                     select
                     label="Servico"
+             
                   >
                     {servico.map((e) => (
-                      <MenuItem value={e._id} key={e._id}>
+                      <MenuItem value={e._id} key={e._id}  >
                         {e.nmServico}: {e.dsServico}
                       </MenuItem>
                     ))}
@@ -156,4 +155,4 @@ function ItemOrdem(props) {
   );
 }
 
-export default ItemOrdem;
+export default EditarItemOrdem;

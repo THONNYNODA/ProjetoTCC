@@ -64,7 +64,7 @@ function Servico() {
   const handleDelete = (id, e) => {
     setOpenDialog(true);
     setTimeout(async () => {
-     await api.delete(`/servico/${id}`).then((res) => {
+      await api.delete(`/servico/${id}`).then((res) => {
         const value = values.filter((values) => id !== values._id);
         setValues(value);
         return setStatus(true);
@@ -225,55 +225,57 @@ function Servico() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.keys(values).sort((a, b) => (a.nmServico > b.nmServico ? 1 : -1)).map((id) => (
-              <TableRow key={id}>
-                <TableCell component="th" scope="row">
-                  {values[id].snAtivo === true ? (
-                    <CheckIcon className={classes.iconCheck} />
-                  ) : (
-                    <BlockIcon className={classes.iconDelete} />
-                  )}
-                </TableCell>
-                <TableCell
-                  className={
-                    values[id].snAtivo == false || "" ? classes.ativado : null
-                  }
-                  component="th"
-                  scope="row"
-                >
-                  {values[id].nmServico}
-                </TableCell>
-                <TableCell
-                  className={
-                    values[id].snAtivo == false || "" ? classes.ativado : null
-                  }
-                  component="th"
-                  scope="row"
-                >
-                  {values[id].dsServico}
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    onClick={() => handleOpen(id)}
-                    className={classes.iconEditar}
+            {Object.keys(values)
+              .sort((a, b) => (a.nmServico > b.nmServico ? 1 : -1))
+              .map((id) => (
+                <TableRow key={id}>
+                  <TableCell component="th" scope="row">
+                    {values[id].snAtivo === true ? (
+                      <CheckIcon className={classes.iconCheck} />
+                    ) : (
+                      <BlockIcon className={classes.iconDelete} />
+                    )}
+                  </TableCell>
+                  <TableCell
+                    className={
+                      values[id].snAtivo == false || "" ? classes.ativado : null
+                    }
+                    component="th"
+                    scope="row"
                   >
-                    <EditIcon />
-                  </Button>
+                    {values[id].nmServico}
+                  </TableCell>
+                  <TableCell
+                    className={
+                      values[id].snAtivo == false || "" ? classes.ativado : null
+                    }
+                    component="th"
+                    scope="row"
+                  >
+                    {values[id].dsServico}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      onClick={() => handleOpen(id)}
+                      className={classes.iconEditar}
+                    >
+                      <EditIcon />
+                    </Button>
 
-                  <Button
-                    className={classes.iconDelete}
-                    onClick={(e) => handleDelete(values[id]._id)}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                    <Button
+                      className={classes.iconDelete}
+                      onClick={(e) => handleDelete(values[id]._id)}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <form onSubmit={handleSubmit}>
-        <InputForm>
+      <InputForm>
+        <form className={classes.boxRow} onSubmit={handleSubmit}>
           <SubBox>
             <TextField
               fullWidth
@@ -293,8 +295,8 @@ function Servico() {
               <AddIcon />
             </Btn>
           </SubBox>
-        </InputForm>
-      </form>
+        </form>
+      </InputForm>
       {openDialog ? (
         <Backdrop open={openDialog} className={classes.backdrop}>
           <CircularProgress />

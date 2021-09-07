@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import api from "../../../services/api";
 
-import { InputForm, BoxForm, Title, BoxDialog, Btn } from "./styles";
+import { InputForm, BoxForm, Title, BoxDialog, Btn,BtnCancelar } from "./styles";
 import Alert from "../../alert";
 
 const validationSchema = yup.object().shape({
@@ -27,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Ordem(props) {
+function EditarOrdem(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
   const initialValues = {
-    dsProblema: "",
-    dsDetalhe: "",
-    idSetor: "",
+    dsProblema: props.datas.datas.dsProblema,
+    dsDetalhe: props.datas.datas.dsDetalhe,
+    idSetor: props.datas.datas.idSetor,
   };
 
   const [setores, setSetor] = useState([]);
@@ -48,10 +48,10 @@ function Ordem(props) {
   }, []);
 
   const handleClose = () => {
-    onClose(selectedValue);
+    props.setEditar(false)
   };
   return (
-    <Dialog onClose={handleClose} open={open} fullWidth>
+    <Dialog onClose={handleClose} open={props.editar} fullWidth>
       <BoxDialog>
         <Title>Novo Chamado</Title>
         <Formik
@@ -59,10 +59,12 @@ function Ordem(props) {
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             setTimeout(async () => {
-              await api.post("/ordem", values).then((res) => {
-                setSubmitting(false)
-                return setConfirmacao(true)
-              });
+              await api
+                .put(`/ordem/editar/${props.datas.datas._id}`, values)
+                .then((res) => {
+                  setSubmitting(false);
+                  return setConfirmacao(true);
+                });
             }, 3000);
           }}
         >
@@ -115,11 +117,15 @@ function Ordem(props) {
               )}
 
               <Btn variant="contained" disabled={isSubmitting} type="submit">
-                Enviar
+                Editar
               </Btn>
-              {confirmacao === true ? <Alert title="Ordem Gerado com Sucesso!!"/> : null}
+              <BtnCancelar onClick={handleClose}>
+                Cancelar
+              </BtnCancelar>
+              {confirmacao === true ? (
+                <Alert title="Ordem Gerado com Sucesso!!" />
+              ) : null}
             </Form>
-            
           )}
         </Formik>
       </BoxDialog>
@@ -127,4 +133,4 @@ function Ordem(props) {
   );
 }
 
-export default Ordem;
+export default EditarOrdem;

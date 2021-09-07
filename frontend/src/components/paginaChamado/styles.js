@@ -7,36 +7,62 @@ export const BackBox = styled(Box)({
   width: "100%",
 });
 export const ButtomChamado = styled(Button)({
- //width: "100%",
+  //width: "100%",
   border: "2px solid #1FA774",
   color: "#1FA774",
-  marginRight:5,
+  marginRight: 5,
   "&:hover": {
     color: "#f0f5f3",
-    background: '#1FA774',
+    background: "#1FA774",
   },
   ["@media (max-width:780px)"]: {
-    marginTop:5,
+    marginTop: 5,
     width: "100%",
     display: "block",
   },
 });
 export const BtnDelete = styled(Button)({
- //width: "100%",
+  //width: "100%",
   border: "2px solid #FF6163",
   color: "#FF6163",
-  marginRight:5,
+  marginRight: 5,
   "&:hover": {
     color: "#f0f5f3",
-    background: '#FF6163',
+    background: "#FF6163",
   },
   ["@media (max-width:780px)"]: {
-    marginTop:5,
+    marginTop: 5,
     width: "100%",
     display: "block",
   },
 });
 
+export const BtnIcon = styled(Button)({
+  color: "#FF6163",
+  margin: 5,
+  "&:hover": {
+    color: "rgba(255, 97, 99,0.6)",
+    background: "none",
+  },
+  ["@media (max-width:780px)"]: {
+    marginTop: 5,
+    width: "100%",
+    display: "block",
+  },
+});
+export const BtnIconEdit = styled(Button)({
+  color: "rgba(31, 167, 116)",
+  margin: 5,
+  "&:hover": {
+    color: "rgba(31, 167, 116,0.6)",
+    background: "none",
+  },
+  ["@media (max-width:780px)"]: {
+    marginTop: 5,
+    width: "100%",
+    display: "block",
+  },
+});
 
 export const SubBox = styled(Box)({
   display: "flex",
@@ -48,12 +74,15 @@ export const SubBox = styled(Box)({
   },
 });
 export const BtnBox = styled(Box)({
-  display: props => props.display,
+  display: (props) => props.display ,
+  flexDirection: props => props.flexDirection,
+  flexWrap: "wrap",
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-between",
   ["@media (max-width:780px)"]: {
-    display: props => props.display === "none" ,
+    width: "100%",
+    display: (props) => (props.display === "flex"  ? "block" : "none"),
   },
 });
 export const Conteiner = styled(Box)({
@@ -81,20 +110,6 @@ export const Text = styled(Typography)({
   color: "#5f615f",
   fontWeight: 400,
 });
-// export const TextVermelho = styled(Typography)({
-//   margin: "10px",
-//   fontSize: "18px",
-//   paddingLeft: 25,
-//   color: "#FF6163",
-//   fontWeight: 400,
-// });
-// export const TextVerde = styled(Typography)({
-//   margin: "10px",
-//   fontSize: "18px",
-//   paddingLeft: 25,
-//   color: "#1FA774",
-//   fontWeight: 400,
-// });
 
 export const tabelaStyle = makeStyles({
   box: {
@@ -110,7 +125,7 @@ export const tabelaStyle = makeStyles({
   },
   root: {
     display: "flex",
-    maxWidth:400,
+    maxWidth: 400,
     maxHeight: 600,
     flexDirection: "column",
     overflow: "auto",
@@ -120,7 +135,7 @@ export const tabelaStyle = makeStyles({
       //maxHeight: 'none',
     },
   },
-  
+
   boxHeader: {
     background: "#1FA774",
   },
@@ -209,13 +224,9 @@ export const detalheStyle = makeStyles({
     },
   },
   boxItem: {
-   
-   margin:20,
+    margin: 20,
   },
 });
-
-
-
 
 export const InputForm = styled(Box)({
   flexGrow: 1,
@@ -247,14 +258,13 @@ export const BoxDialog = styled(Box)({
 });
 
 export const Btn = styled(Button)({
-    padding: "10px 30px",
-    fontSize: "1.2rem",
-    background: "#1FA774",
-    border: "3px solid #1FA774",
-    color: "#e8e8e8",
-    "&:hover": {
-      color: "#1FA774",
-      background: "#e8e8e8",
-    },
+  padding: "10px 30px",
+  fontSize: "1.2rem",
+  background: "#1FA774",
+  border: "3px solid #1FA774",
+  color: "#e8e8e8",
+  "&:hover": {
+    color: "#1FA774",
+    background: "#e8e8e8",
+  },
 });
-

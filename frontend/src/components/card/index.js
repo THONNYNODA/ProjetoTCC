@@ -22,7 +22,7 @@ function Cards(props) {
             </Typography>
           }
         />
-        <CardContent>
+        <CardContent className={classes.boxCard}>
           {props.children}
         </CardContent>
       </Card>

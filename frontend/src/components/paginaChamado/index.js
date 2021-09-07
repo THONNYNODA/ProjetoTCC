@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import Paper from "@material-ui/core/Paper";
 import { Box, Divider } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 import ItemOrdem from "../cadastro/itemOrdem";
 
@@ -14,11 +16,22 @@ import {
   ButtomChamado,
   BtnDelete,
   BtnBox,
+  BtnIcon,
+  BtnIconEdit,
 } from "./styles";
 import api from "../../services/api";
 import FinalizarOrdem from "../cadastro/finalizarOrdem";
 import Alert from "../alert";
+import EditarOrdem from "../cadastro/editarOrdem";
+import EditarItemOrdem from "../cadastro/editarItemOrdem";
 import DeletarOrdem from "../cadastro/DeletarOrdem";
+import DeletarItemOrdem from "../cadastro/DeletarItemOrdem";
+import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
+import FeedbackIcon from "@material-ui/icons/Feedback";
+
+
+
+
 
 function DetalheChamado(props) {
   const classes = detalheStyle();
@@ -26,6 +39,8 @@ function DetalheChamado(props) {
   const [end, setEnd] = useState(false);
   const [confirmacao, setConfirmacao] = useState(false);
   const [editar, setEditar] = useState(false);
+  const [editarItem, setEditarItem] = useState(false);
+  const [deletItem, setDeletItem] = useState(false);
   const [datas, setDatas] = useState("");
   const [list, setList] = useState([]);
 
@@ -45,10 +60,20 @@ function DetalheChamado(props) {
     setDatas({ ...datas, datas: props.lista[props.idAtual] });
     return <DeletarOrdem />;
   };
-  const handleEditar= (id) => {
+  const handleEditar = (id) => {
     setEditar(true);
     setDatas({ ...datas, datas: props.lista[props.idAtual] });
-    return <DeletarOrdem />;
+    return <EditarOrdem />;
+  };
+  const handleDeletarItem = (id) => {
+    setDeletItem(true);
+    setDatas({ ...datas, datas: props.lista[props.idAtual] });
+    return <DeletarItemOrdem/>;
+  };
+  const handleEditarItem  = (list) => {
+    setEditarItem(true);
+    setDatas({ ...datas, datas: list });
+    return <EditarItemOrdem />;
   };
 
   const horas = (lista) => {
@@ -67,7 +92,7 @@ function DetalheChamado(props) {
     return datas;
   };
 
-  const horasItem = (list) => {
+  const horasInicio = (list) => {
     const datas =
       new Date(list.dtInicio).getDate() +
       "/" +
@@ -78,6 +103,21 @@ function DetalheChamado(props) {
       new Date(list.dtInicio).getHours() +
       ":" +
       new Date(list.dtInicio).getMinutes() +
+      "h";
+
+    return datas;
+  };
+  const horasFinal = (list) => {
+    const datas =
+      new Date(list.dtFinal).getDate() +
+      "/" +
+      (new Date(list.dtFinal).getMonth() + 1) +
+      " de " +
+      new Date(list.dtFinal).getFullYear() +
+      " às " +
+      new Date(list.dtFinal).getHours() +
+      ":" +
+      new Date(list.dtFinal).getMinutes() +
       "h";
 
     return datas;
@@ -107,18 +147,21 @@ function DetalheChamado(props) {
               {props.lista[props.idAtual].idUsuario.nmColaborador.toUpperCase()}
             </Text>
           </SubBox>
-          <Text>
-            Status:
-            <span
-              className={
-                props.lista[props.idAtual].dsStatus === "PENDENTE"
-                  ? classes.textVermelho
-                  : classes.textVerde
-              }
-            >
-              {props.lista[props.idAtual].dsStatus}
-            </span>
-          </Text>
+          <SubBox>
+            <Text>
+              Status:
+              <span
+                className={
+                  props.lista[props.idAtual].dsStatus === "PENDENTE"
+                    ? classes.textVermelho
+                    : classes.textVerde
+                }
+              >
+                {props.lista[props.idAtual].dsStatus}
+              </span>
+            </Text>
+            <Text>Setor: {props.lista[props.idAtual].idSetor.nmSetor} </Text>
+          </SubBox>
           <Text>Detalhe: {props.lista[props.idAtual].dsDetalhe} </Text>
           <Divider variant="middle" />
           <Title>Resposta: </Title>
@@ -136,46 +179,81 @@ function DetalheChamado(props) {
                       <Text>Servico Realidado: {lis.idServico.nmServico}</Text>
                     </SubBox>
                     <SubBox>
-                      <Text>Inicializado em: {lis.dtInicio}</Text>
-                      <Text>Finalizado em: {lis.dtFinal}</Text>
+                      <Text>Inicializado em: {horasInicio(lis)}</Text>
+                      <Text>Finalizado em: {horasFinal(lis)}</Text>
                     </SubBox>
                     <Text>Comentario: {lis.dsServicoRealizado}</Text>
+                    <BtnBox display={props.lista[props.idAtual].dsStatus === "PENDENTE" ? "flex" : "none"} flexDirection="row-reverse">
+                      <div>
+                        <BtnIconEdit
+                          onClick={() =>
+                            handleEditarItem(lis)
+                          }
+                        >
+                          <EditIcon />
+                        </BtnIconEdit>
+                        <BtnIcon
+                          onClick={() =>
+                            handleDeletarItem(lis._id)
+                          }
+                        >
+                          <DeleteIcon />
+                        </BtnIcon>
+                      </div>
+                    </BtnBox>
                   </Paper>
                 </>
               ))}
           </Box>
         </BackBox>
-        <BtnBox display={props.lista[props.idAtual].dsStatus === "PENDENTE" ? "flex" : "none"}>
+        <BtnBox
+          display={
+            props.lista[props.idAtual].dsStatus === "PENDENTE" ? "flex" : "none"
+          }
+        >
           <div>
             <ButtomChamado
               onClick={() => handleOpen(props.lista[props.idAtual])}
             >
+              <FeedbackIcon />
               Responder
             </ButtomChamado>
             <ButtomChamado
               onClick={() => handleFinalizar(props.lista[props.idAtual])}
             >
+              <DoneOutlineIcon />
               Finalizar
             </ButtomChamado>
           </div>
           <div>
-          <ButtomChamado
+            <ButtomChamado
               onClick={() => handleEditar(props.lista[props.idAtual])}
             >
+              <EditIcon />
               Editar
             </ButtomChamado>
-          <BtnDelete
-            onClick={() => handleDeletar(props.lista[props.idAtual])}
-          >
-            Deletar
-          </BtnDelete>
+            <BtnDelete
+              onClick={() => handleDeletar(props.lista[props.idAtual])}
+            >
+              <DeleteIcon />
+              Deletar
+            </BtnDelete>
           </div>
         </BtnBox>
-        {confirmacao === true ? <DeletarOrdem {...{ datas, confirmacao, setConfirmacao }} /> : null}
+        {confirmacao === true ? (
+          <DeletarOrdem {...{ datas, confirmacao, setConfirmacao }} />
+        ) : null}
         {open === true ? <ItemOrdem {...{ datas, open, setOpen }} /> : null}
         {end === true ? <FinalizarOrdem {...{ datas, end, setEnd }} /> : null}
-        {editar === true ? <FinalizarOrdem {...{ datas, editar, setEditar }} /> : null}
-        
+        {editar === true ? (
+          <EditarOrdem {...{ datas, editar, setEditar }} />
+        ) : null}
+        {deletItem === true ? (
+          <DeletarItemOrdem {...{ datas, deletItem, setDeletItem }} />
+        ) : null}
+        {editarItem === true ? (
+          <EditarItemOrdem {...{ datas, editarItem, setEditarItem }} />
+        ) : null}
       </Paper>
     </>
   );

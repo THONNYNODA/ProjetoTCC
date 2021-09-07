@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export const cardStyles = makeStyles({
     root: {
         width: "100%",
-        
+        height: "100%",
  
         
       },
@@ -20,6 +20,10 @@ export const cardStyles = makeStyles({
       boxContentTitle: {
         display: 'flex',
         justifyContent: 'space-around'
+      },
+      boxCard: {
+        position: 'relative',
+        height: '100%',
       },
      
 });

@@ -49,8 +49,8 @@ export const Btn = styled(Button)({
 
 export const BtnCancalar = styled(Button)({
   padding: "10px 15px",
-  marginLeft: 5,
   width:150,
+  marginLeft: 5,
   fontSize: "1.2rem",
   background: "#FF6163",
   border: "2px solid #FF6163",

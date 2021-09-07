@@ -72,7 +72,6 @@ export const BackBox = styled(Box)({
 
 export const SubBox = styled(Box)({
   display: "flex",
-  width: "100%",
   margin: "10px 0",
   justifyContent: "space-between",
   ["@media (max-width:780px)"]: {
@@ -123,7 +122,7 @@ export const funcaoStyle = makeStyles({
     color: "#1FA774",
   },
   ativado: {
-    textDecoration:'line-through'
+    textDecoration: "line-through",
   },
   root: {
     maxHeight: 400,
@@ -146,6 +145,12 @@ export const funcaoStyle = makeStyles({
     display: "flex",
     marginTop: 15,
   },
+  boxCard:{
+    display: 'flex',
+    flexDirection:'column',
+    justifyContent:'space-between',
+  },
+
   backdrop: {
     zIndex: 9999,
     color: "#fff",

@@ -36,7 +36,7 @@ const Routes = () =>{
             <PrivateRouter path='/chamadas' component={Chamadas}/>
             <PrivateRouter path='/dashbord' component={Dashbord}/>
             <PrivateRouter path='/cadastros' component={Cadastros}/>  
-            <PrivateRouter roles={localStorage.sistemPermisson === 'ADMIN'} path='/config' component={Configuracao}/>  
+            <PrivateRouter path='/config' component={Configuracao}/>  
             <Route path='/teste' component={Teste}/>
             <Route path="*" component={() => <h1>Page not found</h1>} />
         </Switch>
