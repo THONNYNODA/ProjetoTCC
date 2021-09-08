@@ -12,7 +12,7 @@ import Cadastro from './layout/cadastro'
 import Login from './layout/login';
 import Chamadas from './layout/chamadas';
 import Dashbord from './layout/dashbord'
-import Teste from './layout/Teste'
+import Error404 from './layout/404'
 import Cadastros from './layout/cadastros';
 import Configuracao from './layout/configuracao';
 
@@ -37,8 +37,7 @@ const Routes = () =>{
             <PrivateRouter path='/dashbord' component={Dashbord}/>
             <PrivateRouter path='/cadastros' component={Cadastros}/>  
             <PrivateRouter path='/config' component={Configuracao}/>  
-            <Route path='/teste' component={Teste}/>
-            <Route path="*" component={() => <h1>Page not found</h1>} />
+            <Route path="*" component={Error404} />
         </Switch>
        </Router>
     )
