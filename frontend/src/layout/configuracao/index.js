@@ -7,6 +7,7 @@ import Buttom from "../../components/buttom";
 import Cards from "../../components/card";
 
 import { configStyle } from "./styles";
+import ListaUsuario from "../../components/listaUser";
 
 function Configuracao() {
   console.log(localStorage.sistemPermisson);
@@ -23,10 +24,12 @@ function Configuracao() {
           </Grid>
           <Grid container justifyContent="center">
             <Grid className={classes.box}>
-              <Cards title="Configuracao"></Cards>
+              <Cards title="Usuarios">
+                <ListaUsuario />
+              </Cards>
             </Grid>
           </Grid>
-          <Buttom />
+          
         </Grid>
       </Grid>
     </>

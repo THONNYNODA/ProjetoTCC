@@ -9,7 +9,7 @@ function Alert(props) {
 
     setTimeout(() => {
         return window.location.reload();
-      }, 3000);
+      }, 1000);
   return (
     <>
       <Dialog open={true}>
