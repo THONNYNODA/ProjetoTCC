@@ -27,15 +27,15 @@ function cadastros() {
               <Cards title="Lista Setor">
                 <Setor/>
               </Cards>
-            </Grid>
-            <Grid xs={4} className={classes.box}>
-              <Cards title="Lista Funcao">
-                <Funcao />
-              </Cards>
-            </Grid>
+            </Grid>            
             <Grid className={classes.box}>
               <Cards title="Lista Servico">
                 <Servico/>
+              </Cards>
+            </Grid>
+            <Grid  className={classes.box}>
+              <Cards title="Lista Funcao">
+                <Funcao />
               </Cards>
             </Grid>
           </Grid>

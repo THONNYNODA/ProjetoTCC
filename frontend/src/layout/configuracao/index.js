@@ -23,7 +23,7 @@ function Configuracao() {
             </Grid>
           </Grid>
           <Grid container justifyContent="center">
-            <Grid className={classes.box}>
+            <Grid xs={11} className={classes.box}>
               <Cards title="Usuarios">
                 <ListaUsuario />
               </Cards>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Paper from "@material-ui/core/Paper";
-import { Box, Divider } from "@material-ui/core";
+import { Box, Dialog, Divider } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -26,10 +26,11 @@ import FinalizarOrdem from "../cadastro/finalizarOrdem";
 import Alert from "../alert";
 import EditarOrdem from "../cadastro/editarOrdem";
 import EditarItemOrdem from "../cadastro/editarItemOrdem";
-import DeletarOrdem from "../cadastro/DeletarOrdem";
+import DeletarUsuario from "../cadastro/DeletarUsuario";
 import DeletarItemOrdem from "../cadastro/DeletarItemOrdem";
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 import FeedbackIcon from "@material-ui/icons/Feedback";
+import EditarUsuario from "../cadastro/editarUsuario";
 
 function DetalheUsuario(props) {
   const classes = detalheStyle();
@@ -56,7 +57,7 @@ function DetalheUsuario(props) {
   const handleDeletar = (id) => {
     setConfirmacao(true);
     setDatas({ ...datas, datas: props.lista[props.idAtual] });
-    return <DeletarOrdem />;
+    return <DeletarUsuario />;
   };
   const handleEditar = (id) => {
     setEditar(true);
@@ -92,7 +93,6 @@ function DetalheUsuario(props) {
     });
   }, []);
 
-  console.log(props.lista[props.idAtual]);
 
   return (
     <>
@@ -167,20 +167,15 @@ function DetalheUsuario(props) {
         </BtnBox>
 
         {confirmacao === true ? (
-          <DeletarOrdem {...{ datas, confirmacao, setConfirmacao }} />
+          <DeletarUsuario {...{ datas, confirmacao, setConfirmacao }} />
         ) : null}
-        {open === true ? <ItemOrdem {...{ datas, open, setOpen }} /> : null}
-        {end === true ? <FinalizarOrdem {...{ datas, end, setEnd }} /> : null}
         {editar === true ? (
-          <EditarOrdem {...{ datas, editar, setEditar }} />
+          <EditarUsuario {...{ datas, editar, setEditar }} />
         ) : null}
-        {deletItem === true ? (
-          <DeletarItemOrdem {...{ datas, deletItem, setDeletItem }} />
-        ) : null}
-        {editarItem === true ? (
-          <EditarItemOrdem {...{ datas, editarItem, setEditarItem }} />
-        ) : null}
+       
+        
       </Paper>
+     
     </>
   );
 }

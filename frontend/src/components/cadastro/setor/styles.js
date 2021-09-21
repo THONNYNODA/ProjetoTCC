@@ -40,6 +40,12 @@ export const Btn = styled(Button)({
     color: "#1FA774",
     background: "#e8e8e8",
   },
+  "@media (max-width: 780px)":{
+    width: '100%',
+    marginTop: 10,
+    marginLeft: 0,
+
+  }
 });
 export const BtnAlterar = styled(Button)({
   padding: "10px 15px",
