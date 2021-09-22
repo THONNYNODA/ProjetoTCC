@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import Dialog from "@material-ui/core/Dialog";
-import { Checkbox, TextField } from "formik-material-ui";
-import { FormControlLabel, MenuItem, Typography } from "@material-ui/core";
+import { Checkbox, TextField, RadioGroup, Select } from "formik-material-ui";
+import {
+  FormControlLabel,
+  MenuItem,
+  Radio,
+  FormControl,
+  InputLabel,
+} from "@material-ui/core";
 import * as yup from "yup";
 
 import Backdrop from "@material-ui/core/Backdrop";
@@ -10,8 +16,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
 import api from "../../../services/api";
-
-import InputMask from "react-input-mask";
 
 import {
   InputForm,
@@ -33,6 +37,8 @@ const validationSchema = yup.object().shape({
   cpf: yup.string().required("Campo e obrigatorio"),
   funcao: yup.string().required("Campo e obrigatorio"),
   telefone: yup.string().required("Campo e obrigatorio"),
+  snPermissao: yup.string(),
+  snAtivo: yup.boolean(),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -40,11 +46,25 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: "#fff",
   },
+  check: {
+    "& .MuiCheckbox-colorSecondary": {
+      color: "#1FA774",
+    },
+    "& .MuiRadio-colorSecondary": {
+      color: "#1FA774",
+    },
+  },
+  boxRadio: {
+    display: "flex",
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    flexWrap: "noWrap",
+  },
 }));
 
 function EditarUsuario(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open } = props;
 
   const initialValues = {
     nmColaborador: props.datas.datas.nmColaborador,
@@ -54,8 +74,9 @@ function EditarUsuario(props) {
     email: props.datas.datas.email,
     telefone: props.datas.datas.telefone,
     snAtivo: props.datas.datas.snAtivo,
+    snPermissao: props.datas.datas.snPermissao,
   };
-  console.log(props.datas.datas.snAtivo);
+  console.log(props.datas.datas.snPermissao);
 
   const [funcao, setFuncao] = useState([]);
   const [confirmacao, setConfirmacao] = useState(false);
@@ -89,7 +110,7 @@ function EditarUsuario(props) {
             }, 3000);
           }}
         >
-          {({ errors, touched, isSubmitting }) => (
+          {({ errors, touched, isSubmitting, values }) => (
             <Form>
               <BoxForm>
                 <InputForm>
@@ -145,26 +166,66 @@ function EditarUsuario(props) {
                 </InputForm>
               </BoxForm>
               <InputForm>
-                <Field
-                  name="funcao"
-                  fullWidth
-                  component={TextField}
-                  label="Funcao"
-                  select
-                >
-                  {funcao
-                    .sort((a, b) => (a.nmFuncao > b.nmFuncao ? 1 : -1))
-                    .map((e) => (
-                      <MenuItem value={e._id} key={e._id}>
-                        {e.nmFuncao}
-                      </MenuItem>
-                    ))}
-                </Field>
-                {errors.funcao && touched.funcao}
+                <FormControl fullWidth >
+                  <InputLabel htmlFor="age-simple">Funcao</InputLabel>
+                  <Field
+                    
+                    component={Select}
+                    name="funcao"
+                    inputProps={{
+                      id: "age-simple",
+                    }}
+                  >
+                    {funcao
+                      .sort((a, b) => (a.nmFuncao > b.nmFuncao ? 1 : -1))
+                      .map((e) => (
+                        <MenuItem value={e._id} key={e._id}>
+                          {e.nmFuncao}
+                        </MenuItem>
+                      ))}
+                  </Field>
+                  {errors.funcao && touched.funcao}
+                </FormControl>
               </InputForm>
               <InputForm>
-                <FormControlLabel label="Ativo?" control={<Field type="checkbox" name="snAtivo" component={Checkbox} />} />
-                
+                <div className={classes.boxRadio}>
+                  <Field
+                    className={classes.boxRadio}
+                    component={RadioGroup}
+                    defaultValue="USUARIO"
+                    name="snPermissao"
+                  >
+                    <FormControlLabel
+                      className={classes.check}
+                      label="Administrador"
+                      value="ADMIN"
+                      control={<Radio disabled={isSubmitting} />}
+                    />
+                    <FormControlLabel
+                      className={classes.check}
+                      label="Prestador"
+                      value="PRESTADOR"
+                      control={<Radio disabled={isSubmitting} />}
+                    />
+                    <FormControlLabel
+                      className={classes.check}
+                      label="Usuario"
+                      value="USUARIO"
+                      control={<Radio disabled={isSubmitting} />}
+                    />
+                  </Field>
+                </div>
+                <FormControlLabel
+                  className={classes.check}
+                  label="Ativo?"
+                  control={
+                    <Field
+                      type="checkbox"
+                      name="snAtivo"
+                      component={Checkbox}
+                    />
+                  }
+                />
               </InputForm>
 
               {isSubmitting && (

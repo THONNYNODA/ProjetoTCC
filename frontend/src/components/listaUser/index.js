@@ -74,14 +74,14 @@ export default function ListaUsuario() {
     <>
       <Conteiner>
         <Card className={classes.root}>
-          <Card className={classes.boxCard} variant="outlined">
+          <Card className={classes.boxCard} key={lista._id}  variant="outlined">
             {Object.keys(lista)
               .sort((a, b) => (a.nmColaborador < b.nmColaborador ? 1 : -1))
               .map((id) => (
                 <>
-                  <Paper onClick={() => handleOpen(id)} key={id} className={classes.boxHeader}>
+                  <Paper onClick={() => handleOpen(id)}  className={classes.boxHeader}>
                     <Avatar />
-                    <div className={classes.boxContent} >
+                    <div className={classes.boxContent}  >
                       <Typography
                         className={classes.boxHeaderTitle}
                         variant="subtitle1"

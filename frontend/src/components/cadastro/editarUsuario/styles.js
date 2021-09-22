@@ -1,4 +1,4 @@
-import { styled } from "@material-ui/core/styles";
+import { makeStyles, styled } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
@@ -62,3 +62,4 @@ export const Title = styled(Typography)({
   fontWeight: "bolder",
   textShadow: "4px 4px 4px rgba(150, 150, 150, 1)",
 });
+

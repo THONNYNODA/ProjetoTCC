@@ -145,6 +145,31 @@ router.put('/:usuarioId', async (req,res) =>{
         
     }
 })
+router.put('/editar/:usuarioId', async (req,res) =>{
+
+    try {
+        const { nmColaborador, cpf,dtNascimento,telefone,funcao,snAtivo,snPermissao } = req.body
+
+        const usuario = await Usuario.findByIdAndUpdate(req.params.usuarioId, { nmColaborador, cpf,dtNascimento,telefone,funcao,snAtivo,snPermissao}, {new: true}).select('+dsSenha') ;
+
+        usuario.dsSenha = dsSenha
+        
+        await usuario.save()
+
+        return res.send({
+            usuario,
+            token: gerarToken({
+                id: usuario.id
+            }),
+        });
+
+        
+    } catch (err) {
+        console.log(err)
+        return res.send({ mensagem: "Erro ao Atualizar"})
+        
+    }
+})
 
 router.delete('/:usuarioId', async (req, res) => {
 
