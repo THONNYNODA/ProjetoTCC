@@ -162,26 +162,18 @@ function EditarUsuario(props) {
                     component={TextField}
                     label="Email"
                   />
+
                   {errors.email && touched.email}
                 </InputForm>
               </BoxForm>
               <InputForm>
-                <FormControl fullWidth >
-                  <InputLabel htmlFor="age-simple">Funcao</InputLabel>
-                  <Field
-                    
-                    component={Select}
-                    name="funcao"
-                    inputProps={{
-                      id: "age-simple",
-                    }}
-                  >
+                <FormControl fullWidth>
+                  <InputLabel>Funcao</InputLabel>
+                  <Field component={Select} name="funcao">
                     {funcao
                       .sort((a, b) => (a.nmFuncao > b.nmFuncao ? 1 : -1))
                       .map((e) => (
-                        <MenuItem value={e._id} key={e._id}>
-                          {e.nmFuncao}
-                        </MenuItem>
+                        <MenuItem  key={e._id}>{e.nmFuncao}</MenuItem>
                       ))}
                   </Field>
                   {errors.funcao && touched.funcao}

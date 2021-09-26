@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const chamdaStyle = makeStyles({
+export const cadastrosStyle = makeStyles({
     box:{
         marginTop: '90px',
         margin: 10,
@@ -10,7 +10,8 @@ export const chamdaStyle = makeStyles({
         }
     },
     boxContainer:{
-        //border:'2px solid blue',
-        height: '100%'
+        
+        height: '100%',
+        
     }
 })

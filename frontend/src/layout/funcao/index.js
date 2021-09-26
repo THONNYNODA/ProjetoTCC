@@ -1,39 +1,37 @@
 import React from "react";
-
 import { Grid } from "@material-ui/core/";
 import Header from "../../components/header";
 import Status from "../../components/status";
 import Buttom from "../../components/buttom";
+
+import { cadastrosStyle } from "./styles";
 import Cards from "../../components/card";
+import Funcao from "../../components/cadastro/funcao";
+import MenuCadastro from "../../components/menuCadastro";
 
-import { configStyle } from "./styles";
-import ListaUsuario from "../../components/listaUser";
-
-function Configuracao() {
-  console.log(localStorage.sistemPermisson);
-  const classes = configStyle();
+function CadastrosFuncao() {
+  const classes = cadastrosStyle();
   return (
     <>
       <Grid container alignItems="flex-start" className={classes.boxContainer}>
         <Grid container justifyContent="flex-end">
           <Grid item xs={12}>
             <Header />
-            <Grid className={classes.box} item xs={12}>
-              <Status />
-            </Grid>
           </Grid>
           <Grid container justifyContent="center">
-            <Grid xs={11} className={classes.box}>
-              <Cards title="Usuarios">
-                <ListaUsuario />
+            <Grid className={classes.box} xs={12} sm={2} >
+              <MenuCadastro />
+            </Grid>
+            <Grid className={classes.box} xs={12} sm={9} >
+              <Cards title="Lista Função">
+                <Funcao />
               </Cards>
             </Grid>
           </Grid>
-          
         </Grid>
       </Grid>
     </>
   );
 }
 
-export default Configuracao;
+export default CadastrosFuncao;

@@ -209,7 +209,7 @@ function Funcao() {
               .sort((a, b) => (a.nmFuncao < b.nmFuncao ? 1 : -1))
               .map((id) => (
                 <TableRow key={id}>
-                  <TableCell component="th" scope="row">
+                  <TableCell align="center" component="th" scope="row">
                     {values[id].snAtivo === true ? (
                       <CheckIcon className={classes.iconCheck} />
                     ) : (
@@ -217,6 +217,7 @@ function Funcao() {
                     )}
                   </TableCell>
                   <TableCell
+                  
                     className={
                       values[id].snAtivo == false || "" ? classes.ativado : null
                     }
@@ -225,7 +226,7 @@ function Funcao() {
                   >
                     {values[id].nmFuncao}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     <Button
                       onClick={() => handleOpen(id)}
                       className={classes.iconEditar}

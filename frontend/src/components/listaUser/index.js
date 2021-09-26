@@ -93,7 +93,7 @@ export default function ListaUsuario() {
                         <Typography component="p" align="right">
                           {lista[id].snPermissao}
                         </Typography>
-                        <Typography component="p" align="right">
+                        <Typography component="p" className={lista[id].snAtivo === false ? classes.textColor : null} align="right">
                           {lista[id].snAtivo === true ? "Ativo" : "Desativado"}
                         </Typography>
                       </div>

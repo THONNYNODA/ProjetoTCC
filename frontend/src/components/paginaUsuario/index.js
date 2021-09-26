@@ -31,6 +31,7 @@ import DeletarItemOrdem from "../cadastro/DeletarItemOrdem";
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 import FeedbackIcon from "@material-ui/icons/Feedback";
 import EditarUsuario from "../cadastro/editarUsuario";
+import AuthComponent from "../../config/authComponent";
 
 function DetalheUsuario(props) {
   const classes = detalheStyle();
@@ -157,12 +158,14 @@ function DetalheUsuario(props) {
               <EditIcon />
               Editar
             </ButtomChamado>
+           
             <BtnDelete
               onClick={() => handleDeletar(props.lista[props.idAtual])}
             >
               <DeleteIcon />
               Deletar
             </BtnDelete>
+            
           </div>
         </BtnBox>
 

@@ -229,7 +229,7 @@ function Servico() {
               .sort((a, b) => (a.nmServico > b.nmServico ? 1 : -1))
               .map((id) => (
                 <TableRow key={id}>
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" align="center">
                     {values[id].snAtivo === true ? (
                       <CheckIcon className={classes.iconCheck} />
                     ) : (
@@ -254,7 +254,7 @@ function Servico() {
                   >
                     {values[id].dsServico}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     <Button
                       onClick={() => handleOpen(id)}
                       className={classes.iconEditar}

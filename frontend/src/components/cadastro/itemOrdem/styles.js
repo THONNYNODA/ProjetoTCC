@@ -61,7 +61,6 @@ export const Title = styled(Typography)({
   fontSize: 25,
   color: "#1FA774",
   fontWeight: "bolder",
-  textShadow: "4px 4px 4px rgba(150, 150, 150, 1)",
 });
 
 export const itemOrdemStyle = makeStyles({

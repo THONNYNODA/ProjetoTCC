@@ -16,17 +16,14 @@ function Chamadas() {
   return (
     <>
       <Grid container alignItems="flex-start" className={classes.boxContainer}>
-        <Grid container className={classes.box} justifyContent="flex-end">
+        <Grid container  justifyContent="flex-end">
           <Grid item xs={12}>
             <Header />
-            <Grid className={classes.box} item xs={12}>
-              <Status />
-            </Grid>
           </Grid>
           <Grid container justifyContent="center">
             <Grid item xs={11} className={classes.box}>
               <Cards title="Lista de Chamadas">
-                <TabelaChamado />               
+                <TabelaChamado />
               </Cards>
             </Grid>
           </Grid>

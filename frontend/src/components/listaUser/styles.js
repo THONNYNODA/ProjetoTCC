@@ -80,6 +80,7 @@ export const tabelaStyle = makeStyles({
     display: "flex",
     minWidth: 400,
     maxHeight: 600,
+    backgroundColor:"#1FA774",
     flexDirection: "column",
     overflow: "auto",
     justifyContent: "space-between",
@@ -89,13 +90,13 @@ export const tabelaStyle = makeStyles({
     },
   },
   boxHeader: {
-    background: "#1FA774",
+    background: "#f0f5f3",
     padding: 20,
+    marginBottom: 5,
     display: 'flex',
     flex:1,
     justifyContent:'space-between',
     alignItems:'center',
-    border: '3px solid #fff',
     cursor: 'pointer',
     '&:hover':{
       opacity: 0.8
@@ -106,7 +107,7 @@ export const tabelaStyle = makeStyles({
     whiteSpace: "normal",
     textOverflow: "ellipsis",
     fontWeight: "bold",
-    color: "#f0f5f3",
+    color: " #1FA774",
   },
   boxContentTitle: {
     position: "relative",
@@ -124,16 +125,21 @@ export const tabelaStyle = makeStyles({
     display: "flex",
     flexDirection: "column",
     overflow: "auto",
-    marginTop: 15,
+    marginTop: 5,
+    backgroundColor:"#1FA774",
     
      "@media (max-width:780px)" : {
       maxWidth: "100%",
       display: "block",
     },
   },
+
+  textColor:{
+     color: "#FF6163"
+  },
   
   boxSub: {
-    color: "#f0f5f3",
+    color: "#1FA774",
     display: "flex",
     justifyContent: "space-between",
   },

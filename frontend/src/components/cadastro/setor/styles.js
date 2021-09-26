@@ -141,6 +141,7 @@ export const funcaoStyle = makeStyles({
   headerTitle: {
     fontWeight: "bold",
     color: "#f0f5f3",
+    textAlign:'center'
   },
   title: {
     color: "#f0f5f3",
