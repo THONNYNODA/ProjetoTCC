@@ -226,7 +226,7 @@ function Servico() {
           </TableHead>
           <TableBody>
             {Object.keys(values)
-              .sort((a, b) => (a.nmServico > b.nmServico ? 1 : -1))
+              .sort((a, b) => (values[a].nmServico.toUpperCase() < values[b].nmServico.toUpperCase() ? -1 : 0))
               .map((id) => (
                 <TableRow key={id}>
                   <TableCell component="th" scope="row" align="center">
@@ -243,7 +243,7 @@ function Servico() {
                     component="th"
                     scope="row"
                   >
-                    {values[id].nmServico}
+                    {values[id].nmServico.toUpperCase()}
                   </TableCell>
                   <TableCell
                     className={
@@ -252,7 +252,7 @@ function Servico() {
                     component="th"
                     scope="row"
                   >
-                    {values[id].dsServico}
+                    {values[id].dsServico.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
                     <Button

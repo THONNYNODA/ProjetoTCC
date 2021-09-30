@@ -17,6 +17,8 @@ import Alert from "@material-ui/lab/Alert";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import AlertSenha from "../../components/alertSenha";
+
 import logoImg from "../../assets/logo.png";
 
 import { loginSyles, Imput, Title, Text, BackBox, BoxText } from "./styles";
@@ -31,6 +33,11 @@ const Login = () => {
   const history = useHistory();
 
   const [drop, setDrop] = useState(false);
+  const [open, setOpan] = useState(false);
+
+  const handleOpenPass = () => {
+    setOpan(true);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -52,7 +59,6 @@ const Login = () => {
           setDrop(false);
           return history.push("/painel");
         } catch (error) {
-          
           return erroLogin();
         }
       }, 3000);
@@ -116,9 +122,8 @@ const Login = () => {
               />
             </Imput>
             <BoxText>
-              <Link to="/cadastro" className={classes.link}>
-                <Text>Esqueceu a senha?</Text>
-              </Link>
+              <Text onClick={handleOpenPass}>Esqueceu a senha?</Text>
+
               <Link to="/cadastro" className={classes.link}>
                 <Text>Não sou Cadastrado(a)</Text>
               </Link>
@@ -134,6 +139,7 @@ const Login = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       ) : null}
+      {open === true ? <AlertSenha title="Atenção!!" text="Por favor entre em contato com a TI para a alteração de senha" {...open}/> : null}
     </div>
   );
 };

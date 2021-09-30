@@ -11,8 +11,16 @@ export const BoxDialog = styled(Box)({
 export const Title = styled(Typography)({
   padding: 5,
   fontSize: 25,
-  color: "#1FA774",
+  color: "#F4C419",
   fontWeight: "bolder",
+
+});
+
+export const Text = styled(Typography)({
+  margin: '10px',
+  fontSize:18,
+  color:'#5f615f',
+  
 });
 
 export const alertStyle = makeStyles({

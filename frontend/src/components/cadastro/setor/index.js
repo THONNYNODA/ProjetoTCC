@@ -60,21 +60,20 @@ function Setor() {
   const handleChenge = (e) => {
     const { name, value } = e.target;
     setSetor({ ...setor, [name]: value });
-
   };
 
   const handleDelete = (id, e) => {
-    setOpenDialog(true)
+    setOpenDialog(true);
 
-    setTimeout(async() => {
-    await api.delete(`/setor/${id}`).then((res) => {
+    setTimeout(async () => {
+      await api.delete(`/setor/${id}`).then((res) => {
         const value = values.filter((values) => id !== values._id);
         setValues(value);
-        setOpenDialog(false)
+        setOpenDialog(false);
         return setStatus(true);
       });
       window.location.reload();
-    }, 3000)
+    }, 3000);
   };
 
   function Alert(props) {
@@ -106,7 +105,6 @@ function Setor() {
       snAtivo: true,
     });
     const [openDialog, setOpenDialog] = useState(null);
-    
 
     useEffect(() => {
       if (idAtual == " ") {
@@ -140,7 +138,7 @@ function Setor() {
           setOpenDialog(false);
           return setStatus(true);
         });
-        window.location.reload()
+        window.location.reload();
       }, 3000);
     };
 
@@ -207,41 +205,43 @@ function Setor() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.keys(values).sort((a, b) => (a.nmSetor < b.nmSetor ? 1 : -1)).map((id) => (
-              <TableRow key={id}>
-                <TableCell component="th" scope="row" align="center">
-                  {values[id].snAtivo === true ? (
-                    <CheckIcon className={classes.iconCheck} />
-                  ) : (
-                    <BlockIcon className={classes.iconDelete} />
-                  )}
-                </TableCell>
-                <TableCell
-                  className={
-                    values[id].snAtivo == false || "" ? classes.ativado : null
-                  }
-                  component="th"
-                  scope="row"
-                >
-                  {values[id].nmSetor}
-                </TableCell>
-                <TableCell align="center">
-                  <Button
-                    onClick={() => handleOpen(id)}
-                    className={classes.iconEditar}
+            {Object.keys(values)
+              .sort((a, b) => (values[a].nmSetor.toUpperCase() < values[b].nmSetor.toUpperCase() ? -1 : 0))
+              .map((id) => (
+                <TableRow key={id}>
+                  <TableCell component="th" scope="row" align="center">
+                    {values[id].snAtivo === true ? (
+                      <CheckIcon className={classes.iconCheck} />
+                    ) : (
+                      <BlockIcon className={classes.iconDelete} />
+                    )}
+                  </TableCell>
+                  <TableCell
+                    className={
+                      values[id].snAtivo == false || "" ? classes.ativado : null
+                    }
+                    component="th"
+                    scope="row"
                   >
-                    <EditIcon />
-                  </Button>
+                    {values[id].nmSetor.toUpperCase()}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button
+                      onClick={() => handleOpen(id)}
+                      className={classes.iconEditar}
+                    >
+                      <EditIcon />
+                    </Button>
 
-                  <Button
-                    className={classes.iconDelete}
-                    onClick={(e) => handleDelete(values[id]._id)}
-                  >
-                    <DeleteIcon />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                    <Button
+                      className={classes.iconDelete}
+                      onClick={(e) => handleDelete(values[id]._id)}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -266,7 +266,7 @@ function Setor() {
           <CircularProgress />
         </Backdrop>
       ) : null}
-       {status ? (
+      {status ? (
         <Snackbar open={status} autoHideDuration={6000}>
           <Alert severity="success">Realizado com Sucesso!!</Alert>
         </Snackbar>

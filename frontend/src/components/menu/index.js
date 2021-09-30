@@ -135,18 +135,6 @@ export default function Menu() {
               </Link>
             </ListItem>
           </Collapse>
-          <Divider variant="middle" />
-          <ListItem button>
-            <ListItemIcon className={classes.icon}>
-              {" "}
-              <SettingsIcon />
-            </ListItemIcon>
-
-            <Link to="/config" className={classes.link}>
-              {" "}
-              <ListItemText primary="Configuração" />
-            </Link>
-          </ListItem>
         </List>
       </SwipeableDrawer>
     </>

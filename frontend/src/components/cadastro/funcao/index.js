@@ -206,7 +206,7 @@ function Funcao() {
           </TableHead>
           <TableBody>
             {Object.keys(values)
-              .sort((a, b) => (a.nmFuncao < b.nmFuncao ? 1 : -1))
+              .sort((a, b) => (values[a].nmFuncao.toUpperCase() < values[b].nmFuncao.toUpperCase() ? -1 : 0))
               .map((id) => (
                 <TableRow key={id}>
                   <TableCell align="center" component="th" scope="row">
@@ -224,7 +224,7 @@ function Funcao() {
                     component="th"
                     scope="row"
                   >
-                    {values[id].nmFuncao}
+                    {values[id].nmFuncao.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
                     <Button

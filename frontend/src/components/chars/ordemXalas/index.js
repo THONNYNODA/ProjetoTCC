@@ -15,6 +15,7 @@ import {
 function RelatorioAla() {
   
   const [lista, setLista] = useState([]);
+  const [setor, setSetor] = useState([]);
   
   
   useEffect(() => {
@@ -23,32 +24,46 @@ function RelatorioAla() {
       setLista(lista);
     });
   }, []);
+  useEffect(() => {
+    api.get("/setor").then((res) => {
+      const setor = res.data.setor;
+      setSetor(setor);
+    });
+  }, []);
 
 
 
   
-  const ordem = Object.keys(lista).map((id) =>({x:lista[id].idSetor.nmSetor,y:[lista[id].idSetor].length}));
 
-  const setores = Object.keys(lista).filter(e => lista[e] == lista[e]).map((id) =>(lista[id].idSetor.nmSetor));
-  console.log(ordem);
+
+  const setores = lista.map((id) =>(id.idSetor.nmSetor));
+  
+  const teste = lista.filter((a,b) => a.idSetor === b.idSetor );
+
+
+  const ala4 = lista.filter(e=> e.idSetor.nmSetor === 'Ala-04').map((id) =>(id.idSetor.nmSetor));
+  const rh = lista.filter(e=> e.idSetor.nmSetor === "Recurso Humano").map((id) =>(id.idSetor.nmSetor));
  
 
-  const labelData = ordem.map((d, idx) => ({
-    x: d.x,
-    y: Math.max(ordem[idx].y),
-  }));
+   console.log(setor);
+
+  const data = [{x: 'Ala-04', y: ala4.length},{x: 'Rh', y: rh.length}]
+
+
+
+
 
 
   const BarSeries = VerticalBarSeries;
   return (
     <>
-      <XYPlot animation xType="ordinal" width={350} height={350} xDistance={50}>
+      <XYPlot animation xType="ordinal" width={400} height={350} xDistance={50}>
         <VerticalGridLines />
         <HorizontalGridLines />
         <XAxis />
         <YAxis />
-        <BarSeries className="vertical-bar-series-example" data={ordem} />
-        <LabelSeries data={labelData} getLabel={(d) => d.x} />
+        <BarSeries className="vertical-bar-series-example" data={data} />
+        <LabelSeries data={data}  />
       </XYPlot>
     </>
   );

@@ -32,6 +32,8 @@ import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 import FeedbackIcon from "@material-ui/icons/Feedback";
 import EditarUsuario from "../cadastro/editarUsuario";
 import AuthComponent from "../../config/authComponent";
+import EditarSenha from "../cadastro/editarUsuarioSenha";
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 function DetalheUsuario(props) {
   const classes = detalheStyle();
@@ -39,6 +41,7 @@ function DetalheUsuario(props) {
   const [end, setEnd] = useState(false);
   const [confirmacao, setConfirmacao] = useState(false);
   const [editar, setEditar] = useState(false);
+  const [senha, setSenha] = useState(false);
   const [editarItem, setEditarItem] = useState(false);
   const [deletItem, setDeletItem] = useState(false);
   const [datas, setDatas] = useState("");
@@ -70,10 +73,11 @@ function DetalheUsuario(props) {
     setDatas({ ...datas, datas: props.lista[props.idAtual] });
     return <DeletarItemOrdem />;
   };
-  const handleEditarItem = (list) => {
-    setEditarItem(true);
+  const handleEditarSenha = (list) => {
+    console.log(list)
+    setSenha(true);
     setDatas({ ...datas, datas: list });
-    return <EditarItemOrdem />;
+    return <EditarSenha/>;
   };
 
   const Datas = (lista) => {
@@ -151,6 +155,7 @@ function DetalheUsuario(props) {
         </Paper>
 
         <BtnBox display="flex" flexDirection="row-reverse">
+          
           <div>
             <ButtomChamado
               onClick={() => handleEditar(props.lista[props.idAtual])}
@@ -167,6 +172,12 @@ function DetalheUsuario(props) {
             </BtnDelete>
             
           </div>
+          <ButtomChamado
+              onClick={() => handleEditarSenha(props.lista[props.idAtual])}
+            >
+              <VpnKeyIcon  />
+              Alterar Senha
+            </ButtomChamado>
         </BtnBox>
 
         {confirmacao === true ? (
@@ -174,6 +185,9 @@ function DetalheUsuario(props) {
         ) : null}
         {editar === true ? (
           <EditarUsuario {...{ datas, editar, setEditar }} />
+        ) : null}
+        {senha === true ? (
+          <EditarSenha {...{ datas, senha, setSenha }} />
         ) : null}
        
         

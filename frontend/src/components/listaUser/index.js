@@ -49,6 +49,7 @@ export default function ListaUsuario() {
     return <DetalheUsuario {...{ idAtual, lista }} />;
   };
 
+  
   const Carregando = () => (
     <>
       <Paper className={classes.boxCarregar}>
@@ -76,7 +77,7 @@ export default function ListaUsuario() {
         <Card className={classes.root}>
           <Card className={classes.boxCard} key={lista._id}  variant="outlined">
             {Object.keys(lista)
-              .sort((a, b) => (a.nmColaborador < b.nmColaborador ? 1 : -1))
+              .sort((a,b) => (lista[a].nmColaborador.toUpperCase() < lista[b].nmColaborador.toUpperCase() ? -1 : 0))
               .map((id) => (
                 <>
                   <Paper onClick={() => handleOpen(id)}  className={classes.boxHeader}>
@@ -108,3 +109,4 @@ export default function ListaUsuario() {
     </>
   );
 }
+

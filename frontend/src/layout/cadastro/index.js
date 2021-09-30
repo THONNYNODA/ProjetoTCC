@@ -263,7 +263,7 @@ const Cadastro = () => {
           </Link>
         </Paper>
       </Box>
-      {alert === true ? <Alert /> : null}
+      {alert === true ? <Alert title="Cadastrado com Sucesso" /> : null}
       {drop === true ? (
         <Backdrop className={classes.backdrop} open={drop}>
           <CircularProgress color="inherit" />

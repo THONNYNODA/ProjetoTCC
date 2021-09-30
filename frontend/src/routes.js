@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Redirect,
+  RouteProps
 } from "react-router-dom";
 
 import { isAuthenticated } from "./config/auth";
@@ -18,6 +19,8 @@ import CadastroUsuario from "./layout/cadastroUsuario";
 import CadastrosSetor from "./layout/setor";
 import CadastrosServico from "./layout/servico";
 import CadastrosFuncao from "./layout/funcao";
+
+
 
 const PrivateRouter = ({ component: Component, ...rest }) => (
   <Route
