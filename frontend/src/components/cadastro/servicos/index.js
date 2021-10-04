@@ -37,6 +37,7 @@ import { useHistory } from "react-router-dom";
 import CheckIcon from "@material-ui/icons/Check";
 import BlockIcon from "@material-ui/icons/Block";
 import Backdrop from "@material-ui/core/Backdrop";
+import PermissaoComponent from "../../../config/authComponent";
 
 function Servico() {
   const classes = funcaoStyle();
@@ -226,7 +227,12 @@ function Servico() {
           </TableHead>
           <TableBody>
             {Object.keys(values)
-              .sort((a, b) => (values[a].nmServico.toUpperCase() < values[b].nmServico.toUpperCase() ? -1 : 0))
+              .sort((a, b) =>
+                values[a].nmServico.toUpperCase() <
+                values[b].nmServico.toUpperCase()
+                  ? -1
+                  : 0
+              )
               .map((id) => (
                 <TableRow key={id}>
                   <TableCell component="th" scope="row" align="center">
@@ -254,8 +260,12 @@ function Servico() {
                   >
                     {values[id].dsServico.toUpperCase()}
                   </TableCell>
+
                   <TableCell align="center">
                     <Button
+                      disabled={
+                        localStorage.sistemPermisson === "ADMIN" ? false : true
+                      }
                       onClick={() => handleOpen(id)}
                       className={classes.iconEditar}
                     >
@@ -263,6 +273,9 @@ function Servico() {
                     </Button>
 
                     <Button
+                      disabled={
+                        localStorage.sistemPermisson === "ADMIN" ? false : true
+                      }
                       className={classes.iconDelete}
                       onClick={(e) => handleDelete(values[id]._id)}
                     >
@@ -275,27 +288,29 @@ function Servico() {
         </Table>
       </TableContainer>
       <InputForm>
-        <form className={classes.boxRow} onSubmit={handleSubmit}>
-          <SubBox>
-            <TextField
-              fullWidth
-              name="nmServico"
-              variant="outlined"
-              onChange={handleChenge}
-              label="Novo Servico"
-            />
-            <TextField
-              fullWidth
-              name="dsServico"
-              variant="outlined"
-              onChange={handleChenge}
-              label="Descricao"
-            />
-            <Btn type="submit">
-              <AddIcon />
-            </Btn>
-          </SubBox>
-        </form>
+        <PermissaoComponent permissoes={["Admin"]}>
+          <form className={classes.boxRow} onSubmit={handleSubmit}>
+            <SubBox>
+              <TextField
+                fullWidth
+                name="nmServico"
+                variant="outlined"
+                onChange={handleChenge}
+                label="Novo Servico"
+              />
+              <TextField
+                fullWidth
+                name="dsServico"
+                variant="outlined"
+                onChange={handleChenge}
+                label="Descricao"
+              />
+              <Btn type="submit">
+                <AddIcon />
+              </Btn>
+            </SubBox>
+          </form>
+        </PermissaoComponent>
       </InputForm>
       {openDialog ? (
         <Backdrop open={openDialog} className={classes.backdrop}>

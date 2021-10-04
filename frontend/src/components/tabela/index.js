@@ -28,6 +28,7 @@ import { Box, CardActions } from "@material-ui/core";
 import { Button, TextField } from "@material-ui/core";
 import { Divider, Paper } from "@material-ui/core";
 import CarregandoImg from "../../assets/carregando.png";
+import PermissaoComponent from "../../config/authComponent";
 export default function TabelaChamado() {
   const classes = tabelaStyle();
   const [lista, setLista] = useState([]);

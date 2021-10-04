@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { isValidElement, useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Dialog from "@material-ui/core/Dialog";
 import { TextField } from "formik-material-ui";
@@ -21,8 +21,8 @@ import Alert from "../../alert";
 import { BtnCancalar } from "../finalizarOrdem/styles";
 
 const validationSchema = yup.object().shape({
-  dtInicio: yup.string().required("Campo e obrigatorio"),
-  dtFinal: yup.string().required("Campo e obrigatorio"),
+  dtInicio: yup.date().transform ().required("Campo e obrigatorio"),
+  dtFinal: yup.date().required("Campo e obrigatorio"),
   dsServicoRealizado: yup.string().required("Campo e obrigatorio"),
   idServico: yup.string().required("Campo e obrigatorio"),
 });
@@ -64,7 +64,7 @@ console.log(props.datas.datas)
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
               
-
+          
               setTimeout(async () => {
                 await api
                   .put(`/itemordem/${props.datas.datas._id}`,values)

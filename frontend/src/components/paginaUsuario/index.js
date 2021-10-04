@@ -33,7 +33,8 @@ import FeedbackIcon from "@material-ui/icons/Feedback";
 import EditarUsuario from "../cadastro/editarUsuario";
 import AuthComponent from "../../config/authComponent";
 import EditarSenha from "../cadastro/editarUsuarioSenha";
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import PermissaoComponent from "../../config/authComponent";
 
 function DetalheUsuario(props) {
   const classes = detalheStyle();
@@ -74,10 +75,10 @@ function DetalheUsuario(props) {
     return <DeletarItemOrdem />;
   };
   const handleEditarSenha = (list) => {
-    console.log(list)
+    console.log(list);
     setSenha(true);
     setDatas({ ...datas, datas: list });
-    return <EditarSenha/>;
+    return <EditarSenha />;
   };
 
   const Datas = (lista) => {
@@ -97,7 +98,6 @@ function DetalheUsuario(props) {
       setList(list);
     });
   }, []);
-
 
   return (
     <>
@@ -153,32 +153,31 @@ function DetalheUsuario(props) {
             </BackBox>
           </div>
         </Paper>
+        <PermissaoComponent permissoes={["Admin"]}>
+          <BtnBox display="flex" flexDirection="row-reverse">
+            <div>
+              <ButtomChamado
+                onClick={() => handleEditar(props.lista[props.idAtual])}
+              >
+                <EditIcon />
+                Editar
+              </ButtomChamado>
 
-        <BtnBox display="flex" flexDirection="row-reverse">
-          
-          <div>
+              <BtnDelete
+                onClick={() => handleDeletar(props.lista[props.idAtual])}
+              >
+                <DeleteIcon />
+                Deletar
+              </BtnDelete>
+            </div>
             <ButtomChamado
-              onClick={() => handleEditar(props.lista[props.idAtual])}
-            >
-              <EditIcon />
-              Editar
-            </ButtomChamado>
-           
-            <BtnDelete
-              onClick={() => handleDeletar(props.lista[props.idAtual])}
-            >
-              <DeleteIcon />
-              Deletar
-            </BtnDelete>
-            
-          </div>
-          <ButtomChamado
               onClick={() => handleEditarSenha(props.lista[props.idAtual])}
             >
-              <VpnKeyIcon  />
+              <VpnKeyIcon />
               Alterar Senha
             </ButtomChamado>
-        </BtnBox>
+          </BtnBox>
+        </PermissaoComponent>
 
         {confirmacao === true ? (
           <DeletarUsuario {...{ datas, confirmacao, setConfirmacao }} />
@@ -189,10 +188,7 @@ function DetalheUsuario(props) {
         {senha === true ? (
           <EditarSenha {...{ datas, senha, setSenha }} />
         ) : null}
-       
-        
       </Paper>
-     
     </>
   );
 }

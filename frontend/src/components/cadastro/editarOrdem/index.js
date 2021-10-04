@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import Dialog from "@material-ui/core/Dialog";
-import { TextField } from "formik-material-ui";
+import { Select, TextField } from "formik-material-ui";
 import { MenuItem, Typography } from "@material-ui/core";
 import * as yup from "yup";
 
@@ -11,7 +11,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import api from "../../../services/api";
 
-import { InputForm, BoxForm, Title, BoxDialog, Btn,BtnCancelar } from "./styles";
+import {
+  InputForm,
+  BoxForm,
+  Title,
+  BoxDialog,
+  Btn,
+  BtnCancelar,
+} from "./styles";
 import Alert from "../../alert";
 
 const validationSchema = yup.object().shape({
@@ -29,12 +36,11 @@ const useStyles = makeStyles((theme) => ({
 
 function EditarOrdem(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open } = props;
 
   const initialValues = {
     dsProblema: props.datas.datas.dsProblema,
     dsDetalhe: props.datas.datas.dsDetalhe,
-    idSetor: props.datas.datas.idSetor,
+    idSetor: props.datas.datas.idSetor.nmSetor,
   };
 
   const [setores, setSetor] = useState([]);
@@ -48,12 +54,12 @@ function EditarOrdem(props) {
   }, []);
 
   const handleClose = () => {
-    props.setEditar(false)
+    props.setEditar(false);
   };
   return (
     <Dialog onClose={handleClose} open={props.editar} fullWidth>
       <BoxDialog>
-        <Title>Novo Chamado</Title>
+        <Title>Editar Chamado</Title>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -87,11 +93,13 @@ function EditarOrdem(props) {
                     component={TextField}
                     label="Setor"
                     select
+                   
+                    
                   >
                     {setores
                       .sort((a, b) => (a.nmSetor > b.nmSetor ? 1 : -1))
                       .map((e) => (
-                        <MenuItem value={e._id} key={e._id}>
+                        <MenuItem name='idSetor' value={e._id} key={e._id}>
                           {e.nmSetor}
                         </MenuItem>
                       ))}
@@ -119,9 +127,7 @@ function EditarOrdem(props) {
               <Btn variant="contained" disabled={isSubmitting} type="submit">
                 Editar
               </Btn>
-              <BtnCancelar onClick={handleClose}>
-                Cancelar
-              </BtnCancelar>
+              <BtnCancelar onClick={handleClose}>Cancelar</BtnCancelar>
               {confirmacao === true ? (
                 <Alert title="Ordem Gerado com Sucesso!!" />
               ) : null}

@@ -21,8 +21,8 @@ import Alert from "../../alert";
 import { BtnCancalar } from "../finalizarOrdem/styles";
 
 const validationSchema = yup.object().shape({
-  dtInicio: yup.string().required("Campo e obrigatorio"),
-  dtFinal: yup.string().required("Campo e obrigatorio"),
+  dtInicio: yup.date().required("Campo e obrigatorio"),
+  dtFinal: yup.date().required("Campo e obrigatorio"),
   dsServicoRealizado: yup.string().required("Campo e obrigatorio"),
   idServico: yup.string().required("Campo e obrigatorio"),
 });
@@ -78,7 +78,7 @@ function ItemOrdem(props) {
               }, 3000);
             }}
           >
-            {({ errors, touched, isSubmitting }) => (
+            {({ errors, touched, isSubmitting, values }) => (
               <Form>
                 <InputForm>
                   <Field
@@ -98,17 +98,17 @@ function ItemOrdem(props) {
                 </InputForm>
                 <BoxForm>
                   <InputForm>
-                      <Field
-                        name="dtInicio"
-                        fullWidth
-                        component={TextField}
-                        label="Iniciado em"
-                        type="datetime-local"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                      ></Field>
-                  
+                    <Field
+                      name="dtInicio"
+                      fullWidth
+                      component={TextField}
+                      label="Iniciado em"
+                      type="datetime-local"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    ></Field>
+
                     {errors.dtInicio && touched.dtInicio}
                   </InputForm>
                   <InputForm>
@@ -117,10 +117,10 @@ function ItemOrdem(props) {
                       fullWidth
                       component={TextField}
                       label="Finalizado em"
-                        type="datetime-local"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
+                      type="datetime-local"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
                     ></Field>
                     {errors.dtFinal && touched.dtFinal}
                   </InputForm>
@@ -131,7 +131,6 @@ function ItemOrdem(props) {
                     fullWidth
                     component={TextField}
                     label="Detalhe"
-                    
                     multiline
                     rows={4}
                   />
@@ -146,6 +145,9 @@ function ItemOrdem(props) {
                   Enviar
                 </Btn>
                 <BtnCancalar onClick={handleClouse}>Cancelar</BtnCancalar>
+                <pre>
+                  {JSON.stringify(values,null,2)}
+                </pre>
               </Form>
             )}
           </Formik>

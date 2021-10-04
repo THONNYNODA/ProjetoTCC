@@ -21,17 +21,13 @@ import {
 } from "./styles";
 import api from "../../services/api";
 import FinalizarOrdem from "../cadastro/finalizarOrdem";
-import Alert from "../alert";
 import EditarOrdem from "../cadastro/editarOrdem";
 import EditarItemOrdem from "../cadastro/editarItemOrdem";
 import DeletarOrdem from "../cadastro/DeletarOrdem";
 import DeletarItemOrdem from "../cadastro/DeletarItemOrdem";
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 import FeedbackIcon from "@material-ui/icons/Feedback";
-
-
-
-
+import PermissaoComponent from "../../config/authComponent";
 
 function DetalheChamado(props) {
   const classes = detalheStyle();
@@ -68,9 +64,9 @@ function DetalheChamado(props) {
   const handleDeletarItem = (id) => {
     setDeletItem(true);
     setDatas({ ...datas, datas: props.lista[props.idAtual] });
-    return <DeletarItemOrdem/>;
+    return <DeletarItemOrdem />;
   };
-  const handleEditarItem  = (list) => {
+  const handleEditarItem = (list) => {
     setEditarItem(true);
     setDatas({ ...datas, datas: list });
     return <EditarItemOrdem />;
@@ -183,20 +179,19 @@ function DetalheChamado(props) {
                       <Text>Finalizado em: {horasFinal(lis)}</Text>
                     </SubBox>
                     <Text>Comentario: {lis.dsServicoRealizado}</Text>
-                    <BtnBox display={props.lista[props.idAtual].dsStatus === "PENDENTE" ? "flex" : "none"} flexDirection="row-reverse">
+                    <BtnBox
+                      display={
+                        props.lista[props.idAtual].dsStatus === "PENDENTE"
+                          ? "flex"
+                          : "none"
+                      }
+                      flexDirection="row-reverse"
+                    >
                       <div>
-                        <BtnIconEdit
-                          onClick={() =>
-                            handleEditarItem(lis)
-                          }
-                        >
+                        <BtnIconEdit onClick={() => handleEditarItem(lis)}>
                           <EditIcon />
                         </BtnIconEdit>
-                        <BtnIcon
-                          onClick={() =>
-                            handleDeletarItem(lis._id)
-                          }
-                        >
+                        <BtnIcon onClick={() => handleDeletarItem(lis._id)}>
                           <DeleteIcon />
                         </BtnIcon>
                       </div>
@@ -211,20 +206,22 @@ function DetalheChamado(props) {
             props.lista[props.idAtual].dsStatus === "PENDENTE" ? "flex" : "none"
           }
         >
-          <div>
-            <ButtomChamado
-              onClick={() => handleOpen(props.lista[props.idAtual])}
-            >
-              <FeedbackIcon />
-              Responder
-            </ButtomChamado>
-            <ButtomChamado
-              onClick={() => handleFinalizar(props.lista[props.idAtual])}
-            >
-              <DoneOutlineIcon />
-              Finalizar
-            </ButtomChamado>
-          </div>
+          <PermissaoComponent permissoes={["Admin", "Prestador"]}>
+            <div>
+              <ButtomChamado
+                onClick={() => handleOpen(props.lista[props.idAtual])}
+              >
+                <FeedbackIcon />
+                Responder
+              </ButtomChamado>
+              <ButtomChamado
+                onClick={() => handleFinalizar(props.lista[props.idAtual])}
+              >
+                <DoneOutlineIcon />
+                Finalizar
+              </ButtomChamado>
+            </div>
+          </PermissaoComponent>
           <div>
             <ButtomChamado
               onClick={() => handleEditar(props.lista[props.idAtual])}
@@ -232,12 +229,14 @@ function DetalheChamado(props) {
               <EditIcon />
               Editar
             </ButtomChamado>
-            <BtnDelete
-              onClick={() => handleDeletar(props.lista[props.idAtual])}
-            >
-              <DeleteIcon />
-              Deletar
-            </BtnDelete>
+            <PermissaoComponent permissoes={["Admin"]}>
+              <BtnDelete
+                onClick={() => handleDeletar(props.lista[props.idAtual])}
+              >
+                <DeleteIcon />
+                Deletar
+              </BtnDelete>
+            </PermissaoComponent>
           </div>
         </BtnBox>
         {confirmacao === true ? (

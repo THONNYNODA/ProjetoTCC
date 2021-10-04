@@ -13,6 +13,8 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -22,6 +24,7 @@ import AlertSenha from "../../components/alertSenha";
 import logoImg from "../../assets/logo.png";
 
 import { loginSyles, Imput, Title, Text, BackBox, BoxText } from "./styles";
+import { IconButton } from "@material-ui/core";
 
 const validationSchema = yup.object({
   cpf: yup.string().required("Campo e obrigatorio"),
@@ -66,6 +69,11 @@ const Login = () => {
   });
 
   const [erro, setErro] = useState("");
+  const [showSenha, setShowSenha] = useState(false);
+
+  const handleShowSenha = () => {
+    setShowSenha(!showSenha);
+  };
 
   function erroLogin() {
     setDrop(false);
@@ -89,15 +97,14 @@ const Login = () => {
             {erro}
             <Imput>
               <FormControl
-                fullWidth
                 value={formik.values.cpf}
                 onChange={formik.handleChange}
+                fullWidth
               >
                 <InputMask mask="999.999.999-99" maskChar=" ">
                   {(inputProps) => (
                     <TextField
                       {...inputProps}
-                      fullWidth
                       id="cpf"
                       name="cpf"
                       label="CPF"
@@ -108,19 +115,33 @@ const Login = () => {
                 </InputMask>
               </FormControl>
             </Imput>
-            <Imput>
-              <TextField
-                name="dsSenha"
-                fullWidth
-                type="password"
-                id="dsSenha"
-                label="Senha"
-                value={formik.values.dsSenha}
-                onChange={formik.handleChange}
-                error={formik.touched.dsSenha && Boolean(formik.errors.dsSenha)}
-                helperText={formik.touched.dsSenha && formik.errors.dsSenha}
-              />
-            </Imput>
+
+            <div className={classes.inputPass}>
+              <Imput>
+                <FormControl fullWidth>
+                  <TextField
+                    name="dsSenha"
+                    fullWidth
+                    type={showSenha ? "text" : "password"}
+                    id="dsSenha"
+                    label="Senha"
+                    value={formik.values.dsSenha}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.dsSenha && Boolean(formik.errors.dsSenha)
+                    }
+                    helperText={formik.touched.dsSenha && formik.errors.dsSenha}
+                  />
+                </FormControl>
+              </Imput>
+              <IconButton
+                onChange={handleShowSenha}
+                onMouseDown={handleShowSenha}
+                className={classes.buttomPass}
+              >
+                {showSenha ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </div>
             <BoxText>
               <Text onClick={handleOpenPass}>Esqueceu a senha?</Text>
 
@@ -139,7 +160,13 @@ const Login = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       ) : null}
-      {open === true ? <AlertSenha title="Atenção!!" text="Por favor entre em contato com a TI para a alteração de senha" {...open}/> : null}
+      {open === true ? (
+        <AlertSenha
+          title="Atenção!!"
+          text="Por favor entre em contato com a TI para a alteração de senha"
+          {...open}
+        />
+      ) : null}
     </div>
   );
 };

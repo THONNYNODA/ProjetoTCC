@@ -167,18 +167,23 @@ function EditarUsuario(props) {
                 </InputForm>
               </BoxForm>
               <InputForm>
-                <FormControl fullWidth>
-                  <InputLabel>Funcao</InputLabel>
-                  <Field component={Select} name="funcao">
+                  <Field
+                    name="funcao"
+                    fullWidth
+                    component={TextField}
+                    label="Função"
+                    select
+                  >
                     {funcao
-                      .sort((a, b) => (a.nmFuncao > b.nmFuncao ? 1 : -1))
+                      .sort((a, b) => (a.nmFuncao  > b.nmFuncao  ? 1 : -1))
                       .map((e) => (
-                        <MenuItem  key={e._id}>{e.nmFuncao}</MenuItem>
+                        <MenuItem value={e._id} key={e._id}>
+                          {e.nmFuncao}
+                        </MenuItem>
                       ))}
                   </Field>
-                  {errors.funcao && touched.funcao}
-                </FormControl>
-              </InputForm>
+                  {errors.idSetor && touched.idSetor}
+                </InputForm>
               <InputForm>
                 <div className={classes.boxRadio}>
                   <Field

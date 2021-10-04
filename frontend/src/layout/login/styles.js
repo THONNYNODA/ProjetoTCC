@@ -94,4 +94,18 @@ export const loginSyles = makeStyles({
       zIndex: 9999,
       color: "#fff",
     },
+    inputPass:{
+
+      width: '100%',
+      display: 'inline-block',
+
+      position: 'relative',
+      
+    },
+    buttomPass:{
+      position: 'absolute',
+      right: 0,
+      top: 15
+ 
+     }
   });

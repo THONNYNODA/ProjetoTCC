@@ -15,6 +15,9 @@ export const InputForm = styled(Box)({
   "&.Mui-focused fieldset": {
     borderColor: "#1FA774",
   },
+
+  display: 'flex',
+  
 });
 
 export const BoxForm = styled(Box)({
@@ -22,7 +25,7 @@ export const BoxForm = styled(Box)({
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-around",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
   },
 });
@@ -61,4 +64,26 @@ export const Title = styled(Typography)({
   color: "#1FA774",
   fontWeight: "bolder",
 });
+
+export const editarUsuario = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+  check: {
+    "& .MuiCheckbox-colorSecondary": {
+      color: "#1FA774",
+    },
+    "& .MuiRadio-colorSecondary": {
+      color: "#1FA774",
+    },
+  },
+  boxRadio: {
+    display: "flex",
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    flexWrap: "noWrap",
+  },
+}));
 

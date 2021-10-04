@@ -16,10 +16,6 @@ app.use(function(req, res, next) {
     next();
   });
 
-// require('./app/controllers/funcaoController')(app);
-// require('./app/controllers/setorController')(app);
-// require('./app/controllers/usuarioController')(app);
-// require('./app/controllers/colaboradorControler')(app);
 require('./app/controllers/index')(app);
 
 

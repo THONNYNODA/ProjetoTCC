@@ -14,7 +14,6 @@ router.post("/", async (req, res) => {
       dtFinalOrdem,
       dsProblema,
       dsDetalhe,
-      idItemOrdem,
       idSetor,
       dsStatus,
     } = req.body;
@@ -28,19 +27,6 @@ router.post("/", async (req, res) => {
       dsStatus,
       idUsuario: req.usuarioId,
     });
-
-    // await Promise.all(
-    //   idItemOrdem.map(async (itensOrdem) => {
-    //     const ordemItem = new ItemOrdem({
-    //       ...itensOrdem,
-    //       idOrdem: ordem._id,
-    //     });
-
-    //     await ordemItem.save();
-
-    //     ordem.idItemOrdem.push(ordemItem);
-    //   })
-    // );
 
     await ordem.save();
 
@@ -130,9 +116,6 @@ router.put("/itemOrdem/:ordemId", async (req, res) => {
     const { idItemOrdem } = req.body;
 
     const ordem = await Ordem.findByIdAndUpdate(req.params.ordemId);
-
-    //ordem.idItemOrdem = [];
-    // await ItemOrdem.deleteMany({ idOrdem: ordem._id });
 
     await Promise.all(
       idItemOrdem.map(async (itensOrdem) => {

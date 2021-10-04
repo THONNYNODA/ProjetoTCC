@@ -1,25 +1,31 @@
-import React from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect
-} from 'react-router-dom';
 
-// import { Container } from './styles';
 
-function AuthComponent(props) {
+const useGetUsuarioPermissao = (permission) => {
 
-    const userAuth = ({ component: Component, ...rest }) => {
-        localStorage.setItem(Permissions)==="ADMIN" ? <Component {...props}/> : <Redirect to={{pathname:"/", state:{ form: props.location }}}/>
-    }
+  const roles = localStorage.sistemPermisson
 
-  return(
-    <>
-        
-    </>
-  );
+  switch (roles) {
+    case 'ADMIN':
+      return ['Admin']
+    case 'PRESTADOR':
+      return ['Prestador']  
+    default:
+    return ['Usuario']
+      
+  }
 }
 
-export default AuthComponent;
+const PermissaoComponent = ({children, permissoes}) => {
+  const userPermissao = useGetUsuarioPermissao()
+
+  if(
+    permissoes.some(permissao => userPermissao.includes(permissao))
+  ){
+    return children
+  }
+  return null
+}
+
+
+export default PermissaoComponent
 

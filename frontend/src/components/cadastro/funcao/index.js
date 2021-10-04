@@ -38,6 +38,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import BlockIcon from "@material-ui/icons/Block";
 
 import Backdrop from "@material-ui/core/Backdrop";
+import PermissaoComponent from "../../../config/authComponent";
 
 function Funcao() {
   const classes = funcaoStyle();
@@ -206,7 +207,12 @@ function Funcao() {
           </TableHead>
           <TableBody>
             {Object.keys(values)
-              .sort((a, b) => (values[a].nmFuncao.toUpperCase() < values[b].nmFuncao.toUpperCase() ? -1 : 0))
+              .sort((a, b) =>
+                values[a].nmFuncao.toUpperCase() <
+                values[b].nmFuncao.toUpperCase()
+                  ? -1
+                  : 0
+              )
               .map((id) => (
                 <TableRow key={id}>
                   <TableCell align="center" component="th" scope="row">
@@ -217,9 +223,10 @@ function Funcao() {
                     )}
                   </TableCell>
                   <TableCell
-                  
                     className={
-                      values[id].snAtivo == false || "" ? classes.ativado : null
+                      values[id].snAtivo === false || ""
+                        ? classes.ativado
+                        : null
                     }
                     component="th"
                     scope="row"
@@ -228,6 +235,9 @@ function Funcao() {
                   </TableCell>
                   <TableCell align="center">
                     <Button
+                      disabled={
+                        localStorage.sistemPermisson === "ADMIN" ? false : true
+                      }
                       onClick={() => handleOpen(id)}
                       className={classes.iconEditar}
                     >
@@ -235,6 +245,9 @@ function Funcao() {
                     </Button>
 
                     <Button
+                      disabled={
+                        localStorage.sistemPermisson === "ADMIN" ? false : true
+                      }
                       className={classes.iconDelete}
                       onClick={(e) => handleDelete(values[id]._id)}
                     >
@@ -246,22 +259,24 @@ function Funcao() {
           </TableBody>
         </Table>
       </TableContainer>
-      <form onSubmit={handleSubmit}>
-        <InputForm>
-          <SubBox>
-            <TextField
-              fullWidth
-              name="nmFuncao"
-              variant="outlined"
-              onChange={handleChenge}
-              label="Nova Funcao"
-            />
-            <Btn type="submit">
-              <AddIcon />
-            </Btn>
-          </SubBox>
-        </InputForm>
-      </form>
+      <PermissaoComponent permissoes={["Admin"]}>
+        <form onSubmit={handleSubmit}>
+          <InputForm>
+            <SubBox>
+              <TextField
+                fullWidth
+                name="nmFuncao"
+                variant="outlined"
+                onChange={handleChenge}
+                label="Nova Funcao"
+              />
+              <Btn type="submit">
+                <AddIcon />
+              </Btn>
+            </SubBox>
+          </InputForm>
+        </form>
+      </PermissaoComponent>
       {openDialog ? (
         <Backdrop open={openDialog} className={classes.backdrop}>
           <CircularProgress />

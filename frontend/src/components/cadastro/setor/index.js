@@ -38,6 +38,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import BlockIcon from "@material-ui/icons/Block";
 
 import Backdrop from "@material-ui/core/Backdrop";
+import PermissaoComponent from "../../../config/authComponent";
 
 function Setor() {
   const classes = funcaoStyle();
@@ -206,7 +207,12 @@ function Setor() {
           </TableHead>
           <TableBody>
             {Object.keys(values)
-              .sort((a, b) => (values[a].nmSetor.toUpperCase() < values[b].nmSetor.toUpperCase() ? -1 : 0))
+              .sort((a, b) =>
+                values[a].nmSetor.toUpperCase() <
+                values[b].nmSetor.toUpperCase()
+                  ? -1
+                  : 0
+              )
               .map((id) => (
                 <TableRow key={id}>
                   <TableCell component="th" scope="row" align="center">
@@ -227,6 +233,9 @@ function Setor() {
                   </TableCell>
                   <TableCell align="center">
                     <Button
+                      disabled={
+                        localStorage.sistemPermisson === "ADMIN" ? false : true
+                      }
                       onClick={() => handleOpen(id)}
                       className={classes.iconEditar}
                     >
@@ -234,6 +243,9 @@ function Setor() {
                     </Button>
 
                     <Button
+                      disabled={
+                        localStorage.sistemPermisson === "ADMIN" ? false : true
+                      }
                       className={classes.iconDelete}
                       onClick={(e) => handleDelete(values[id]._id)}
                     >
@@ -245,22 +257,24 @@ function Setor() {
           </TableBody>
         </Table>
       </TableContainer>
-      <form onSubmit={handleSubmit}>
-        <InputForm>
-          <SubBox>
-            <TextField
-              fullWidth
-              name="nmSetor"
-              variant="outlined"
-              onChange={handleChenge}
-              label="Novo Setor"
-            />
-            <Btn type="submit">
-              <AddIcon />
-            </Btn>
-          </SubBox>
-        </InputForm>
-      </form>
+      <PermissaoComponent permissoes={["Admin"]}>
+        <form onSubmit={handleSubmit}>
+          <InputForm>
+            <SubBox>
+              <TextField
+                fullWidth
+                name="nmSetor"
+                variant="outlined"
+                onChange={handleChenge}
+                label="Novo Setor"
+              />
+              <Btn type="submit">
+                <AddIcon />
+              </Btn>
+            </SubBox>
+          </InputForm>
+        </form>
+      </PermissaoComponent>
       {openDialog ? (
         <Backdrop open={openDialog} className={classes.backdrop}>
           <CircularProgress />
