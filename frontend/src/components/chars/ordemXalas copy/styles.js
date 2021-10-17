@@ -1,16 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const charStyles = makeStyles({
-  
-      boxContentTitle: {
-        display: 'flex',
-        justifyContent: 'space-around'
-      },
-      boxPendente:{
-          width: 15,
-          height: 15,
-          borderRadius:10,
-          background:"#FD4659" 
+      barColor:{
+          background:"#FD4659",
+          color : "#FD4659",
+          
       },
       boxFinalizado:{
           width: 15,

@@ -54,7 +54,7 @@ function ListaChamadas() {
                       className={classes.boxHeaderTitle}
                       variant="subtitle1"
                     >
-                      {lista.dsProblema}
+                      {lista.dsProblema.toUpperCase()}
                     </Typography>
                   }
                   subheader={
@@ -81,7 +81,7 @@ function ListaChamadas() {
 
                 <CardContent className={classes.boxContent}>
                   <Typography
-                    //className={classes.boxContentTitle}
+                   
                     variant="body2"
                     color="textSecondary"
                     component="p"

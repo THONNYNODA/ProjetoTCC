@@ -4,29 +4,12 @@ import api from "../../services/api";
 import ListaChamadas from "../listaChamadas";
 import DetalheUsuario from "../paginaUsuario";
 
-import {
-  tabelaStyle,
-  detalheStyle,
-  Text,
-  Title,
-  BackBox,
-  SubBox,
-  Conteiner,
-  TextVermelho,
-  ButtomChamado,
-  InputForm,
-  BoxForm,
-  BoxDialog,
-  Btn,
-} from "./styles";
+import { tabelaStyle, Conteiner } from "./styles";
 
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { Avatar, Box, CardActions } from "@material-ui/core";
-import { Button, TextField } from "@material-ui/core";
-import { Divider, Paper } from "@material-ui/core";
+import { Avatar, Box } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import CarregandoImg from "../../assets/carregando.png";
 
 export default function ListaUsuario() {
@@ -49,7 +32,6 @@ export default function ListaUsuario() {
     return <DetalheUsuario {...{ idAtual, lista }} />;
   };
 
-  
   const Carregando = () => (
     <>
       <Paper className={classes.boxCarregar}>
@@ -75,18 +57,25 @@ export default function ListaUsuario() {
     <>
       <Conteiner>
         <Card className={classes.root}>
-          <Card className={classes.boxCard} key={lista._id}  variant="outlined">
+          <Card className={classes.boxCard} key={lista._id} variant="outlined">
             {Object.keys(lista)
-              .sort((a,b) => (lista[a].nmColaborador.toUpperCase() < lista[b].nmColaborador.toUpperCase() ? -1 : 0))
+              .sort((a, b) =>
+                lista[a].nmColaborador.toUpperCase() <
+                lista[b].nmColaborador.toUpperCase()
+                  ? -1
+                  : 0
+              )
               .map((id) => (
                 <>
-                  <Paper onClick={() => handleOpen(id)}  className={classes.boxHeader}>
+                  <Paper
+                    onClick={() => handleOpen(id)}
+                    className={classes.boxHeader}
+                  >
                     <Avatar />
-                    <div className={classes.boxContent}  >
+                    <div className={classes.boxContent}>
                       <Typography
                         className={classes.boxHeaderTitle}
                         variant="subtitle1"
-                        
                       >
                         {lista[id].nmColaborador.toUpperCase()}
                       </Typography>
@@ -94,7 +83,15 @@ export default function ListaUsuario() {
                         <Typography component="p" align="right">
                           {lista[id].snPermissao}
                         </Typography>
-                        <Typography component="p" className={lista[id].snAtivo === false ? classes.textColor : null} align="right">
+                        <Typography
+                          component="p"
+                          className={
+                            lista[id].snAtivo === false
+                              ? classes.textColor
+                              : null
+                          }
+                          align="right"
+                        >
                           {lista[id].snAtivo === true ? "Ativo" : "Desativado"}
                         </Typography>
                       </div>
@@ -109,4 +106,3 @@ export default function ListaUsuario() {
     </>
   );
 }
-

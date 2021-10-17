@@ -52,7 +52,7 @@ function CharsFinalizados() {
             name: "finalizados",
           },
         ]}
-        width={350}
+        width={350 }
         height={350}
       />
     </>

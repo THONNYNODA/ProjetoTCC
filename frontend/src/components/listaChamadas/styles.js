@@ -19,15 +19,6 @@ export const cardStyles = makeStyles((theme) => ({
       fontWeight: "bold",
       color: "#f0f5f3"
     },
-    boxContentTitle: {
-      position: "relative",
-      whiteSpace: "nowrap",
-      width: 360,
-      //maxHeight: 50,
-      padding: 5,
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    },
     boxContent: {
       minHeight: 150,      
     },

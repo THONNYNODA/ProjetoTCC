@@ -16,10 +16,6 @@ export const Title = styled(Typography)({
 });
 
 export const alertStyle = makeStyles({
-  backdrop: {
-    zIndex: 999,
-    color: "#fff",
-  },
   icon:{
     fontSize: 60,
     color: "#1FA774"

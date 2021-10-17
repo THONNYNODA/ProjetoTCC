@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import api from "../../../services/api";
 import {
-  FlexibleWidthXYPlot,
+  XYPlot,
   VerticalGridLines,
   HorizontalGridLines,
   XAxis,
   YAxis,
   VerticalBarSeries,
   LabelSeries,
-  AreaSeries 
 } from "react-vis";
 
-import { charStyles } from "./styles";
+import { charStyles } from './styles'
 
 function RelatorioAla() {
-  const classes = charStyles();
+  const classes = charStyles()
   const [lista, setLista] = useState([]);
   const [setor, setSetor] = useState([]);
 
@@ -40,16 +39,18 @@ function RelatorioAla() {
     }
   }
 
-
   const BarSeries = VerticalBarSeries;
   return (
-    <div className={classes.teste} >
-      <FlexibleWidthXYPlot xType="ordinal" color="#1FA774"  height={350}>     
+    <>
+      <XYPlot  animation xType="ordinal" color="#1FA774"  width={450} height={350} >
+        <VerticalGridLines  />
+        <HorizontalGridLines />
+        <XAxis  />
         <YAxis />
-        <BarSeries barWidth={0.90} data={listas} />
-        <LabelSeries data={listas} rotation={-45} getLabel={d => d.x} />
-      </FlexibleWidthXYPlot>
-    </div>
+        <BarSeries  data={listas} />
+        <LabelSeries />
+      </XYPlot>
+    </>
   );
 }
 

@@ -7,7 +7,6 @@ import Card from "@material-ui/core/Card";
 
 import { cardStyles } from "./styles";
 import { Typography } from "@material-ui/core";
-import Busca from "../busca";
 
 function Cards(props) {
   const classes = cardStyles();
