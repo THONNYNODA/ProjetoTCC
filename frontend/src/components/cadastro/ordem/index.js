@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import Dialog from "@material-ui/core/Dialog";
 import { TextField } from "formik-material-ui";
-import { MenuItem, Typography } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 import * as yup from "yup";
 
 import Backdrop from "@material-ui/core/Backdrop";
@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import api from "../../../services/api";
 
-import { InputForm, BoxForm, Title, BoxDialog, Btn } from "./styles";
+import { InputForm, BoxForm, Title, BoxDialog, Btn, BtnCancalar } from "./styles";
 import Alert from "../../alert";
 
 const validationSchema = yup.object().shape({
@@ -51,7 +51,7 @@ function Ordem(props) {
     onClose(selectedValue);
   };
   return (
-    <Dialog onClose={handleClose} open={open} fullWidth>
+    <Dialog  open={open} fullWidth>
       <BoxDialog>
         <Title>Novo Chamado</Title>
         <Formik
@@ -90,7 +90,7 @@ function Ordem(props) {
                       .sort((a, b) => (a.nmSetor > b.nmSetor ? 1 : -1))
                       .map((e) => (
                         <MenuItem value={e._id} key={e._id}>
-                          {e.nmSetor}
+                          {e.nmSetor.toUpperCase()}
                         </MenuItem>
                       ))}
                   </Field>
@@ -117,6 +117,9 @@ function Ordem(props) {
               <Btn variant="contained" disabled={isSubmitting} type="submit">
                 Enviar
               </Btn>
+              <BtnCancalar onClick={handleClose}>
+                Cancelar
+              </BtnCancalar>
               {confirmacao === true ? <Alert title="Ordem Gerado com Sucesso!!"/> : null}
             </Form>
             

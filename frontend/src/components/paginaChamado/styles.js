@@ -7,7 +7,6 @@ export const BackBox = styled(Box)({
   width: "100%",
 });
 export const ButtomChamado = styled(Button)({
-  //width: "100%",
   border: "2px solid #1FA774",
   color: "#1FA774",
   marginRight: 5,
@@ -15,14 +14,13 @@ export const ButtomChamado = styled(Button)({
     color: "#f0f5f3",
     background: "#1FA774",
   },
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     marginTop: 5,
     width: "100%",
     display: "block",
   },
 });
 export const BtnDelete = styled(Button)({
-  //width: "100%",
   border: "2px solid #FF6163",
   color: "#FF6163",
   marginRight: 5,
@@ -30,7 +28,7 @@ export const BtnDelete = styled(Button)({
     color: "#f0f5f3",
     background: "#FF6163",
   },
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     marginTop: 5,
     width: "100%",
     display: "block",
@@ -44,7 +42,7 @@ export const BtnIcon = styled(Button)({
     color: "rgba(255, 97, 99,0.6)",
     background: "none",
   },
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     marginTop: 5,
     width: "100%",
     display: "block",
@@ -57,7 +55,7 @@ export const BtnIconEdit = styled(Button)({
     color: "rgba(31, 167, 116,0.6)",
     background: "none",
   },
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     marginTop: 5,
     width: "100%",
     display: "block",
@@ -69,31 +67,29 @@ export const SubBox = styled(Box)({
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-between",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
   },
 });
 export const BtnBox = styled(Box)({
-  display: (props) => props.display ,
-  flexDirection: props => props.flexDirection,
+  display: (props) => props.display,
+  flexDirection: (props) => props.flexDirection,
   flexWrap: "wrap",
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-between",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     width: "100%",
-    display: (props) => (props.display === "flex"  ? "block" : "none"),
+    display: (props) => (props.display === "flex" ? "block" : "none"),
   },
 });
 export const Conteiner = styled(Box)({
   display: "flex",
   width: "100%",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
     maxHeight: "none",
   },
-  //margin: "10px 0",
-  //justifyContent: "space-between",
 });
 
 export const Title = styled(Typography)({
@@ -113,7 +109,6 @@ export const Text = styled(Typography)({
 
 export const tabelaStyle = makeStyles({
   box: {
-    //display:'flex',
     width: "100%",
     flexDirection: "column",
   },
@@ -130,9 +125,8 @@ export const tabelaStyle = makeStyles({
     flexDirection: "column",
     overflow: "auto",
     justifyContent: "space-between",
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       display: "block",
-      //maxHeight: 'none',
     },
   },
 
@@ -153,7 +147,6 @@ export const tabelaStyle = makeStyles({
     position: "relative",
     whiteSpace: "nowrap",
     width: 360,
-    //maxHeight: 50,
     padding: 5,
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -163,11 +156,10 @@ export const tabelaStyle = makeStyles({
   },
   boxCard: {
     display: "flex",
-    //maxWidth: 600,
     flexDirection: "column",
     overflow: "auto",
     marginTop: 15,
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       maxWidth: "100%",
       display: "block",
     },
@@ -199,7 +191,7 @@ export const detalheStyle = makeStyles({
     width: "calc(100% - 400px)",
     padding: 20,
     marginLeft: 15,
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       display: "block",
       width: "100%",
       marginTop: 15,
@@ -218,9 +210,8 @@ export const detalheStyle = makeStyles({
     flexDirection: "column",
     overflow: "auto",
     justifyContent: "space-between",
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       display: "block",
-      //maxHeight: 'none',
     },
   },
   boxItem: {
@@ -247,7 +238,7 @@ export const BoxForm = styled(Box)({
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-around",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
   },
 });

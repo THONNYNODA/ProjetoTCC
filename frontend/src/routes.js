@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
   Redirect,
-  RouteProps
 } from "react-router-dom";
 
 import { isAuthenticated } from "./config/auth";
@@ -14,7 +13,6 @@ import Login from "./layout/login";
 import Chamadas from "./layout/chamadas";
 import Dashbord from "./layout/dashbord";
 import Error404 from "./layout/404";
-import Cadastros from "./layout/cadastros";
 import CadastroUsuario from "./layout/cadastroUsuario";
 import CadastrosSetor from "./layout/setor";
 import CadastrosServico from "./layout/servico";

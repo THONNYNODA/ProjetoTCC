@@ -1,23 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import api from "../../services/api";
-import ListaChamadas from "../listaChamadas";
 import DetalheChamado from "../paginaChamado";
 
 import {
   tabelaStyle,
-  detalheStyle,
-  Text,
-  Title,
-  BackBox,
-  SubBox,
   Conteiner,
-  TextVermelho,
-  ButtomChamado,
-  InputForm,
-  BoxForm,
-  BoxDialog,
-  Btn,
 } from "./styles";
 
 import Card from "@material-ui/core/Card";
@@ -25,10 +13,11 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Box, CardActions } from "@material-ui/core";
-import { Button, TextField } from "@material-ui/core";
-import { Divider, Paper } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import CarregandoImg from "../../assets/carregando.png";
-import PermissaoComponent from "../../config/authComponent";
+
+
 export default function TabelaChamado() {
   const classes = tabelaStyle();
   const [lista, setLista] = useState([]);
@@ -108,7 +97,6 @@ export default function TabelaChamado() {
                   ></CardHeader>
                   <CardContent className={classes.boxContent}>
                     <Typography
-                      //className={classes.boxContentTitle}
                       variant="body2"
                       color="textSecondary"
                       component="p"

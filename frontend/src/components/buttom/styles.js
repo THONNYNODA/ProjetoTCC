@@ -7,7 +7,7 @@ export const bottomSyles = makeStyles(theme =>({
       },
       absolute: {
         display: 'inline-block',
-        position: "relative",
+        position: "fixed",
         right: 10,
         bottom: 10,
         color: "#f0f5f3",

@@ -157,7 +157,6 @@ function Servico() {
                     variant="outlined"
                     onChange={handleChenge}
                     value={servico.nmServico}
-                    //label="Nome Servico"
                   />
                   <TextField
                     fullWidth
@@ -165,7 +164,6 @@ function Servico() {
                     variant="outlined"
                     onChange={handleChenge}
                     value={servico.dsServico}
-                    //label="Nome Servico"
                   />
                   <BoxCheck>
                     <FormControlLabel
@@ -190,7 +188,6 @@ function Servico() {
                     <Snackbar
                       open={status}
                       autoHideDuration={6000}
-                      //onClose={handleClose}
                     >
                       <Alert onClose={handleClose} severity="success">
                         Alterado com Sucesso!!
@@ -212,7 +209,6 @@ function Servico() {
     <>
       <TableContainer className={classes.root} component={Paper}>
         <Table
-          //size="small"
           aria-label="a dense table"
         >
           <TableHead>

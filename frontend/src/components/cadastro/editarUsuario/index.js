@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import Dialog from "@material-ui/core/Dialog";
-import { Checkbox, TextField, RadioGroup, Select } from "formik-material-ui";
+import { Checkbox, TextField, RadioGroup } from "formik-material-ui";
 import {
   FormControlLabel,
   MenuItem,
   Radio,
-  FormControl,
-  InputLabel,
 } from "@material-ui/core";
 import * as yup from "yup";
 

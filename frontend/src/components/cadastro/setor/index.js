@@ -193,7 +193,6 @@ function Setor() {
     <>
       <TableContainer className={classes.root} component={Paper}>
         <Table
-          //size="small"
           aria-label="a dense table"
         >
           <TableHead>

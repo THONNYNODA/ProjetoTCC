@@ -18,10 +18,6 @@ export const BoxText = styled(Box)({
   paddingLeft: 10,
   backgroundColor: "#f0f5f3",
 });
-export const BoxStatus = styled(Box)({
-  display: "flex",
-  width: "100%",
-});
 export const Title = styled(Typography)({
   position: "relative",
   whiteSpace: "normal",
@@ -35,13 +31,8 @@ export const Text = styled(Typography)({
   whiteSpace: "normal",
   textOverflow: "ellipsis",
   fontWeight: "lighter",
+  //color: " #1FA774",
 });
-export const TextStatus = styled(Text)({
-  fontWeight: "bolder",
-  color: (props) => props.color ,
-});
-
-
 
 export const listaitemOrdemStyle = makeStyles({
   root: {

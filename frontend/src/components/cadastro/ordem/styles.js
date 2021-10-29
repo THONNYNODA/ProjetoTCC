@@ -22,7 +22,7 @@ export const BoxForm = styled(Box)({
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-around",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
   },
 });
@@ -31,15 +31,27 @@ export const BoxDialog = styled(Box)({
   textAlign: "center",
 });
 export const Btn = styled(Button)({
-    padding: "10px 30px",
-    fontSize: "1.2rem",
-    background: "#1FA774",
-    border: "3px solid #1FA774",
-    color: "#e8e8e8",
-    "&:hover": {
-      color: "#1FA774",
-      background: "#e8e8e8",
-    },
+  padding: "10px 30px",
+  fontSize: "1.2rem",
+  background: "#1FA774",
+  border: "2px solid #1FA774",
+  color: "#e8e8e8",
+  "&:hover": {
+    color: "#1FA774",
+    background: "#e8e8e8",
+  },
+});
+export const BtnCancalar = styled(Button)({
+  padding: "10px 15px",
+  marginLeft: 5,
+  fontSize: "1.2rem",
+  background: "#FF6163",
+  border: "2px solid #FF6163",
+  color: "#e8e8e8",
+  "&:hover": {
+    color: "#FF6163",
+    background: "#e8e8e8",
+  },
 });
 
 export const Title = styled(Typography)({

@@ -8,7 +8,6 @@ export const cadastrosStyle = makeStyles({
         }
     },
     boxContainer:{
-        //border:'2px solid blue',
         height: '100%',
         
     }

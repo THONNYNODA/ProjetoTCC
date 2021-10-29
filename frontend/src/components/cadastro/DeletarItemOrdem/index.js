@@ -2,9 +2,7 @@ import React, { useState } from "react";
 
 import Dialog from "@material-ui/core/Dialog";
 import { Box } from "@material-ui/core/";
-import { Radio, RadioGroup } from "@material-ui/core";
 import Alert from "../../alert";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -12,7 +10,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import api from "../../../services/api";
 
 import {
-  InputForm,
   Title,
   BoxDialog,
   Btn,

@@ -1,6 +1,5 @@
 import React from "react";
 
-
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
@@ -22,9 +21,7 @@ function Cards(props) {
             </Typography>
           }
         />
-        <CardContent className={classes.boxCard}>
-          {props.children}
-        </CardContent>
+        <CardContent className={classes.boxCard}>{props.children}</CardContent>
       </Card>
     </>
   );

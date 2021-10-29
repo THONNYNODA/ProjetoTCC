@@ -4,9 +4,6 @@ import Typography from '@material-ui/core/Typography';
 
 import BackgroundImg from '../../assets/background.jpg'
 
-
-//import styled from 'styled-components';
-
  export const InputForm = styled(Box)({
   width: "100%", 
   margin:'10px 5px',
@@ -36,7 +33,7 @@ export const BoxForm= styled(Box)({
   width: "100%",
   margin: "10px 0",
   justifyContent:'space-around',
-  ['@media (max-width:780px)']:{
+  '@media (max-width:780px)':{
     display: 'block',
   }
 });

@@ -22,7 +22,7 @@ export const BoxForm = styled(Box)({
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-around",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
   },
 });

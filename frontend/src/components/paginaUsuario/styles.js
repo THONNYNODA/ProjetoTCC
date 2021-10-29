@@ -8,7 +8,6 @@ export const BackBox = styled(Box)({
   width: "100%",
 });
 export const ButtomChamado = styled(Button)({
-  //width: "100%",
   border: "2px solid #1FA774",
   color: "#1FA774",
   marginRight: 5,
@@ -23,7 +22,6 @@ export const ButtomChamado = styled(Button)({
   },
 });
 export const BtnDelete = styled(Button)({
-  //width: "100%",
   border: "2px solid #FF6163",
   color: "#FF6163",
   marginRight: 5,
@@ -94,8 +92,6 @@ export const Conteiner = styled(Box)({
     display: "block",
     maxHeight: "none",
   },
-  //margin: "10px 0",
-  //justifyContent: "space-between",
 });
 
 export const Title = styled(Typography)({
@@ -115,7 +111,6 @@ export const Text = styled(Typography)({
 
 export const tabelaStyle = makeStyles({
   box: {
-    //display:'flex',
     width: "100%",
     flexDirection: "column",
   },
@@ -134,7 +129,6 @@ export const tabelaStyle = makeStyles({
     justifyContent: "space-between",
     "@media (max-width:780px)": {
       display: "block",
-      //maxHeight: 'none',
     },
   },
 
@@ -155,7 +149,6 @@ export const tabelaStyle = makeStyles({
     position: "relative",
     whiteSpace: "nowrap",
     width: 360,
-    //maxHeight: 50,
     padding: 5,
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -165,7 +158,6 @@ export const tabelaStyle = makeStyles({
   },
   boxCard: {
     display: "flex",
-    //maxWidth: 600,
     flexDirection: "column",
     overflow: "auto",
     marginTop: 15,
@@ -222,7 +214,6 @@ export const detalheStyle = makeStyles({
     justifyContent: "space-between",
     "@media (max-width:780px)": {
       display: "block",
-      //maxHeight: 'none',
     },
   },
   boxItem: {

@@ -2,8 +2,6 @@ import React from "react";
 
 import { Grid } from "@material-ui/core/";
 import Header from "../../components/header";
-import Status from "../../components/status";
-import Buttom from "../../components/buttom";
 import Cards from "../../components/card";
 
 import { configStyle } from "./styles";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RadialChart } from "react-vis";
+import { RadialChart, FlexibleXYPlot } from "react-vis";
 
 import api from "../../../services/api";
 
@@ -25,7 +25,7 @@ function CharsFinalizados() {
     .map((e) => e.dsStatus).length;
 
   return (
-    <>
+    <div>
       <Box className={classes.boxContentTitle}>
         <div className={classes.boxText}>
           <Typography>Pendentes</Typography>
@@ -36,26 +36,28 @@ function CharsFinalizados() {
           <div className={classes.boxFinalizado} />
         </div>
       </Box>
-      <RadialChart
-        colorType="literal"
-        data={[
-          {
-            angle: pendente,
-            color: "#FD4659",
-            label: "pendente",
-            name: "pendente",
-          },
-          {
-            angle: finalizado,
-            color: "#1FA774",
-            label: "finalizados",
-            name: "finalizados",
-          },
-        ]}
-        width={350 }
-        height={350}
-      />
-    </>
+      <Box className={classes.containerRadial}>
+        <RadialChart
+          colorType="literal"
+          data={[
+            {
+              angle: pendente,
+              color: "#FD4659",
+              label: "pendente",
+              name: "pendente",
+            },
+            {
+              angle: finalizado,
+              color: "#1FA774",
+              label: "finalizados",
+              name: "finalizados",
+            },
+          ]}
+          width={350}
+          height={350}
+        />
+      </Box>
+    </div>
   );
 }
 

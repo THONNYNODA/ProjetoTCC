@@ -12,7 +12,7 @@ const Error404 = () => {
           <Text>Sorry, ocorreu um erro na página</Text>
 
           <Link to="/">
-            <LinkS>Retorne a pagina inicial</LinkS>{" "}
+            <LinkS>Retorne a pagina inicial</LinkS>
           </Link>
         </ErrorBox>
       </BackBox>

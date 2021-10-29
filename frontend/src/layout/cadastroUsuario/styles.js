@@ -10,7 +10,6 @@ export const configStyle = makeStyles({
         }
     },
     boxContainer:{
-        //border:'2px solid blue',
         height: '100%',
         
     }

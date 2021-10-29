@@ -7,11 +7,10 @@ export const painelStyle = makeStyles({
   },
   boxContainer: {
     position: "relative",
-    //height: "100vh",
-    //padding: 20,
   },
   boxSub: {
     position: "relative",
+    margin: 10
   },
   headerMarg: {
     marginBottom: 45,

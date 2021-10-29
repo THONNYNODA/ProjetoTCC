@@ -6,9 +6,7 @@ import { NumStatus, statusStyles, Title } from "./styles";
 
 function Status() {
   const [status, setStatus] = useState([]);
-
-  const now = new Date();
-  const data2 = now.getDate();
+  const classes = statusStyles();  
 
   useEffect(() => {
     api.get("/ordem").then((res) => {
@@ -17,7 +15,16 @@ function Status() {
     });
   }, []);
 
-  const classes = statusStyles();
+  const horas = (status) => {
+    const datas =
+      new Date(status).getDate() +
+      "/" +
+      (new Date(status).getMonth() + 1) +
+      " de " +
+      new Date(status).getFullYear();
+    return datas;
+  };
+
 
   return (
     <Paper className={classes.grow} square>
@@ -25,7 +32,7 @@ function Status() {
         <Title>Hoje</Title>
         <NumStatus>
           {
-            status.filter((e) => new Date(e.dtCriado).getDate() === data2)
+            status.filter((e) => horas(e.dtCriado) === horas(Date()))
               .length
           }
         </NumStatus>

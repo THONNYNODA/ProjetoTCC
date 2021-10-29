@@ -5,7 +5,6 @@ export const painelStyle = makeStyles({
         margin: 10,
     },
     boxContainer:{
-        //border:'2px solid blue',
         height: '100%',
         
     }

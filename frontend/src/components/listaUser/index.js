@@ -25,6 +25,7 @@ export default function ListaUsuario() {
     });
   }, []);
 
+  
   const handleOpen = (id) => {
     setIdAtual(id);
     setOpen(true);

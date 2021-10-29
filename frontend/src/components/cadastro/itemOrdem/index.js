@@ -145,9 +145,6 @@ function ItemOrdem(props) {
                   Enviar
                 </Btn>
                 <BtnCancalar onClick={handleClouse}>Cancelar</BtnCancalar>
-                <pre>
-                  {JSON.stringify(values,null,2)}
-                </pre>
               </Form>
             )}
           </Formik>

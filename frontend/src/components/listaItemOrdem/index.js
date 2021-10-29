@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
-import {
-  listaitemOrdemStyle,
-  Conteiner,
-  Title,
-  Text,
-  BoxText,
-  TextStatus,
-  BoxStatus,
-} from "./styles";
+import ListaChamadas from "../listaChamadas";
+import DetalheUsuario from "../paginaUsuario";
+import { listaitemOrdemStyle, Conteiner, Title, Text, BoxText } from "./styles";
 import Card from "@material-ui/core/Card";
+import Typography from "@material-ui/core/Typography";
+import { Avatar, Box, Divider } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
+import CarregandoImg from "../../assets/carregando.png";
 
-export default function ListaChamadas() {
+export default function ListaItemOrdem() {
   const classes = listaitemOrdemStyle();
   const [lista, setLista] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [idAtual, setIdAtual] = useState("");
 
   useEffect(() => {
-    api.get("/ordem").then((res) => {
-      const lista = res.data.ordem;
+    api.get("/itemordem").then((res) => {
+      const lista = res.data.itemOrdem;
       console.log(lista);
       setLista(lista);
     });
@@ -51,24 +50,18 @@ export default function ListaChamadas() {
                 <>
                   <Paper className={classes.boxHeader}>
                     <div className={classes.boxContent}>
-                      <Title>Problema: {lista[id].dsProblema}</Title>
+                      <Title>
+                        Serviço Realizado: {lista[id].idServico.nmServico}
+                      </Title>
                       <BoxText>
-                        <BoxStatus>
-                          <Text>Status:</Text>
-                          <TextStatus
-                            color={
-                              lista[id].dsStatus === "FINALIZADO"
-                                ? "#1FA774"
-                                : "#FF6163"
-                            }
-                          >
-                            {lista[id].dsStatus}
-                          </TextStatus>
-                        </BoxStatus>
                         <Text>
-                          Data Solicitada: {horas(lista[id].dtCriado)}
+                          Referente ao Chamado : {lista[id].idOrdem.dsProblema}
                         </Text>
-                        <Text>Detalhe do Problema: {lista[id].dsDetalhe}</Text>
+                        <Text>Iniciado em: {horas(lista[id].dtInicio)}</Text>
+                        <Text>Finalizado em: {horas(lista[id].dtFinal)}</Text>
+                        <Text>
+                          Descrição do Serviço: {lista[id].dsServicoRealizado}
+                        </Text>
                       </BoxText>
                     </div>
                   </Paper>

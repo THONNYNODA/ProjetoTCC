@@ -1,9 +1,7 @@
 import { makeStyles, styled } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-
 import BackgroundImg from '../../assets/background.jpg'
-//import styled from 'styled-components';
 
  export const Imput = styled(Box)({
   margin:'10px',

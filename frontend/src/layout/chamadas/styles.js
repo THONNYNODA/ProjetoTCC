@@ -10,7 +10,6 @@ export const chamdaStyle = makeStyles({
         }
     },
     boxContainer:{
-        //border:'2px solid blue',
         height: '100%'
     }
 })

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import api from "../../../services/api";
 import {
   FlexibleWidthXYPlot,
-  VerticalGridLines,
-  HorizontalGridLines,
-  XAxis,
   YAxis,
+  XAxis,
   VerticalBarSeries,
   LabelSeries,
-  AreaSeries 
+   HorizontalBarSeries
 } from "react-vis";
 
 import { charStyles } from "./styles";
@@ -16,7 +14,6 @@ import { charStyles } from "./styles";
 function RelatorioAla() {
   const classes = charStyles();
   const [lista, setLista] = useState([]);
-  const [setor, setSetor] = useState([]);
 
   useEffect(() => {
     api.get("/ordem").then((res) => {
@@ -35,7 +32,7 @@ function RelatorioAla() {
     if (i < ordem.length - 1 && ordem[i] === ordem[i + 1]) {
       total++;
     } else {
-      listas.push({ x: ordem[i], y: total });
+      listas.push({ x: ordem[i].toUpperCase(), y: total });
       total = 1;
     }
   }
@@ -43,13 +40,14 @@ function RelatorioAla() {
 
   const BarSeries = VerticalBarSeries;
   return (
-    <div className={classes.teste} >
-      <FlexibleWidthXYPlot xType="ordinal" color="#1FA774"  height={350}>     
-        <YAxis />
-        <BarSeries barWidth={0.90} data={listas} />
-        <LabelSeries data={listas} rotation={-45} getLabel={d => d.x} />
+    
+      <FlexibleWidthXYPlot  xType="ordinal" color="#1FA774" className={classes.teste}  height={400}>     
+        <XAxis/>
+        <YAxis/>
+        <BarSeries  barWidth={0.50} data={listas} />
+        <LabelSeries  data={listas}  rotation={0} getLabel={d => d.y} />
       </FlexibleWidthXYPlot>
-    </div>
+ 
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import Paper from "@material-ui/core/Paper";
-import { Box, Dialog, Divider } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -18,46 +17,22 @@ import {
   ButtomChamado,
   BtnDelete,
   BtnBox,
-  BtnIcon,
-  BtnIconEdit,
 } from "./styles";
 import api from "../../services/api";
-import FinalizarOrdem from "../cadastro/finalizarOrdem";
-import Alert from "../alert";
 import EditarOrdem from "../cadastro/editarOrdem";
-import EditarItemOrdem from "../cadastro/editarItemOrdem";
 import DeletarUsuario from "../cadastro/DeletarUsuario";
-import DeletarItemOrdem from "../cadastro/DeletarItemOrdem";
-import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
-import FeedbackIcon from "@material-ui/icons/Feedback";
 import EditarUsuario from "../cadastro/editarUsuario";
-import AuthComponent from "../../config/authComponent";
 import EditarSenha from "../cadastro/editarUsuarioSenha";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import PermissaoComponent from "../../config/authComponent";
 
 function DetalheUsuario(props) {
   const classes = detalheStyle();
-  const [open, setOpen] = useState(false);
-  const [end, setEnd] = useState(false);
   const [confirmacao, setConfirmacao] = useState(false);
   const [editar, setEditar] = useState(false);
   const [senha, setSenha] = useState(false);
-  const [editarItem, setEditarItem] = useState(false);
-  const [deletItem, setDeletItem] = useState(false);
   const [datas, setDatas] = useState("");
   const [list, setList] = useState([]);
-
-  const handleOpen = () => {
-    setOpen(true);
-    setDatas({ ...datas, datas: props.lista[props.idAtual] });
-    return <ItemOrdem />;
-  };
-  const handleFinalizar = () => {
-    setEnd(true);
-    setDatas({ ...datas, datas: props.lista[props.idAtual] });
-    return <FinalizarOrdem />;
-  };
 
   const handleDeletar = (id) => {
     setConfirmacao(true);
@@ -68,11 +43,6 @@ function DetalheUsuario(props) {
     setEditar(true);
     setDatas({ ...datas, datas: props.lista[props.idAtual] });
     return <EditarOrdem />;
-  };
-  const handleDeletarItem = (id) => {
-    setDeletItem(true);
-    setDatas({ ...datas, datas: props.lista[props.idAtual] });
-    return <DeletarItemOrdem />;
   };
   const handleEditarSenha = (list) => {
     console.log(list);

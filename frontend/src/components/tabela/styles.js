@@ -22,7 +22,7 @@ export const SubBox = styled(Box)({
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-between",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
   },
 });
@@ -31,12 +31,10 @@ export const Conteiner = styled(Box)({
   justifyContent:"space-between",
   width: "100%",
   flex: 1,
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
     maxHeight: "none",
   },
-  //margin: "10px 0",
-  //justifyContent: "space-between",
 });
 
 export const Title = styled(Typography)({
@@ -53,24 +51,9 @@ export const Text = styled(Typography)({
   color: "#5f615f",
   fontWeight: 400,
 });
-// export const TextVermelho = styled(Typography)({
-//   margin: "10px",
-//   fontSize: "18px",
-//   paddingLeft: 25,
-//   color: "#FF6163",
-//   fontWeight: 400,
-// });
-// export const TextVerde = styled(Typography)({
-//   margin: "10px",
-//   fontSize: "18px",
-//   paddingLeft: 25,
-//   color: "#1FA774",
-//   fontWeight: 400,
-// });
 
 export const tabelaStyle = makeStyles({
   box: {
-    //display:'flex',
     width: "100%",
     height: "100%",
     minHeight: 600,
@@ -89,9 +72,8 @@ export const tabelaStyle = makeStyles({
     flexDirection: "column",
     overflow: "auto",
     justifyContent: "space-between",
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       display: "block",
-      //maxHeight: 'none',
     },
   },
   boxHeader: {
@@ -111,7 +93,6 @@ export const tabelaStyle = makeStyles({
     position: "relative",
     whiteSpace: "nowrap",
     width: 360,
-    //maxHeight: 50,
     padding: 5,
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -121,11 +102,10 @@ export const tabelaStyle = makeStyles({
   },
   boxCard: {
     display: "flex",
-    //maxWidth: 600,
     flexDirection: "column",
     overflow: "auto",
     marginTop: 15,
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       maxWidth: "100%",
       display: "block",
     },
@@ -141,10 +121,9 @@ export const tabelaStyle = makeStyles({
     "&:hover": {
       border: "1px solid #f0f5f3",
     },
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       width: "100%",
       display: "block",
-      //maxHeight: 'none',
     },
   },
   cardAction: {
@@ -161,7 +140,7 @@ export const tabelaStyle = makeStyles({
     minHeight: 600,
     padding: 20,
     marginLeft: 15,
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       display: "block",
       width: "100%",
       marginTop: 15,
@@ -188,7 +167,7 @@ export const detalheStyle = makeStyles({
     width: "calc(100% - 400px)",
     padding: 20,
     marginLeft: 15,
-    ["@media (max-width:780px)"]: {
+    "@media (max-width:780px)": {
       display: "block",
       width: "100%",
       marginTop: 15,
@@ -222,7 +201,7 @@ export const BoxForm = styled(Box)({
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-around",
-  ["@media (max-width:780px)"]: {
+  "@media (max-width:780px)": {
     display: "block",
   },
 });

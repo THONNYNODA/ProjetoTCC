@@ -10,7 +10,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
-import SettingsIcon from "@material-ui/icons/Settings";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import CreateIcon from "@material-ui/icons//Create";
@@ -21,7 +20,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import Logo from "../../assets/logo.png";
 import { useStyles } from "./styles";
-import { Tooltip, Collapse, ListItemButton } from "@material-ui/core";
+import { Tooltip, Collapse } from "@material-ui/core";
 
 export default function Menu() {
   const classes = useStyles();
@@ -56,7 +55,6 @@ export default function Menu() {
         variant="temporary"
         anchor="left"
         open={open}
-        // onClick={handleDrawerClose}
       >
         <List className={clsx(classes.list)}>
           <div className={classes.wrapper}>

@@ -24,7 +24,6 @@ export const statusStyles = makeStyles((theme) => ({
   },
   boxStatus: {
     flex: 1,
-    //border:'1px solid #42f5a1',
     '@media (max-width:780px)':{
       border:'1px outset #D8DCD6 '
     }

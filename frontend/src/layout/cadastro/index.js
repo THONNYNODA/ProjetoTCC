@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import logoImg from "../../assets/logo.png";
-import { Box, Divider, TextField, Typography } from "@material-ui/core";
+import { Box, Divider, TextField} from "@material-ui/core";
 import Alert from "../../components/alert";
 
 import Backdrop from "@material-ui/core/Backdrop";
@@ -105,7 +105,6 @@ const Cadastro = () => {
                   helperText={
                     formik.touched.nmColaborador && formik.errors.nmColaborador
                   }
-                  //inputProps={{ style: { textTransform: "uppercase" } }}
                 />
               </InputForm>
               <InputForm>
