@@ -35,6 +35,7 @@ function FinalizarOrdem(props) {
     const { name, value } = e.target;
     setStatus({ ...status, [name]: value });
   };
+  console.log(props.datas.datas)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,12 +73,12 @@ function FinalizarOrdem(props) {
                   name="dsStatus"
                   onChange={handleChenge}
                   control={<Radio className={classes.boxRadio}/>}
-                  label="Nao"
+                  label="Não"
                 />
               </InputForm>
             </RadioGroup>
             <Box>
-              <Btn type="submit">Ok</Btn>
+              <Btn type="submit">Finalizar</Btn>
              <BtnCancalar onClick={handleClouse}>
                Cancelar
              </BtnCancalar>

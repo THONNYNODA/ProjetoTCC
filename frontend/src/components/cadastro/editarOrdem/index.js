@@ -98,9 +98,10 @@ function EditarOrdem(props) {
                   >
                     {setores
                       .sort((a, b) => (a.nmSetor > b.nmSetor ? 1 : -1))
+                      .filter(e => e.snAtivo === true)
                       .map((e) => (
                         <MenuItem name='idSetor' value={e._id} key={e._id}>
-                          {e.nmSetor}
+                          {e.nmSetor.toUpperCase()}
                         </MenuItem>
                       ))}
                   </Field>

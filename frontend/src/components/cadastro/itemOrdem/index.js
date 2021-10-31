@@ -22,7 +22,15 @@ import { BtnCancalar } from "../finalizarOrdem/styles";
 
 const validationSchema = yup.object().shape({
   dtInicio: yup.date().required("Campo e obrigatorio"),
-  dtFinal: yup.date().required("Campo e obrigatorio"),
+  dtFinal: yup
+    .date()
+    .when(
+      "dtInicio",
+      (dtInicio, yup) =>
+        dtInicio &&
+        yup.min(dtInicio, "A data final não pode ser menor que o inicio")
+    )
+    .required("Campo e obrigatorio"),
   dsServicoRealizado: yup.string().required("Campo e obrigatorio"),
   idServico: yup.string().required("Campo e obrigatorio"),
 });
@@ -49,8 +57,6 @@ function ItemOrdem(props) {
       setServico(servico);
     });
   }, []);
-
-  console.log(props.datas.datas._id);
 
   const handleClouse = () => {
     props.setOpen(false);
@@ -88,11 +94,13 @@ function ItemOrdem(props) {
                     select
                     label="Servico"
                   >
-                    {servico.map((e) => (
-                      <MenuItem value={e._id} key={e._id}>
-                        {e.nmServico}: {e.dsServico}
-                      </MenuItem>
-                    ))}
+                    {servico
+                      .filter((e) => e.snAtivo === true)
+                      .map((e) => (
+                        <MenuItem value={e._id} key={e._id}>
+                          {e.nmServico}: {e.dsServico}
+                        </MenuItem>
+                      ))}
                   </Field>
                   {errors.idServico && touched.idServico}
                 </InputForm>

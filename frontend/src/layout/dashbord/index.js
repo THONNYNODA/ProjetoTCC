@@ -27,8 +27,7 @@ function painel() {
               <Cards title="Ordem x Setor">
                 <RelatorioAla />
               </Cards>
-            </Grid>
-            
+            </Grid>            
           </Grid>
         </Grid>
       </Grid>

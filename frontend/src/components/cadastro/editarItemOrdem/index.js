@@ -21,8 +21,16 @@ import Alert from "../../alert";
 import { BtnCancalar } from "../finalizarOrdem/styles";
 
 const validationSchema = yup.object().shape({
-  dtInicio: yup.date().transform ().required("Campo e obrigatorio"),
-  dtFinal: yup.date().required("Campo e obrigatorio"),
+  dtInicio: yup.date().transform().required("Campo e obrigatorio"),
+  dtFinal: yup
+    .date()
+    .when(
+      "dtInicio",
+      (dtInicio, yup) =>
+        dtInicio &&
+        yup.min(dtInicio, "A data final não pode ser menor que o inicio")
+    )
+    .required("Campo e obrigatorio"),
   dsServicoRealizado: yup.string().required("Campo e obrigatorio"),
   idServico: yup.string().required("Campo e obrigatorio"),
 });
@@ -36,7 +44,6 @@ function EditarItemOrdem(props) {
     idServico: props.datas.datas.idServico,
   };
 
-
   const [servico, setServico] = useState([]);
   const [alert, setAlert] = useState(false);
 
@@ -47,7 +54,7 @@ function EditarItemOrdem(props) {
     });
   }, []);
 
-console.log(props.datas.datas)
+  console.log(props.datas.datas);
 
   const handleClouse = () => {
     props.setEditarItem(false);
@@ -63,17 +70,14 @@ console.log(props.datas.datas)
             validationSchema={validationSchema}
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              
-          
               setTimeout(async () => {
                 await api
-                  .put(`/itemordem/${props.datas.datas._id}`,values)
+                  .put(`/itemordem/${props.datas.datas._id}`, values)
                   .then((res) => {
                     setSubmitting(false);
                     return setAlert(true);
                   });
               }, 3000);
-              
             }}
           >
             {({ errors, touched, isSubmitting }) => (
@@ -85,10 +89,9 @@ console.log(props.datas.datas)
                     component={TextField}
                     select
                     label="Servico"
-             
                   >
                     {servico.map((e) => (
-                      <MenuItem value={e._id} key={e._id}  >
+                      <MenuItem value={e._id} key={e._id}>
                         {e.nmServico}: {e.dsServico}
                       </MenuItem>
                     ))}
@@ -97,17 +100,17 @@ console.log(props.datas.datas)
                 </InputForm>
                 <BoxForm>
                   <InputForm>
-                      <Field
-                        name="dtInicio"
-                        fullWidth
-                        component={TextField}
-                        label="Iniciado em"
-                        type="datetime-local"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                      ></Field>
-                  
+                    <Field
+                      name="dtInicio"
+                      fullWidth
+                      component={TextField}
+                      label="Iniciado em"
+                      type="datetime-local"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    ></Field>
+
                     {errors.dtInicio && touched.dtInicio}
                   </InputForm>
                   <InputForm>
@@ -116,10 +119,10 @@ console.log(props.datas.datas)
                       fullWidth
                       component={TextField}
                       label="Finalizado em"
-                        type="datetime-local"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
+                      type="datetime-local"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
                     ></Field>
                     {errors.dtFinal && touched.dtFinal}
                   </InputForm>
@@ -130,7 +133,6 @@ console.log(props.datas.datas)
                     fullWidth
                     component={TextField}
                     label="Detalhe"
-                    
                     multiline
                     rows={4}
                   />
