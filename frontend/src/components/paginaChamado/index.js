@@ -74,46 +74,15 @@ function DetalheChamado(props) {
 
   const horas = (lista) => {
     const datas =
-      new Date(lista.dtCriado).getDate() +
+      new Date(lista).getDate() +
       "/" +
-      (new Date(lista.dtCriado).getMonth() + 1) +
+      (new Date(lista).getMonth() + 1) +
       " de " +
-      new Date(lista.dtCriado).getFullYear() +
+      new Date(lista).getFullYear() +
       " às " +
-      new Date(lista.dtCriado).getHours() +
+      new Date(lista).getHours() +
       ":" +
-      new Date(lista.dtCriado).getMinutes() +
-      "h";
-
-    return datas;
-  };
-
-  const horasInicio = (list) => {
-    const datas =
-      new Date(list.dtInicio).getDate() +
-      "/" +
-      (new Date(list.dtInicio).getMonth() + 1) +
-      " de " +
-      new Date(list.dtInicio).getFullYear() +
-      " às " +
-      new Date(list.dtInicio).getHours() +
-      ":" +
-      new Date(list.dtInicio).getMinutes() +
-      "h";
-
-    return datas;
-  };
-  const horasFinal = (list) => {
-    const datas =
-      new Date(list.dtFinal).getDate() +
-      "/" +
-      (new Date(list.dtFinal).getMonth() + 1) +
-      " de " +
-      new Date(list.dtFinal).getFullYear() +
-      " às " +
-      new Date(list.dtFinal).getHours() +
-      ":" +
-      new Date(list.dtFinal).getMinutes() +
+      new Date(lista).getMinutes() +
       "h";
 
     return datas;
@@ -131,7 +100,10 @@ function DetalheChamado(props) {
       <Paper key={props.lista[props.idAtual]._id} className={classes.box}>
         <SubBox>
           <Title>Chamada - {props.idAtual}</Title>
-          <Text> Solicitado em {horas(props.lista[props.idAtual])}</Text>
+          <Text>
+            {" "}
+            Solicitado em {horas(props.lista[props.idAtual].dtCriado)}
+          </Text>
         </SubBox>
         <BackBox>
           <SubBox>
@@ -163,6 +135,7 @@ function DetalheChamado(props) {
           <Title>Resposta: </Title>
           <Box className={classes.rowItem}>
             {list
+              .sort((a, b) => (a.dtCriado < b.dtCriado ? 1 : -1))
               .filter((e) => e.idOrdem._id === props.lista[props.idAtual]._id)
               .map((lis) => (
                 <>
@@ -175,8 +148,8 @@ function DetalheChamado(props) {
                       <Text>Servico Realidado: {lis.idServico.nmServico}</Text>
                     </SubBox>
                     <SubBox>
-                      <Text>Inicializado em: {horasInicio(lis)}</Text>
-                      <Text>Finalizado em: {horasFinal(lis)}</Text>
+                      <Text>Inicializado em: {horas(lis.dtInicio)}</Text>
+                      <Text>Finalizado em: {horas(lis.dtFinal)}</Text>
                     </SubBox>
                     <Text>Comentario: {lis.dsServicoRealizado}</Text>
                     <BtnBox
@@ -207,7 +180,7 @@ function DetalheChamado(props) {
           }
         >
           <PermissaoComponent permissoes={["Admin", "Prestador"]}>
-            <div>
+            <div className={classes.boxbtn}>
               <ButtomChamado
                 onClick={() => handleOpen(props.lista[props.idAtual])}
               >
@@ -222,7 +195,7 @@ function DetalheChamado(props) {
               </ButtomChamado>
             </div>
           </PermissaoComponent>
-          <div>
+          <div className={classes.boxbtn}>
             <ButtomChamado
               onClick={() => handleEditar(props.lista[props.idAtual])}
             >

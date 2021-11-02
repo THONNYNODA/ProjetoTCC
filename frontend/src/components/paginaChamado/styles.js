@@ -206,7 +206,7 @@ export const detalheStyle = makeStyles({
   },
   rowItem: {
     display: "flex",
-    height: 200,
+    maxHeight: 250,
     flexDirection: "column",
     overflow: "auto",
     justifyContent: "space-between",
@@ -216,6 +216,15 @@ export const detalheStyle = makeStyles({
   },
   boxItem: {
     margin: 20,
+  },
+  boxbtn:{
+    
+    display :'flex',
+    "@media (max-width: 1048px)":{
+      width: '100%',
+      justifyContent:'space-between',
+      marginTop:10
+    }
   },
 });
 
