@@ -51,14 +51,23 @@ function DetalheUsuario(props) {
     return <EditarSenha />;
   };
 
+
   const Datas = (lista) => {
+    const formatData = n => {
+      return ('0' + n).slice(-2);
+    }
     const datas =
-      new Date(props.lista[props.idAtual].dtNascimento).getDate() +
+      formatData(new Date(lista).getDate()) +
       "/" +
-      (new Date(props.lista[props.idAtual].dtNascimento).getMonth() + 1) +
+      formatData((new Date(lista).getMonth() + 1)) +
       " de " +
-      new Date(props.lista[props.idAtual].dtNascimento).getFullYear() +
-      " ";
+      new Date(lista).getFullYear() +
+      " às " +
+      formatData(new Date(lista).getHours()) +
+      ":" +
+      formatData (new Date(lista).getMinutes()) +
+      "h";
+
     return datas;
   };
 
@@ -105,7 +114,7 @@ function DetalheUsuario(props) {
               <SubBox>
                 <Text>CPF: {props.lista[props.idAtual].cpf}</Text>
                 <Text noWrap={false}>
-                  Data de Nascimento: {Datas(props.lista[props.idAtual])}
+                  Data de Nascimento: {Datas(props.lista[props.idAtual].dtNascimento)}
                 </Text>
               </SubBox>
               <SubBox>

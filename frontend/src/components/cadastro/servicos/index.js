@@ -14,6 +14,7 @@ import {
   Dialog,
   FormControlLabel,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -124,7 +125,7 @@ function Servico() {
 
     const handleClose = (e) => {
       setOpen(false);
-      return history.push("/cadastros");
+      return history.push("/cadastros/servico");
     };
 
     const handleSubmitEdit = (e) => {
@@ -185,10 +186,7 @@ function Servico() {
                     </Backdrop>
                   ) : null}
                   {status ? (
-                    <Snackbar
-                      open={status}
-                      autoHideDuration={6000}
-                    >
+                    <Snackbar open={status} autoHideDuration={6000}>
                       <Alert onClose={handleClose} severity="success">
                         Alterado com Sucesso!!
                       </Alert>
@@ -208,16 +206,14 @@ function Servico() {
   return (
     <>
       <TableContainer className={classes.root} component={Paper}>
-        <Table
-          aria-label="a dense table"
-        >
+        <Table aria-label="a dense table">
           <TableHead>
             <TableRow className={classes.boxHeader}>
               <TableCell className={classes.headerTitle}>Ativo</TableCell>
-              <TableCell className={classes.headerTitle}>Servico</TableCell>
-              <TableCell className={classes.headerTitle}>Descricao</TableCell>
+              <TableCell className={classes.headerTitle}>Serviço</TableCell>
+              <TableCell className={classes.headerTitle}>Descrição</TableCell>
               <TableCell align="center" className={classes.headerTitle}>
-                Acao
+                Ação
               </TableCell>
             </TableRow>
           </TableHead>
@@ -258,25 +254,32 @@ function Servico() {
                   </TableCell>
 
                   <TableCell align="center">
-                    <Button
-                      disabled={
-                        localStorage.sistemPermisson === "ADMIN" ? false : true
-                      }
-                      onClick={() => handleOpen(id)}
-                      className={classes.iconEditar}
-                    >
-                      <EditIcon />
-                    </Button>
-
-                    <Button
-                      disabled={
-                        localStorage.sistemPermisson === "ADMIN" ? false : true
-                      }
-                      className={classes.iconDelete}
-                      onClick={(e) => handleDelete(values[id]._id)}
-                    >
-                      <DeleteIcon />
-                    </Button>
+                    <Tooltip title="Editar">
+                      <Button
+                        disabled={
+                          localStorage.sistemPermisson === "ADMIN"
+                            ? false
+                            : true
+                        }
+                        onClick={() => handleOpen(id)}
+                        className={classes.iconEditar}
+                      >
+                        <EditIcon />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Deletar">
+                      <Button
+                        disabled={
+                          localStorage.sistemPermisson === "ADMIN"
+                            ? false
+                            : true
+                        }
+                        className={classes.iconDelete}
+                        onClick={(e) => handleDelete(values[id]._id)}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}
@@ -292,18 +295,20 @@ function Servico() {
                 name="nmServico"
                 variant="outlined"
                 onChange={handleChenge}
-                label="Novo Servico"
+                label="Novo Serviço"
               />
               <TextField
                 fullWidth
                 name="dsServico"
                 variant="outlined"
                 onChange={handleChenge}
-                label="Descricao"
+                label="Descrição"
               />
-              <Btn type="submit">
-                <AddIcon />
-              </Btn>
+              <Tooltip title="Adicionar">
+                <Btn type="submit">
+                  <AddIcon />
+                </Btn>
+              </Tooltip>
             </SubBox>
           </form>
         </PermissaoComponent>

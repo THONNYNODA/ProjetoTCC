@@ -1,7 +1,7 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import Dialog from "@material-ui/core/Dialog";
-import {  TextField } from "formik-material-ui";
+import { TextField } from "formik-material-ui";
 import { IconButton } from "@material-ui/core";
 import * as yup from "yup";
 import Visibility from "@material-ui/icons/Visibility";
@@ -43,16 +43,10 @@ function EditarSenha(props) {
   };
 
   const [confirmacao, setConfirmacao] = useState(false);
-  const [showSenha, setShowSenha] = useState({
-    newPass:false,
-    confirmPass:false
-  });
+  const [showSenha, setShowSenha] = useState();
 
   const handleShowSenha = () => {
-    setShowSenha({...showSenha, newPass: !showSenha.newPass});
-  };
-  const handleShowConfirmSenha = () => {
-    setShowSenha({...showSenha, confirmPass: !showSenha.confirmPass});
+    setShowSenha(!showSenha);
   };
 
   const handleClose = () => {
@@ -66,7 +60,6 @@ function EditarSenha(props) {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            console.log(values);
             setTimeout(async () => {
               await api
                 .put(`/usuario/senha/${props.datas.datas._id}`, values)
@@ -82,32 +75,30 @@ function EditarSenha(props) {
               <BoxForm>
                 <InputForm>
                   <Field
-                    type={showSenha.newPass ? "text" : "password"}
+                    fullWidth
+                    type={showSenha ? "text" : "password"}
                     name="dsSenha"
                     component={TextField}
                     label="Nova Senha"
                   />
                   <IconButton
+                  className={classes.boxIcon}
                     onChange={handleShowSenha}
                     onMouseDown={handleShowSenha}
                   >
-                    {showSenha.newPass ? <Visibility /> : <VisibilityOff />}
+                    {showSenha ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                   {errors.dsSenha && touched.dsSenha}
                 </InputForm>
                 <InputForm>
                   <Field
+                    fullWidth
                     name="dsSenhaCon"
-                    type={showSenha.confirmPass ? "text" : "password"}
+                    type={showSenha ? "text" : "password"}
                     component={TextField}
                     label="Confirme a Senha"
                   />
-                  <IconButton
-                    onChange={handleShowConfirmSenha}
-                    onMouseDown={handleShowConfirmSenha}
-                  >
-                    {showSenha.confirmPass ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
+                  
                   {errors.dsSenhaCon && touched.dsSenhaCon}
                 </InputForm>
               </BoxForm>

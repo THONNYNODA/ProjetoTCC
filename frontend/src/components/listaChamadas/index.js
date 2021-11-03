@@ -24,17 +24,20 @@ export default function ListaChamadas() {
     });
   }, []);
 
-  const horas = (list) => {
+  const horas = (lista) => {
+    const formatData = n => {
+      return ('0' + n).slice(-2);
+    }
     const datas =
-      new Date(list).getDate() +
+      formatData(new Date(lista).getDate()) +
       "/" +
-      (new Date(list).getMonth() + 1) +
+      formatData((new Date(lista).getMonth() + 1)) +
       " de " +
-      new Date(list).getFullYear() +
+      new Date(lista).getFullYear() +
       " às " +
-      new Date(list).getHours() +
+      formatData(new Date(lista).getHours()) +
       ":" +
-      new Date(list).getMinutes() +
+      formatData (new Date(lista).getMinutes()) +
       "h";
 
     return datas;

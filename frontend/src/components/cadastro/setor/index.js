@@ -14,6 +14,7 @@ import {
   Dialog,
   FormControlLabel,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -127,7 +128,7 @@ function Setor() {
 
     const handleClose = (e) => {
       setOpen(false);
-      return history.push("/cadastros");
+      return history.push("/cadastros/setor");
     };
 
     const handleSubmitEdit = (e) => {
@@ -192,15 +193,13 @@ function Setor() {
   return (
     <>
       <TableContainer className={classes.root} component={Paper}>
-        <Table
-          aria-label="a dense table"
-        >
+        <Table aria-label="a dense table">
           <TableHead>
             <TableRow className={classes.boxHeader}>
               <TableCell className={classes.headerTitle}>Ativo</TableCell>
               <TableCell className={classes.headerTitle}>Setor</TableCell>
               <TableCell align="center" className={classes.headerTitle}>
-                Acao
+                Ação
               </TableCell>
             </TableRow>
           </TableHead>
@@ -231,25 +230,32 @@ function Setor() {
                     {values[id].nmSetor.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
-                    <Button
-                      disabled={
-                        localStorage.sistemPermisson === "ADMIN" ? false : true
-                      }
-                      onClick={() => handleOpen(id)}
-                      className={classes.iconEditar}
-                    >
-                      <EditIcon />
-                    </Button>
-
-                    <Button
-                      disabled={
-                        localStorage.sistemPermisson === "ADMIN" ? false : true
-                      }
-                      className={classes.iconDelete}
-                      onClick={(e) => handleDelete(values[id]._id)}
-                    >
-                      <DeleteIcon />
-                    </Button>
+                    <Tooltip title="Editar">
+                      <Button
+                        disabled={
+                          localStorage.sistemPermisson === "ADMIN"
+                            ? false
+                            : true
+                        }
+                        onClick={() => handleOpen(id)}
+                        className={classes.iconEditar}
+                      >
+                        <EditIcon />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Editar">
+                      <Button
+                        disabled={
+                          localStorage.sistemPermisson === "ADMIN"
+                            ? false
+                            : true
+                        }
+                        className={classes.iconDelete}
+                        onClick={(e) => handleDelete(values[id]._id)}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}
@@ -267,9 +273,11 @@ function Setor() {
                 onChange={handleChenge}
                 label="Novo Setor"
               />
-              <Btn type="submit">
-                <AddIcon />
-              </Btn>
+              <Tooltip title="Adicionar">
+                <Btn type="submit">
+                  <AddIcon />
+                </Btn>
+              </Tooltip>
             </SubBox>
           </InputForm>
         </form>

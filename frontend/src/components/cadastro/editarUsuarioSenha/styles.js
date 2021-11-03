@@ -22,6 +22,7 @@ export const InputForm = styled(Box)({
 
 export const BoxForm = styled(Box)({
   display: "flex",
+  flexDirection:"column",
   width: "100%",
   margin: "10px 0",
   justifyContent: "space-around",
@@ -85,5 +86,9 @@ export const editarUsuario = makeStyles((theme) => ({
     justifyContent: "space-around",
     flexWrap: "noWrap",
   },
+  boxIcon:{
+    position:'absolute',
+    right:40
+  }
 }));
 

@@ -21,7 +21,7 @@ import Alert from "../../alert";
 import { BtnCancalar } from "../finalizarOrdem/styles";
 
 const validationSchema = yup.object().shape({
-  dtInicio: yup.date().transform().required("Campo e obrigatorio"),
+  dtInicio: yup.date().required("Campo e obrigatorio"),
   dtFinal: yup
     .date()
     .when(
@@ -41,7 +41,7 @@ function EditarItemOrdem(props) {
     dtInicio: props.datas.datas.dtInicio,
     dtFinal: props.datas.datas.dtFinal,
     dsServicoRealizado: props.datas.datas.dsServicoRealizado,
-    idServico: props.datas.datas.idServico,
+    idServico: props.datas.datas.idServico._id,
   };
 
   const [servico, setServico] = useState([]);
@@ -54,7 +54,9 @@ function EditarItemOrdem(props) {
     });
   }, []);
 
-  console.log(props.datas.datas);
+  console.log(props.datas.datas)
+
+  
 
   const handleClouse = () => {
     props.setEditarItem(false);
@@ -71,6 +73,7 @@ function EditarItemOrdem(props) {
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(async () => {
+                console.log(values);
                 await api
                   .put(`/itemordem/${props.datas.datas._id}`, values)
                   .then((res) => {
@@ -87,8 +90,8 @@ function EditarItemOrdem(props) {
                     name="idServico"
                     fullWidth
                     component={TextField}
+                    label="Serviço"
                     select
-                    label="Servico"
                   >
                     {servico.map((e) => (
                       <MenuItem value={e._id} key={e._id}>
@@ -109,7 +112,7 @@ function EditarItemOrdem(props) {
                       InputLabelProps={{
                         shrink: true,
                       }}
-                    ></Field>
+                    />
 
                     {errors.dtInicio && touched.dtInicio}
                   </InputForm>
@@ -123,7 +126,7 @@ function EditarItemOrdem(props) {
                       InputLabelProps={{
                         shrink: true,
                       }}
-                    ></Field>
+                    />
                     {errors.dtFinal && touched.dtFinal}
                   </InputForm>
                 </BoxForm>
@@ -144,7 +147,7 @@ function EditarItemOrdem(props) {
                   </Backdrop>
                 )}
                 <Btn variant="contained" type="submit">
-                  Enviar
+                  Editar
                 </Btn>
                 <BtnCancalar onClick={handleClouse}>Cancelar</BtnCancalar>
               </Form>

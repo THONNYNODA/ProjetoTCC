@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Paper from "@material-ui/core/Paper";
-import { Box, Divider } from "@material-ui/core";
+import { Box, Divider, Tooltip } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -73,16 +73,19 @@ function DetalheChamado(props) {
   };
 
   const horas = (lista) => {
+    const formatData = n => {
+      return ('0' + n).slice(-2);
+    }
     const datas =
-      new Date(lista).getDate() +
+      formatData(new Date(lista).getDate()) +
       "/" +
-      (new Date(lista).getMonth() + 1) +
+      formatData((new Date(lista).getMonth() + 1)) +
       " de " +
       new Date(lista).getFullYear() +
       " às " +
-      new Date(lista).getHours() +
+      formatData(new Date(lista).getHours()) +
       ":" +
-      new Date(lista).getMinutes() +
+      formatData (new Date(lista).getMinutes()) +
       "h";
 
     return datas;
@@ -161,12 +164,16 @@ function DetalheChamado(props) {
                       flexDirection="row-reverse"
                     >
                       <div>
-                        <BtnIconEdit onClick={() => handleEditarItem(lis)}>
-                          <EditIcon />
-                        </BtnIconEdit>
-                        <BtnIcon onClick={() => handleDeletarItem(lis._id)}>
-                          <DeleteIcon />
-                        </BtnIcon>
+                        <Tooltip title="Editar">
+                          <BtnIconEdit onClick={() => handleEditarItem(lis)}>
+                            <EditIcon />
+                          </BtnIconEdit>
+                        </Tooltip>
+                        <Tooltip title="Deletar">
+                          <BtnIcon onClick={() => handleDeletarItem(lis._id)}>
+                            <DeleteIcon />
+                          </BtnIcon>
+                        </Tooltip>
                       </div>
                     </BtnBox>
                   </Paper>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import Dialog from "@material-ui/core/Dialog";
-import { TextField } from "formik-material-ui";
-import { MenuItem} from "@material-ui/core";
+import { TextField, Select } from "formik-material-ui";
+import { MenuItem } from "@material-ui/core";
 import * as yup from "yup";
 
 import Backdrop from "@material-ui/core/Backdrop";
@@ -40,7 +40,7 @@ function EditarOrdem(props) {
   const initialValues = {
     dsProblema: props.datas.datas.dsProblema,
     dsDetalhe: props.datas.datas.dsDetalhe,
-    idSetor: props.datas.datas.idSetor.nmSetor,
+    idSetor: props.datas.datas.idSetor._id,
   };
 
   const [setores, setSetor] = useState([]);
@@ -52,6 +52,7 @@ function EditarOrdem(props) {
       setSetor(setores);
     });
   }, []);
+
 
   const handleClose = () => {
     props.setEditar(false);
@@ -92,15 +93,15 @@ function EditarOrdem(props) {
                     fullWidth
                     component={TextField}
                     label="Setor"
+                    defaultValue="idSetor"
                     select
-                   
-                    
                   >
+                  
                     {setores
                       .sort((a, b) => (a.nmSetor > b.nmSetor ? 1 : -1))
-                      .filter(e => e.snAtivo === true)
+                      .filter((e) => e.snAtivo === true)
                       .map((e) => (
-                        <MenuItem name='idSetor' value={e._id} key={e._id}>
+                        <MenuItem name="idSetor"  value={e._id} key={e._id}>
                           {e.nmSetor.toUpperCase()}
                         </MenuItem>
                       ))}

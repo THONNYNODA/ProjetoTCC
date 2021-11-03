@@ -9,20 +9,12 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import api from "../../../services/api";
 
-import {
-  Title,
-  BoxDialog,
-  Btn,
-  finalOrdemStyle,
-  BtnCancalar,
-} from "./styles";
+import { Title, BoxDialog, Btn, finalOrdemStyle, BtnCancalar } from "./styles";
 
 function DeletarItemOrdem(props) {
   const classes = finalOrdemStyle();
   const [alert, setAlert] = useState(false);
   const [drop, setDrop] = useState(false);
-  
-  console.log(props.datas.datas)
 
   const handleDelete = (e) => {
     e.preventDefault();

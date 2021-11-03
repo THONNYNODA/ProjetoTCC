@@ -49,16 +49,19 @@ export default function TabelaChamado() {
   );
 
   const horas = (lista) => {
+    const formatData = n => {
+      return ('0' + n).slice(-2);
+    }
     const datas =
-      new Date(lista.dtCriado).getDate() +
+      formatData(new Date(lista).getDate()) +
       "/" +
-      (new Date(lista.dtCriado).getMonth() + 1) +
+      formatData((new Date(lista).getMonth() + 1)) +
       " de " +
-      new Date(lista.dtCriado).getFullYear() +
-      " " +
-      new Date(lista.dtCriado).getHours() +
+      new Date(lista).getFullYear() +
+      " às " +
+      formatData(new Date(lista).getHours()) +
       ":" +
-      new Date(lista.dtCriado).getMinutes() +
+      formatData (new Date(lista).getMinutes()) +
       "h";
 
     return datas;
@@ -90,7 +93,7 @@ export default function TabelaChamado() {
                           {lista[id].dsStatus}
                         </Typography>
                         <Typography component="p" align="right">
-                          {horas(lista[id])}
+                          {horas(lista[id].dtCriado)}
                         </Typography>
                       </div>
                     }

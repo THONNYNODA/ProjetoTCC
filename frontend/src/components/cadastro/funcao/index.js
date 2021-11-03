@@ -14,6 +14,7 @@ import {
   Dialog,
   FormControlLabel,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -127,7 +128,7 @@ function Funcao() {
 
     const handleClose = (e) => {
       setOpen(false);
-      return history.push("/cadastros");
+      return history.push("/cadastros/funcao");
     };
 
     const handleSubmitEdit = (e) => {
@@ -148,7 +149,7 @@ function Funcao() {
         <Dialog open={true}>
           <Paper>
             <InputForm>
-              <Title>Editar Funcao</Title>
+              <Title>Editar Função</Title>
               <BoxForm>
                 <form onSubmit={handleSubmitEdit}>
                   <TextField
@@ -199,9 +200,9 @@ function Funcao() {
           <TableHead>
             <TableRow className={classes.boxHeader}>
               <TableCell className={classes.headerTitle}>Ativo</TableCell>
-              <TableCell className={classes.headerTitle}>Funcao</TableCell>
+              <TableCell className={classes.headerTitle}>Função</TableCell>
               <TableCell align="center" className={classes.headerTitle}>
-                Acao
+                Ação
               </TableCell>
             </TableRow>
           </TableHead>
@@ -234,25 +235,32 @@ function Funcao() {
                     {values[id].nmFuncao.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
-                    <Button
-                      disabled={
-                        localStorage.sistemPermisson === "ADMIN" ? false : true
-                      }
-                      onClick={() => handleOpen(id)}
-                      className={classes.iconEditar}
-                    >
-                      <EditIcon />
-                    </Button>
-
-                    <Button
-                      disabled={
-                        localStorage.sistemPermisson === "ADMIN" ? false : true
-                      }
-                      className={classes.iconDelete}
-                      onClick={(e) => handleDelete(values[id]._id)}
-                    >
-                      <DeleteIcon />
-                    </Button>
+                    <Tooltip title="Editar">
+                      <Button
+                        disabled={
+                          localStorage.sistemPermisson === "ADMIN"
+                            ? false
+                            : true
+                        }
+                        onClick={() => handleOpen(id)}
+                        className={classes.iconEditar}
+                      >
+                        <EditIcon />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Deletar">
+                      <Button
+                        disabled={
+                          localStorage.sistemPermisson === "ADMIN"
+                            ? false
+                            : true
+                        }
+                        className={classes.iconDelete}
+                        onClick={(e) => handleDelete(values[id]._id)}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}
@@ -268,11 +276,13 @@ function Funcao() {
                 name="nmFuncao"
                 variant="outlined"
                 onChange={handleChenge}
-                label="Nova Funcao"
+                label="Nova Função"
               />
-              <Btn type="submit">
-                <AddIcon />
-              </Btn>
+              <Tooltip title="Adicionar">
+                <Btn type="submit">
+                  <AddIcon />
+                </Btn>
+              </Tooltip>
             </SubBox>
           </InputForm>
         </form>

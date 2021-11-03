@@ -67,14 +67,14 @@ function EditarUsuario(props) {
   const initialValues = {
     nmColaborador: props.datas.datas.nmColaborador,
     dtNascimento: props.datas.datas.dtNascimento,
-    funcao: props.datas.datas.funcao.nmFuncao,
+    funcao: props.datas.datas.funcao._id,
     cpf: props.datas.datas.cpf,
     email: props.datas.datas.email,
     telefone: props.datas.datas.telefone,
     snAtivo: props.datas.datas.snAtivo,
     snPermissao: props.datas.datas.snPermissao,
   };
-  console.log(props.datas.datas.snPermissao);
+  
 
   const [funcao, setFuncao] = useState([]);
   const [confirmacao, setConfirmacao] = useState(false);
