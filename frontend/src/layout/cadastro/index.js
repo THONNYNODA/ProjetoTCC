@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import logoImg from "../../assets/logo.png";
-import { Box, Divider, TextField} from "@material-ui/core";
+import { Box, Divider, TextField } from "@material-ui/core";
 import Alert from "../../components/alert";
 
 import Backdrop from "@material-ui/core/Backdrop";
@@ -25,7 +25,7 @@ const validationSchema = yup.object({
     .required("Campo e obrigatorio"),
   dtNascimento: yup.string().required("Campo e obrigatorio"),
   cpf: yup.string().required("Campo e obrigatorio"),
-  funcao: yup.string().required("Campo e obrigatorio"),
+  funcao: yup.string(),
   telefone: yup.string().required("Campo e obrigatorio"),
   dsSenha: yup
     .string()
@@ -60,11 +60,11 @@ const Cadastro = () => {
     onSubmit: (values, { setSubmitting, resetForm }) => {
       setDrop(true);
       setTimeout(async () => {
-        await api.post("/usuario", values);
-        
-        setSubmitting(false);
-        setDrop(false);
-        return setAlert(true);
+        await api.post("/usuario", values).then((res) => {
+          setSubmitting(false);
+          setDrop(false);
+          return setAlert(true);
+        });
       }, 3000);
     },
   });
@@ -107,6 +107,8 @@ const Cadastro = () => {
                   }
                 />
               </InputForm>
+            </BoxForm>
+            <BoxForm>
               <InputForm>
                 <FormControl
                   fullWidth
