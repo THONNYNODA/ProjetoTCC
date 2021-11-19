@@ -7,6 +7,7 @@ import Cards from "../../components/card";
 
 import { painelStyle } from "./styles";
 import RelatorioAla from "../../components/chars/ordemXalas";
+import CharsServico from "../../components/chars/servicosXrealizados";
 
 function painel() {
   const classes = painelStyle();
@@ -21,6 +22,11 @@ function painel() {
             <Grid xs className={classes.boxSub}>
               <Cards title="Pendente X Finalizado">
                 <CharsFinalizados />
+              </Cards>
+            </Grid>
+            <Grid xs className={classes.boxSub}>
+              <Cards title="Serviços">
+                <CharsServico/>
               </Cards>
             </Grid>
             <Grid xs className={classes.boxSub}>

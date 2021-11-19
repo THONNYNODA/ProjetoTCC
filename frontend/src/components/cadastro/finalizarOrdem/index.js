@@ -25,6 +25,7 @@ function FinalizarOrdem(props) {
   const classes = finalOrdemStyle();
   const [status, setStatus] = useState({
     dsStatus: "PENDENTE",
+    dtFinalOrdem: new Date,
   });
 
   const [alert, setAlert] = useState(false);
@@ -35,7 +36,7 @@ function FinalizarOrdem(props) {
     const { name, value } = e.target;
     setStatus({ ...status, [name]: value });
   };
-  console.log(props.datas.datas)
+  console.log(status)
 
   const handleSubmit = (e) => {
     e.preventDefault();

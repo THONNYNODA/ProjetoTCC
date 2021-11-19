@@ -61,12 +61,8 @@ function DetalheUsuario(props) {
       "/" +
       formatData((new Date(lista).getMonth() + 1)) +
       " de " +
-      new Date(lista).getFullYear() +
-      " às " +
-      formatData(new Date(lista).getHours()) +
-      ":" +
-      formatData (new Date(lista).getMinutes()) +
-      "h";
+      new Date(lista).getFullYear() 
+   
 
     return datas;
   };

@@ -102,9 +102,6 @@ export const loginSyles = makeStyles({
       width: "100%",
     },
 
-    teste:{
-      border:"2px solid #55b5b5b5"
-    },
     backdrop: {
       zIndex: 9999,
       color: "#fff",
