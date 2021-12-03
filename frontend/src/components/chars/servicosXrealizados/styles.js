@@ -1,5 +1,14 @@
 import { Box } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles,styled } from "@material-ui/core/styles";
+
+export const ColorChar = styled(Box)({
+  width: 15,
+  height: 15,
+  borderRadius: 10,
+  background: (props) => props.color ,
+});
+
+
 
 export const charStyles = makeStyles({
   boxContentTitle: {

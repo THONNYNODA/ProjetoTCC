@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { RadialChart, DiscreteColorLegend } from "react-vis";
+import { RadialChart } from "react-vis";
 
 import api from "../../../services/api";
 
 import { charStyles } from "./styles";
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 function CharsServico() {
   const classes = charStyles();
@@ -19,13 +19,14 @@ function CharsServico() {
   }, []);
 
   function getRandomColor() {
-    var letters = "0123456789AB";
+    var letters = "0123456789ABCDEF";
     var color = "#";
     for (var i = 0; i < 4; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
   }
+
 
   const ordem = status
     .sort((x, y) => (x.idServico.nmServico > y.idServico.nmServico ? 1 : -1))
@@ -43,23 +44,22 @@ function CharsServico() {
         color: getRandomColor(),
       });
       total = 1;
-    }
+    } 
   }
-
 
   return (
     <div>
       <Box className={classes.containerRadial}>
         <RadialChart
           animation
-          labelsStyle={{fontSize:9 }}
+          labelsStyle={{ fontSize: 9 }}
           data={listas}
-          getLabel={d => d.title}
+          getLabel={(d) => d.title}
           width={350}
           height={350}
           showLabels
         />
-      </Box>
+      </Box>      
     </div>
   );
 }

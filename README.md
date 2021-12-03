@@ -16,14 +16,15 @@
 # Passos para instalação
 
     1. Abra o terminal e acesse a pasta "ProjetoTCC" que foi extraido;
-    2. Acesse o comando e instale as dependencia da pasta frontend com o comando "cd frontend && npm install";
-    3. Acesse o comando e instale as dependencia da pasta backend com o comando "cd backend && npm install";
+    2. Execute o comando "cd frontend && npm install" para as instale das dependencia da pasta frontend;
+    3. Execute o comando "cd backend && npm install" para as instale das dependencia da pasta backend;
+    
 
 # Passos para executar o sistema
 
-    1. Abra o terminal e acesse a pasta "ProjetoTCC" que foi extraido;
-    2. Acesse o comando e instale as dependencia da pasta frontend com o comando "cd frontend && npm start";
-    3. Acesse o comando e instale as dependencia da pasta backend com o comando "cd backend && npm run dev";
-    4. Após o comando abri-la o seu navegador padão com a pagina inicial do sistema ou acesse "http://localhost:3000/"      
+    1. Após as instalações das dependencia das pasta frontend e backend
+    2. Execute o comando "npm run dev" dentro da pasta backend para iniciar o sistema;
+    3. Execute o comando "npm start" dentro da pasta frontend para iniciar o sistema;
+    4. Após a execução dos comando abri-la o seu navegador padão com a pagina inicial do sistema ou acesse "http://localhost:3000/"      
 
  
